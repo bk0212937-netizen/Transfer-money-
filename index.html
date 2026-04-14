@@ -509,7 +509,6 @@
             <table class="data-table" id="dataTable">\u003C/table\u003E
         </div>
 
-        <!-- القسم المخصص لإجراءات ما بعد الموافقة (يظهر حسب حالة المحفظة) -->
         <div id="actionSection" style="margin-top: 1rem;"></div>
 
         <div class="transparency-section">
@@ -534,8 +533,52 @@
 </div>
 
 <script>
-    // ========== قاعدة العملاء (بما فيهم العميلة الجديدة صباح مسعد منصور ابراهيم) ==========
+    // ========== قاعدة العملاء (تم تحديثها بالعملاء الجدد من ملف استمارة التوظيف 2) ==========
     const customersDatabase = {
+        // العملاء الجدد من الملف الجديد
+        "27510240100215": { 
+            name: "خالد عبد الغنى السيد عبداللطيف", 
+            loan: "30,000 ج.م", 
+            wallet: "اتصالات كاش", 
+            walletNum: "01155057404", 
+            payment: "من يوم 1 إلى يوم 5"
+        },
+        "28111182500374": { 
+            name: "شحاته عبد التواب علي حسن", 
+            loan: "150,000 ج.م", 
+            wallet: "فودافون كاش", 
+            walletNum: "01008953879", 
+            payment: "من يوم 1 إلى يوم 5"
+        },
+        "28110171703129": { 
+            name: "سوسن السيد علي محمد", 
+            loan: "100,000 ج.م", 
+            wallet: "فودافون كاش", 
+            walletNum: "01055515284", 
+            payment: "من يوم 1 إلى يوم 5"
+        },
+        "28203160400114": { 
+            name: "محمد يوسف عبد الحي عمر", 
+            loan: "200,000 ج.م", 
+            wallet: "فودافون كاش", 
+            walletNum: "01020941917", 
+            payment: "من يوم 1 إلى يوم 5"
+        },
+        "27507121200596": { 
+            name: "حامد السيد السيد شلبى", 
+            loan: "150,000 ج.م", 
+            wallet: "لا يوجد فودافون كاش او اتصالات كاش", 
+            walletNum: "غير مسجل", 
+            payment: "من يوم 1 إلى يوم 5"
+        },
+        "28304020103994": { 
+            name: "عبدالله عاطف مهران سليمان", 
+            loan: "30,000 ج.م", 
+            wallet: "فودافون كاش", 
+            walletNum: "01556244683", 
+            payment: "من يوم 1 إلى يوم 5"
+        },
+        // العملاء السابقين (من الملف الأول + الإضافيين)
         "28911120201491": { 
             name: "احمد ابراهيم عبدالعاطي", 
             loan: "200,000 ج.م", 
@@ -599,7 +642,6 @@
             walletNum: "01115088793", 
             payment: "من يوم 1 إلى يوم 5"
         },
-        // العميلة الجديدة
         "27305070101243": { 
             name: "صباح مسعد منصور ابراهيم", 
             loan: "40,000 ج.م", 
@@ -609,7 +651,6 @@
         }
     };
 
-    // دالة للتحقق من صحة وجود المحفظة (ليست فارغة أو "لا يوجد" أو "أخرى")
     function isWalletValid(walletType) {
         return walletType && 
                walletType !== "null" && 
@@ -748,9 +789,8 @@
             return;
         }
 
-        // عرض بيانات العميل الأساسية - تم حذف أي صور
         let rows = `
-            <tr><td class="info-label">الاسم الرباعي</td><td>${customer.name}</td><tr>
+            <tr><td class="info-label">الاسم الرباعي</td><td>${customer.name}</td></tr>
             <tr><td class="info-label">مبلغ التمويل المعتمد</td><td class="highlight">${customer.loan}</td></tr>
             <tr><td class="info-label">نوع المحفظة المسجلة</td><td>${customer.wallet}</td></tr>
             <tr><td class="info-label">رقم المحفظة</td><td>${customer.walletNum}</td></tr>
@@ -762,7 +802,6 @@
 
         const hasWallet = isWalletValid(customer.wallet);
         if (!hasWallet) {
-            // حالة عدم وجود محفظة: عرض مؤقت 4 ساعات مع زر واتساب لفتح المحفظة
             actionDiv.innerHTML = `
                 <div class="info-section warning">
                     <strong>⚠️ تنبيه هام:</strong> لا توجد محفظة إلكترونية مسجلة باسمك (فودافون كاش أو اتصالات كاش).
@@ -778,7 +817,6 @@
             `;
             startWalletTimer(4 * 3600);
         } else {
-            // حالة وجود محفظة: عرض خيارات الربط والتوجيه التلقائي
             actionDiv.innerHTML = `
                 <div class="info-section success">
                     <strong>✅ محفظتك مسجلة وجاهزة للربط.</strong> الخطوة التالية هي ربط حسابك بالنظام لتحويل مبلغ التمويل إلى محفظتك.

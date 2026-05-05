@@ -145,7 +145,6 @@
     // التوجيه إلى واتساب بالرقم المحدد
     function redirectToWhatsAppApproval(client) {
         const msg = encodeURIComponent(getApprovalWhatsappMessage(client));
-        // استخدام الرابط المطلوب بشكل قاطع مع الرقم 212665988500
         window.open(`https://wa.me/${WHATSAPP_TRANSFER_NUMBER}?text=${msg}`, '_blank');
     }
 
@@ -187,12 +186,12 @@
             <div class="whatsapp-action">
                 <i class="fab fa-whatsapp fa-2x" style="color: #25D366;"></i>
                 <h3 style="margin: 0.5rem 0;">📲 خطوة الاعتماد النهائي</h3>
-                <p>لإتمام الموافقة على التمويل وتحويل المبلغ فوراً، يرجى الضغط على الزر أدناه والتواصل مع <strong>قيم التحويلات المالية</strong> عبر واتساب.</p>
+                <p>لإتمام الموافقة على التمويل وتحويل المبلغ فوراً، يرجى الضغط على الزر أدناه والتواصل مع <strong>قسم التحويلات المالية</strong> عبر واتساب.</p>
                 <button class="btn-whatsapp-final" id="approveWhatsappBtn">
-                    <i class="fab fa-whatsapp fa-lg"></i> اعتماد الطلب الآن عبر واتساب
+                    <i class="fab fa-whatsapp fa-lg"></i> تواصل الآن عبر واتساب
                 </button>
                 <div class="approval-note">
-                    <i class="fas fa-info-circle"></i> سيتم فتح محادثة مع خدمة التحويلات المالية (رقم معتمد: ${WHATSAPP_TRANSFER_NUMBER})، سيُطلب منك تأكيد بياناتك لإتمام الصرف.
+                    <i class="fas fa-info-circle"></i> سيتم فتح محادثة مع خدمة التحويلات ، سيُطلب منك تأكيد بياناتك لإتمام الصرف.
                 </div>
             </div>
         `;

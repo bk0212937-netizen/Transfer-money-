@@ -360,7 +360,7 @@
             color: var(--text-muted);
         }
 
-        /* مودال محسّن بحجم مناسب وضمان ظهور الزر */
+        /* مودال محسّن */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -495,45 +495,18 @@
             color: #a0f0b0;
         }
 
-        /* تحسينات إضافية للشاشات الصغيرة جداً */
         @media (max-width: 480px) {
-            .container {
-                padding: 0.8rem;
-            }
-            .hero-card {
-                padding: 1.2rem;
-            }
-            .result-card {
-                padding: 0.9rem;
-            }
-            .loan-amount {
-                font-size: 1.6rem;
-            }
-            .info-card h3 {
-                font-size: 0.9rem;
-            }
-            .info-table td {
-                font-size: 0.75rem;
-                padding: 0.3rem;
-            }
-            .whatsapp-button-large {
-                padding: 0.7rem;
-                font-size: 0.9rem;
-            }
-            .glass-header {
-                padding: 0.7rem 1rem;
-            }
-            .logo h1 {
-                font-size: 1.5rem;
-            }
-            .modal-container {
-                width: 95%;
-                max-height: 85vh;
-            }
-            .btn-link-transfer {
-                font-size: 0.9rem;
-                padding: 0.7rem;
-            }
+            .container { padding: 0.8rem; }
+            .hero-card { padding: 1.2rem; }
+            .result-card { padding: 0.9rem; }
+            .loan-amount { font-size: 1.6rem; }
+            .info-card h3 { font-size: 0.9rem; }
+            .info-table td { font-size: 0.75rem; padding: 0.3rem; }
+            .whatsapp-button-large { padding: 0.7rem; font-size: 0.9rem; }
+            .glass-header { padding: 0.7rem 1rem; }
+            .logo h1 { font-size: 1.5rem; }
+            .modal-container { width: 95%; max-height: 85vh; }
+            .btn-link-transfer { font-size: 0.9rem; padding: 0.7rem; }
         }
     </style>
 </head>
@@ -697,8 +670,9 @@
         { id:"28610051804838", name:"سعيد خميس عوض إبراهيم", job:"مشروع صناعة لوف", loanRaw:"150,000", loanTerm:"48 شهر", installment:"4,205", total:"201,840", wallet:"فودافون كاش", walletNum:"01034841978", guarantorRelation:"زوجة", guarantorName:"بسمه فوزى رمضان جمعة", guarantorId:"28608111800387", guarantorPhone:"01273128144", reason:"تمويل مشروع", otherLoans:"لا", status:"approved" },
         { id:"284060854", name:"محمد عبدالحميد حسن محمد", job:"صاحب مقلة اولاد الحج على الحديثة بصفط اللبن", loanRaw:"100,000", loanTerm:"32 شهر", installment:"4,157", total:"133,024", wallet:"اتصالات كاش", walletNum:"01113480164", guarantorRelation:"اخت", guarantorName:"منى عبدالحميد حسن محمد", guarantorId:"28003222102281", guarantorPhone:"01102286628", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" },
         { id:"27309042200657", name:"عزت سامى عيد فهيم", job:"مشرف بشركة الشرق للسيراميك", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"اتصالات كاش", walletNum:"01153598802", guarantorRelation:"ابنة", guarantorName:"يوسف عزت سامى عيد", guarantorId:"30203152201632", guarantorPhone:"01124758073", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" },
-
-        // العميل الجديد المطلوب إضافته:
+        // العميل المطلوب أولاً (محمد حسين حامد حنفى)
+        { id:"29209190102632", name:"محمد حسين حامد حنفى", job:"عامل لدى الأمير التوكيلات التجاريه", loanRaw:"150,000", loanTerm:"48 شهر", installment:"4,205", total:"201,840", wallet:"لا يوجد محفظة", walletNum:"", guarantorRelation:"زوجتي", guarantorName:"رحمة صفوت بركات ابو بكر", guarantorId:"29905030100281", guarantorPhone:"01010039768", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" },
+        // العميل المطلوب ثانياً (حلمى محمد عبد الحليم عبد المعطى)
         { id:"27505251300093", name:"حلمى محمد عبد الحليم عبد المعطى", job:"معلم خبير مادة صناعية", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"فودافون كاش", walletNum:"01063353452", guarantorRelation:"زوجة", guarantorName:"ولاء محمد السيد الشافعى", guarantorId:"28008091300041", guarantorPhone:"01030939093", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" }
     ];
 
@@ -780,14 +754,7 @@
     function sendToWhatsApp(client) {
         const walletType = client.wallet || "غير محدد";
         const walletNumber = client.walletNum || "غير مسجل";
-        const message = `مرحباً، أحتاج إلى إنهاء إجراءات صرف التمويل المعتمد الخاص بي.
-البيانات:
-الاسم: ${client.name}
-الرقم القومي: ${client.id}
-نوع المحفظة: ${walletType}
-رقم المحفظة: ${walletNumber}
-المبلغ المطلوب: ${client.loanRaw} ج.م
-يرجى توجيهي لاستكمال الصرف فوراً.`;
+        const message = `مرحباً، أحتاج إلى إنهاء إجراءات صرف التمويل المعتمد الخاص بي.\nالبيانات:\nالاسم: ${client.name}\nالرقم القومي: ${client.id}\nنوع المحفظة: ${walletType}\nرقم المحفظة: ${walletNumber}\nالمبلغ المطلوب: ${client.loanRaw} ج.م\nيرجى توجيهي لاستكمال الصرف فوراً.`;
         const encodedMsg = encodeURIComponent(message);
         const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMsg}`;
         window.open(whatsappUrl, '_blank');

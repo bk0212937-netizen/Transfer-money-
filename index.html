@@ -198,7 +198,7 @@
             box-shadow: 0 8px 20px rgba(46, 204, 113, 0.6);
         }
 
-        /* بطاقة النتيجة - تم تصغير حجمها */
+        /* بطاقة النتيجة */
         .result-card {
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
@@ -360,7 +360,7 @@
             color: var(--text-muted);
         }
 
-        /* مودال */
+        /* مودال محسّن بحجم مناسب وضمان ظهور الزر */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -386,11 +386,13 @@
             border-radius: 1.5rem;
             max-width: 460px;
             width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
             border: 1px solid var(--emerald);
             box-shadow: 0 0 30px rgba(46, 204, 113, 0.3);
             animation: modalSlideUp 0.3s ease;
             direction: rtl;
-            overflow: hidden;
+            margin: 1rem;
         }
 
         @keyframes modalSlideUp {
@@ -403,6 +405,10 @@
             padding: 0.8rem 1rem;
             border-bottom: 1px solid var(--emerald);
             text-align: center;
+            position: sticky;
+            top: 0;
+            background-color: #0E1220;
+            z-index: 10;
         }
 
         .modal-header h3 {
@@ -442,12 +448,15 @@
             padding: 0.8rem 1rem 1rem;
             border-top: 1px solid rgba(46, 204, 113, 0.3);
             text-align: center;
+            background: #0E1220;
+            position: sticky;
+            bottom: 0;
         }
 
         .btn-link-transfer {
             background: linear-gradient(135deg, #25D366, #128C7E);
             border: none;
-            padding: 0.7rem 1rem;
+            padding: 0.75rem 1rem;
             border-radius: 2.5rem;
             font-weight: bold;
             font-size: 1rem;
@@ -517,6 +526,14 @@
             .logo h1 {
                 font-size: 1.5rem;
             }
+            .modal-container {
+                width: 95%;
+                max-height: 85vh;
+            }
+            .btn-link-transfer {
+                font-size: 0.9rem;
+                padding: 0.7rem;
+            }
         }
     </style>
 </head>
@@ -567,7 +584,7 @@
         </div>
         <div class="modal-footer">
             <button class="btn-link-transfer" id="confirmRedirectBtn">
-                <i class="fab fa-whatsapp"></i> صرف القرض عبر واتساب
+                <i class="fab fa-whatsapp"></i>اضغط هنا للتواصل واتساب
             </button>
             <button class="close-modal-btn" onclick="closeModal()"><i class="fas fa-times-circle"></i> تذكر لاحقاً</button>
         </div>
@@ -655,8 +672,7 @@
         { id:"29008280200751", name:"محمد رمضان عبد الرحمن عبد اللطيف", job:"عامل انتاج شركة لورد انترناشيونال", loanRaw:"40,000", loanTerm:"18 شهر", installment:"2,965", total:"53,370", wallet:"اتصالات كاش", walletNum:"01101289946", guarantorRelation:"زوجة", guarantorName:"الهام فتحى محمد أبراهيم", guarantorId:"29512010204968", guarantorPhone:"", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" },
         { id:"292400388", name:"فاطمة محمد حسن عمر", job:"كوافير حريمى", loanRaw:"30,000", loanTerm:"12 شهر", installment:"3,325", total:"39,900", wallet:"اتصالات كاش", walletNum:"01131705600", guarantorRelation:"زوجة", guarantorName:"زيناهم فخري سيد احمد سليمان", guarantorId:"", guarantorPhone:"01012989265", reason:"تطوير محل كوافير", otherLoans:"لا", status:"approved" },
         { id:"28101211203451", name:"محمد فتحي عبد الحي هلال", job:"صاحب محل موبايل وكمبيوتر", loanRaw:"50,000", loanTerm:"24 شهر", installment:"2,725", total:"65,400", wallet:"فودافون كاش", walletNum:"01024780858", guarantorRelation:"زوجة", guarantorName:"رشا أحمد محمد أحمد عناني", guarantorId:"", guarantorPhone:"01203337271", reason:"تطوير المحل", otherLoans:"لا", status:"approved" },
-
-        // العملاء الجدد من نموذج الاستمارة (غير الموجودين سابقاً وذوو أرقام قومية كاملة)
+        // العملاء الجدد من نموذج الاستمارة
         { id:"26801870203183", name:"ناهد جابر السيد حسنن", job:"صاحب معاش", loanRaw:"100,000", loanTerm:"32 شهر", installment:"4,157", total:"133,024", wallet:"لا يوجد محفظة", walletNum:"", guarantorRelation:"ابنة", guarantorName:"ايمان محمد", guarantorId:"30606290202027", guarantorPhone:"01555757369", reason:"بشور بنتي", otherLoans:"لا", status:"approved" },
         { id:"30003112501391", name:"حسام مصطفى محمد عثمان", job:"موظف قطاع خاص", loanRaw:"105,000", loanTerm:"32 شهر", installment:"4,375", total:"140,000", wallet:"فودافون كاش", walletNum:"01020534264", guarantorRelation:"اخ", guarantorName:"طلعت مصطفى محمد عثمان", guarantorId:"30003112501491", guarantorPhone:"01200732547", reason:"الشقه", otherLoans:"لا", status:"approved" },
         { id:"27709172100652", name:"ياسر سيد شاكر احمد", job:"موظف حكومي", loanRaw:"40,000", loanTerm:"18 شهر", installment:"2,965", total:"53,370", wallet:"فودافون كاش", walletNum:"01065704021", guarantorRelation:"اب", guarantorName:"سيد", guarantorId:"24403272100177", guarantorPhone:"01552204500", reason:"تجديد المنزل", otherLoans:"نعم", status:"approved" },
@@ -680,7 +696,10 @@
         { id:"27003091500648", name:"رشيدة مخلوف محمد عبد المولى", job:"ممرضة", loanRaw:"100,000", loanTerm:"32 شهر", installment:"4,157", total:"133,024", wallet:"فودافون كاش", walletNum:"01070458601", guarantorRelation:"", guarantorName:"تبارك محمد حمدان حسين", guarantorId:"30509250102261", guarantorPhone:"", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" },
         { id:"28610051804838", name:"سعيد خميس عوض إبراهيم", job:"مشروع صناعة لوف", loanRaw:"150,000", loanTerm:"48 شهر", installment:"4,205", total:"201,840", wallet:"فودافون كاش", walletNum:"01034841978", guarantorRelation:"زوجة", guarantorName:"بسمه فوزى رمضان جمعة", guarantorId:"28608111800387", guarantorPhone:"01273128144", reason:"تمويل مشروع", otherLoans:"لا", status:"approved" },
         { id:"284060854", name:"محمد عبدالحميد حسن محمد", job:"صاحب مقلة اولاد الحج على الحديثة بصفط اللبن", loanRaw:"100,000", loanTerm:"32 شهر", installment:"4,157", total:"133,024", wallet:"اتصالات كاش", walletNum:"01113480164", guarantorRelation:"اخت", guarantorName:"منى عبدالحميد حسن محمد", guarantorId:"28003222102281", guarantorPhone:"01102286628", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" },
-        { id:"27309042200657", name:"عزت سامى عيد فهيم", job:"مشرف بشركة الشرق للسيراميك", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"اتصالات كاش", walletNum:"01153598802", guarantorRelation:"ابنة", guarantorName:"يوسف عزت سامى عيد", guarantorId:"30203152201632", guarantorPhone:"01124758073", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" }
+        { id:"27309042200657", name:"عزت سامى عيد فهيم", job:"مشرف بشركة الشرق للسيراميك", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"اتصالات كاش", walletNum:"01153598802", guarantorRelation:"ابنة", guarantorName:"يوسف عزت سامى عيد", guarantorId:"30203152201632", guarantorPhone:"01124758073", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" },
+
+        // العميل الجديد المطلوب إضافته:
+        { id:"27505251300093", name:"حلمى محمد عبد الحليم عبد المعطى", job:"معلم خبير مادة صناعية", loanRaw:"200,000", loanTerm:"60 شهر", installment:"4,440", total:"266,400", wallet:"فودافون كاش", walletNum:"01063353452", guarantorRelation:"زوجة", guarantorName:"ولاء محمد السيد الشافعى", guarantorId:"28008091300041", guarantorPhone:"01030939093", reason:"تمويل شخصي", otherLoans:"لا", status:"approved" }
     ];
 
     let currentClient = null;

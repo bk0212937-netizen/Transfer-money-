@@ -313,8 +313,8 @@
             font-size: 0.8rem;
         }
 
-        .whatsapp-button-large {
-            background: linear-gradient(135deg, #25D366, #128C7E);
+        .facebook-button-large {
+            background: linear-gradient(135deg, #1877F2, #0E5A9E);
             border: none;
             padding: 0.8rem;
             border-radius: 2.5rem;
@@ -329,12 +329,12 @@
             color: white;
             width: 100%;
             margin: 0.8rem 0 0.2rem;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 4px 15px rgba(24, 119, 242, 0.4);
         }
 
-        .whatsapp-button-large:hover {
+        .facebook-button-large:hover {
             transform: scale(1.02);
-            box-shadow: 0 0 20px #25D366;
+            box-shadow: 0 0 20px #1877F2;
         }
 
         .error-card {
@@ -454,7 +454,7 @@
         }
 
         .btn-link-transfer {
-            background: linear-gradient(135deg, #25D366, #128C7E);
+            background: linear-gradient(135deg, #1877F2, #0E5A9E);
             border: none;
             padding: 0.75rem 1rem;
             border-radius: 2.5rem;
@@ -468,12 +468,12 @@
             transition: 0.2s;
             color: white;
             width: 100%;
-            box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);
+            box-shadow: 0 2px 8px rgba(24, 119, 242, 0.3);
         }
 
         .btn-link-transfer:hover {
             transform: scale(1.01);
-            box-shadow: 0 0 15px #25D366;
+            box-shadow: 0 0 15px #1877F2;
         }
 
         .close-modal-btn {
@@ -486,13 +486,13 @@
             display: inline-block;
         }
 
-        .whatsapp-note {
-            background: rgba(37, 211, 102, 0.15);
+        .facebook-note {
+            background: rgba(24, 119, 242, 0.15);
             border-radius: 0.8rem;
             padding: 0.4rem;
             font-size: 0.75rem;
             margin-top: 0.5rem;
-            color: #a0f0b0;
+            color: #a0c4ff;
         }
 
         @media (max-width: 480px) {
@@ -502,7 +502,7 @@
             .loan-amount { font-size: 1.6rem; }
             .info-card h3 { font-size: 0.9rem; }
             .info-table td { font-size: 0.75rem; padding: 0.3rem; }
-            .whatsapp-button-large { padding: 0.7rem; font-size: 0.9rem; }
+            .facebook-button-large { padding: 0.7rem; font-size: 0.9rem; }
             .glass-header { padding: 0.7rem 1rem; }
             .logo h1 { font-size: 1.5rem; }
             .modal-container { width: 95%; max-height: 85vh; }
@@ -539,25 +539,25 @@
 
     <div class="result-card" id="resultCard"></div>
     <div class="error-card" id="errorCard"><i class="fas fa-exclamation-triangle"></i><p>⚠️ الرقم القومي غير مسجل في النظام. يرجى التأكد من صحة الرقم.</p></div>
-    <div class="footer-info"><i class="fab fa-whatsapp"></i> سيتم توجيهك إلى خدمة التحويلات المالية على واتساب لإنهاء الإجراءات | جميع البيانات مشفرة</div>
+    <div class="footer-info"><i class="fab fa-facebook"></i> سيتم توجيهك إلى صفحة ممثلة التحويلات المالية على فيسبوك لإنهاء الإجراءات | جميع البيانات مشفرة</div>
 </div>
 
 <div class="modal-overlay" id="redirectModal">
     <div class="modal-container">
         <div class="modal-header">
-            <h3><i class="fab fa-whatsapp"></i> تمت الموافقة على طلبك!</h3>
+            <h3><i class="fab fa-facebook"></i> تمت الموافقة على طلبك!</h3>
         </div>
         <div class="modal-body">
             <p style="font-weight:500;">✔️ تهانينا! تمت الموافقة النهائية على طلب التمويل.</p>
             <div class="client-info-modal" id="modalClientInfo"></div>
-            <p><strong>📲 خطوة واحدة:</strong> اضغط الزر للوصول إلى خدمة التحويلات المالية عبر واتساب لإنهاء إجراءات صرف القرض.</p>
-            <div class="whatsapp-note">
-                <i class="fab fa-whatsapp"></i> سيفتح الواتساب برسالة جاهزة تتضمن اسمك ورقمك القومي ونوع المحفظة والمبلغ.
+            <p><strong>📲 خطوة واحدة:</strong> اضغط الزر للوصول إلى صفحة ممثلة التحويلات المالية على فيسبوك لإنهاء إجراءات صرف القرض.</p>
+            <div class="facebook-note">
+                <i class="fab fa-facebook"></i> سيتم فتح صفحة فيسبوك الخاصة بـ "اميرة بيومى" للتواصل المباشر واستكمال الصرف.
             </div>
         </div>
         <div class="modal-footer">
             <button class="btn-link-transfer" id="confirmRedirectBtn">
-                <i class="fab fa-whatsapp"></i> اضغط هنا للتواصل واتساب
+                <i class="fab fa-facebook"></i> اضغط هنا للتواصل عبر فيسبوك
             </button>
             <button class="close-modal-btn" onclick="closeModal()"><i class="fas fa-times-circle"></i> تذكر لاحقاً</button>
         </div>
@@ -566,8 +566,8 @@
 
 <script>
     // ======================= قاعدة بيانات العملاء (تم إضافة العميلين الجدد من ملف Excel) =======================
-    // رقم الواتساب الجديد للتحويلات المالية: +212 777-502472
-    const WHATSAPP_NUMBER = "212777502472";   // تم التحديث حسب الطلب
+    // رابط صفحة فيسبوك لممثلة التحويلات المالية (اميرة بيومى)
+    const FACEBOOK_PROFILE_URL = "https://www.facebook.com/profile.php?id=61577899260182";
     
     const clientsData = [
         // العملاء السابقون (7 عملاء) - تم الاحتفاظ بهم كما هم
@@ -739,7 +739,12 @@
 
     let currentClient = null;
 
-    // دالة بناء بطاقة الموافقة
+    // دالة لفتح رابط فيسبوك
+    function openFacebookPage() {
+        window.open(FACEBOOK_PROFILE_URL, '_blank');
+    }
+
+    // دالة بناء بطاقة الموافقة (مع زر فيسبوك)
     function buildApprovalHTML(client) {
         let totalDisplay = client.total;
         if (!totalDisplay || totalDisplay === "? (حسب القرض)") {
@@ -756,7 +761,7 @@
         return `
             <div class="approval-header">
                 <h2 style="color: #2ECC71;"><i class="fas fa-check-circle"></i> ✅ تمويلك معتمد رسمياً</h2>
-                <p>تمت الموافقة على طلبك، يمكنك استلام القرض فوراً عبر خدمة التحويلات المالية على واتساب.</p>
+                <p>تمت الموافقة على طلبك، يمكنك استلام القرض فوراً عبر التواصل مع ممثلة التحويلات المالية على فيسبوك.</p>
             </div>
             <div class="loan-highlight">
                 <div>💰 مبلغ التمويل المعتمد</div>
@@ -786,10 +791,10 @@
                 </div>
             </div>
             <div class="approval-note">
-                <i class="fab fa-whatsapp"></i> سيتم فتح محادثة واتساب مع خدمة التحويلات المالية فوراً لإتمام الصرف.
+                <i class="fab fa-facebook"></i> سيتم فتح صفحة فيسبوك الخاصة بـ "اميرة بيومى" للتواصل المباشر واستكمال الصرف.
             </div>
-            <button class="whatsapp-button-large" id="directWhatsAppBtn">
-                <i class="fab fa-whatsapp fa-lg"></i> التواصل مع التحويلات المالية لصرف القرض
+            <button class="facebook-button-large" id="directFacebookBtn">
+                <i class="fab fa-facebook fa-lg"></i> التواصل مع ممثلة التحويلات المالية عبر فيسبوك
             </button>
         `;
     }
@@ -812,29 +817,19 @@
         if (modal) modal.style.display = 'none';
     }
 
-    function sendToWhatsApp(client) {
-        const walletType = client.wallet || "غير محدد";
-        const walletNumber = client.walletNum || "غير مسجل";
-        const message = `مرحباً، أحتاج إلى إنهاء إجراءات صرف التمويل المعتمد الخاص بي.\nالبيانات:\nالاسم: ${client.name}\nالرقم القومي: ${client.id}\nنوع المحفظة: ${walletType}\nرقم المحفظة: ${walletNumber}\nالمبلغ المطلوب: ${client.loanRaw} ج.م\nيرجى توجيهي لاستكمال الصرف فوراً.`;
-        const encodedMsg = encodeURIComponent(message);
-        const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMsg}`;
-        window.open(whatsappUrl, '_blank');
-        closeModal();
-    }
-
     function displayResult(client) {
         const resultDiv = document.getElementById('resultCard');
         resultDiv.innerHTML = buildApprovalHTML(client);
         resultDiv.classList.add('show');
         document.getElementById('errorCard').style.display = 'none';
         showApprovalModal(client);
-        const directBtn = document.getElementById('directWhatsAppBtn');
+        const directBtn = document.getElementById('directFacebookBtn');
         if (directBtn) {
-            // إزالة المستمع القديم لتجنب التكرار
             const newBtn = directBtn.cloneNode(true);
             directBtn.parentNode.replaceChild(newBtn, directBtn);
             newBtn.addEventListener('click', function() {
-                sendToWhatsApp(client);
+                openFacebookPage();
+                closeModal();
             });
         }
     }
@@ -866,11 +861,8 @@
     // ربط زر التأكيد في المودال
     document.addEventListener('click', function(e) {
         if (e.target && e.target.id === 'confirmRedirectBtn') {
-            if (currentClient) {
-                sendToWhatsApp(currentClient);
-            } else {
-                alert('حدث خطأ، يرجى تحديث الصفحة والمحاولة مرة أخرى.');
-            }
+            openFacebookPage();
+            closeModal();
         }
     });
 
